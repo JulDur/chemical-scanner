@@ -1,6 +1,7 @@
 import Tesseract from "./ocr/tesseract.esm.min.js";
 
-const APP_VERSION = "1.6";
+const APP_VERSION = "1.7";
+const K = "chem-v7";
 
 const E = () => ({
   name: "",
@@ -12,8 +13,6 @@ const E = () => ({
   raw: ""
 });
 
-const K = "chem-v6";
-
 let items = [];
 let form = E();
 
@@ -22,11 +21,10 @@ const $$ = s => [...document.querySelectorAll(s)];
 
 
 // ============================================================
-// CAS VALIDATION
+// CAS CHECKSUM VALIDATION
 // ============================================================
 
 function cv(cas) {
-
   const m = String(cas || "")
     .trim()
     .match(/^(\d{2,7})-(\d{2})-(\d)$/);
@@ -49,33 +47,45 @@ function cv(cas) {
 
 
 // ============================================================
+// CONTROLLED OCR CORRECTION FOR CAS
+//
+// IMPORTANT:
+// These substitutions are ONLY applied to text associated
+// with an explicit CAS label.
+// ============================================================
+
+function correctCASOCR(value) {
+  return String(value || "")
+    .replace(/[Oo]/g, "0")
+    .replace(/[Il]/g, "1")
+    .replace(/[Ss]/g, "5")
+    .replace(/B/g, "8");
+}
+
+
+// ============================================================
 // CAS RECONSTRUCTION
 //
-// CAS structure is ALWAYS:
-//
-// [2-7 DIGITS]-[2 DIGITS]-[1 CHECK DIGIT]
-//
-// First block length is variable.
+// CAS structure:
+// [2-7 digits]-[2 digits]-[1 check digit]
 //
 // Examples:
 //
-// 67641       -> 67-64-1
-// 50000       -> 50-00-0
-// 1310732     -> 1310-73-2
-// 7732185     -> 7732-18-5
-// 10043353    -> 10043-35-3
+// 67641     -> 67-64-1
+// 1310732   -> 1310-73-2
+// 7732185   -> 7732-18-5
+// 10043353  -> 10043-35-3
 // ============================================================
 
 function reconstructCAS(value) {
-
   if (!value) return "";
 
-  const digits = String(value)
-    .replace(/\D/g, "");
+  const corrected =
+    correctCASOCR(value);
 
-  // 2-7 digits
-  // + 2 middle digits
-  // + 1 check digit
+  const digits =
+    corrected.replace(/\D/g, "");
+
   if (
     digits.length < 5 ||
     digits.length > 10
@@ -102,8 +112,7 @@ function reconstructCAS(value) {
   const candidate =
     `${first}-${middle}-${checkDigit}`;
 
-  // Never trust reconstructed OCR unless
-  // the CAS checksum confirms it.
+  // Mandatory checksum verification.
   return cv(candidate)
     ? candidate
     : "";
@@ -111,44 +120,71 @@ function reconstructCAS(value) {
 
 
 // ============================================================
-// EXTRACT CAS FROM A CAS-ANCHORED LINE
+// CAS ANCHOR DETECTION
+//
+// Recognizes:
+//
+// CAS
+// CAS:
+// CAS No.
+// CAS-No.
+// CASNo.
+// CASNumber
+// CAS Number
 // ============================================================
 
-function extractCASFromAnchoredText(text) {
+function hasCASAnchor(line) {
+  return /CAS\s*(?:[- ]?\s*(?:No\.?|Number))?/i
+    .test(line);
+}
 
-  if (!text) return "";
 
-  // Remove the CAS label itself.
-  //
-  // Supports:
-  // CAS
-  // CAS:
-  // CAS No
-  // CAS-No.
-  // CAS Number
+// ============================================================
+// EXTRACT VALUE AFTER CAS ANCHOR
+// ============================================================
 
-  let value = String(text)
-    .replace(
-      /^.*?\bCAS\b(?:\s*[-:]?\s*(?:No\.?|Number))?\s*[:#.-]?\s*/i,
-      ""
-    )
-    .trim();
+function textAfterCASAnchor(line) {
+  const text =
+    String(line || "");
+
+  const match =
+    text.match(
+      /CAS\s*(?:[- ]?\s*(?:No\.?|Number))?\s*[:#.]?\s*(.*)$/i
+    );
+
+  return match?.[1]?.trim() || "";
+}
+
+
+// ============================================================
+// EXTRACT CAS FROM CAS-ANCHORED LINE
+// ============================================================
+
+function extractCASFromAnchor(line) {
+  const after =
+    textAfterCASAnchor(line);
+
+  if (!after)
+    return "";
+
+  const corrected =
+    correctCASOCR(after);
 
 
   // ----------------------------------------------------------
-  // Attempt 1:
-  // Already correctly formatted CAS
+  // First attempt:
+  // Properly formatted CAS
   // ----------------------------------------------------------
 
-  const normalMatches =
-    value.match(
-      /\b\d{2,7}\s*-\s*\d{2}\s*-\s*\d\b/g
-    ) || [];
+  const normal =
+    corrected.match(
+      /\d{2,7}\s*-\s*\d{2}\s*-\s*\d/
+    );
 
-  for (const match of normalMatches) {
-
-    const candidate = match
-      .replace(/\s+/g, "");
+  if (normal) {
+    const candidate =
+      normal[0]
+        .replace(/\s+/g, "");
 
     if (cv(candidate))
       return candidate;
@@ -156,37 +192,24 @@ function extractCASFromAnchoredText(text) {
 
 
   // ----------------------------------------------------------
-  // Attempt 2:
-  // OCR damaged/remove separators.
+  // Second attempt:
+  // Reconstruct damaged separators.
   //
-  // Example:
+  // Examples:
   //
-  // 1310-732
-  // ->
-  // digits 1310732
-  // ->
-  // 1310-73-2
+  // CAS-No. 1310-732
+  // CASNo. 67-561
+  // CAS 67 S6 I
   // ----------------------------------------------------------
 
-  const numberChunk =
-    value.match(
-      /[\d][\d\s.-]{3,15}\d/
-    )?.[0] || "";
+  const candidateArea =
+    corrected.match(
+      /[0-9][0-9\s.\-]{3,18}[0-9]/
+    )?.[0] || corrected;
 
-
-  if (numberChunk) {
-
-    const repaired =
-      reconstructCAS(
-        numberChunk
-      );
-
-    if (repaired)
-      return repaired;
-  }
-
-
-  return "";
+  return reconstructCAS(
+    candidateArea
+  );
 }
 
 
@@ -194,16 +217,15 @@ function extractCASFromAnchoredText(text) {
 // MAIN OCR PARSER
 // ============================================================
 
-function parse(t) {
-
+function parse(text) {
   const raw =
-    String(t || "")
+    String(text || "")
       .replace(/\r/g, "");
 
   const lines =
     raw
       .split("\n")
-      .map(x => x.trim())
+      .map(line => line.trim())
       .filter(Boolean);
 
 
@@ -254,13 +276,10 @@ function parse(t) {
     }
   ];
 
-
   let manufacturer = "";
 
   for (const maker of makerRules) {
-
     if (maker.regex.test(raw)) {
-
       manufacturer =
         maker.name;
 
@@ -271,81 +290,63 @@ function parse(t) {
 
   // ==========================================================
   // CAS
-  //
-  // ANCHOR FIRST.
-  //
-  // We never search the whole label blindly for CAS-shaped
-  // values because Index-No. can contain CAS-looking fragments.
   // ==========================================================
 
   let cas = "";
   let casAnchorIndex = -1;
-
 
   for (
     let i = 0;
     i < lines.length;
     i++
   ) {
-
     const line =
       lines[i];
 
-
-    if (!/\bCAS\b/i.test(line))
+    if (!hasCASAnchor(line))
       continue;
-
 
     casAnchorIndex = i;
 
 
     // --------------------------------------------------------
-    // Same line:
-    //
-    // CAS-No. 1310-732
+    // Try same line
     // --------------------------------------------------------
 
     cas =
-      extractCASFromAnchoredText(
+      extractCASFromAnchor(
         line
       );
-
 
     if (cas)
       break;
 
 
     // --------------------------------------------------------
-    // OCR can split:
+    // OCR may split label/value:
     //
     // CAS-No.
-    // 1310-73-2
+    // 67-56-1
     //
-    // Check NEXT line only.
+    // Only inspect the immediately following line.
     // --------------------------------------------------------
 
     if (
       i + 1 <
       lines.length
     ) {
-
       const next =
         lines[i + 1];
 
-
-      // Never pull EC / Index / REACH values
-      // into CAS.
-
+      // Explicit protection against other identifiers.
       if (
-        !/\b(?:EC|Index|REACH)\b/i
+        !/^\s*(?:EC|Index|REACH)/i
           .test(next)
       ) {
-
         cas =
           reconstructCAS(
             next
           );
-
 
         if (cas)
           break;
@@ -360,17 +361,13 @@ function parse(t) {
 
   let lot = "";
 
-
   for (const line of lines) {
-
     const match =
       line.match(
         /\b(?:lot|batch)(?:\s*(?:no\.?|number))?\s*[:#.-]?\s*([A-Z0-9][A-Z0-9./-]{2,})/i
       );
 
-
     if (match) {
-
       lot =
         match[1].trim();
 
@@ -387,19 +384,16 @@ function parse(t) {
 
 
   // ----------------------------------------------------------
-  // Generic supplier labels
+  // Generic labelled article/product/catalogue number
   // ----------------------------------------------------------
 
   for (const line of lines) {
-
     const match =
       line.match(
         /(?:article|article\s*no\.?|art\.?\s*no\.?|catalog(?:ue)?\s*(?:no\.?|number)?|cat\.?\s*no\.?|product\s*(?:no\.?|number))\s*[:#.-]?\s*([A-Z0-9][A-Z0-9./-]{2,})/i
       );
 
-
     if (match) {
-
       article =
         match[1].trim();
 
@@ -409,10 +403,9 @@ function parse(t) {
 
 
   // ----------------------------------------------------------
-  // Merck article-number pattern
+  // Merck
   //
   // Example:
-  //
   // 1.06498.1000
   // ----------------------------------------------------------
 
@@ -420,15 +413,51 @@ function parse(t) {
     !article &&
     manufacturer === "Merck"
   ) {
-
     const match =
       raw.match(
         /\b\d\.\d{5}\.\d{4}\b/
       );
 
-
     if (match)
       article = match[0];
+  }
+
+
+  // ----------------------------------------------------------
+  // Fisher Chemical
+  //
+  // Example OCR:
+  //
+  // Fisher BP2818-1
+  // ----------------------------------------------------------
+
+  if (
+    !article &&
+    (
+      manufacturer === "Fisher Chemical" ||
+      manufacturer === "Fisher Scientific" ||
+      manufacturer === "Thermo Fisher"
+    )
+  ) {
+    const fisherPatterns = [
+      /\bFisher\s+([A-Z]{1,4}\d{3,8}-\d{1,4})\b/i,
+      /\b([A-Z]{1,4}\d{3,8}-\d{1,4})\b/
+    ];
+
+    for (
+      const pattern of
+      fisherPatterns
+    ) {
+      const match =
+        raw.match(pattern);
+
+      if (match) {
+        article =
+          match[1];
+
+        break;
+      }
+    }
   }
 
 
@@ -438,61 +467,106 @@ function parse(t) {
 
   let amount = "";
 
+  const amountPatterns = [
+    /\b(\d+(?:[.,]\d+)?)\s*(mg|kg|g|mL|ml|L|l)\b/,
+    /\b(\d+(?:[.,]\d+)?)\s*(milligrams?|grams?|kilograms?|milliliters?|liters?)\b/i
+  ];
 
-  // Supports:
-  //
-  // 1 g
-  // 1g
-  // 500 g
-  // 2.5 L
-  // 2,5 L
-  // 500mL
+  for (
+    const pattern of
+    amountPatterns
+  ) {
+    const match =
+      raw.match(pattern);
 
-  const amountMatches =
-    raw.match(
-      /\b\d+(?:[.,]\d+)?\s*(?:mg|kg|g|mL|ml|L|l)\b/g
-    ) || [];
+    if (match) {
+      let unit =
+        match[2];
 
+      // Normalize units.
+      const normalized =
+        unit.toLowerCase();
 
-  if (amountMatches.length) {
-
-    // Normalize:
-    //
-    // 1g -> 1 g
-    // 500mL -> 500 mL
-
-    amount =
-      amountMatches[0]
-        .replace(
-          /(\d)([A-Za-z])/,
-          "$1 $2"
+      if (
+        normalized === "ml" ||
+        normalized.startsWith(
+          "milliliter"
         )
-        .trim();
+      ) {
+        unit = "mL";
+      }
+      else if (
+        normalized === "l" ||
+        normalized.startsWith(
+          "liter"
+        )
+      ) {
+        unit = "L";
+      }
+      else if (
+        normalized === "g" ||
+        normalized.startsWith(
+          "gram"
+        )
+      ) {
+        unit = "g";
+      }
+      else if (
+        normalized === "kg" ||
+        normalized.startsWith(
+          "kilogram"
+        )
+      ) {
+        unit = "kg";
+      }
+      else if (
+        normalized === "mg" ||
+        normalized.startsWith(
+          "milligram"
+        )
+      ) {
+        unit = "mg";
+      }
+
+      amount =
+        `${match[1]} ${unit}`;
+
+      break;
+    }
   }
 
 
   // ==========================================================
-  // CHEMICAL NAME CLEANUP
+  // NAME CLEANUP
   // ==========================================================
 
   function cleanName(line) {
-
-    let x =
+    let value =
       String(line || "")
 
-        // Remove OCR rubbish ahead of first letter
+        // Remove OCR symbols from start.
         .replace(
           /^[^A-Za-zÀ-ÿ]+/,
           ""
         )
 
-        // Remove unusual ending symbols
+        // Remove isolated punctuation at end.
         .replace(
-          /[^A-Za-z0-9À-ÿ(),.+\- ]+$/g,
+          /[\s|_=~]+$/g,
           ""
         )
 
-        // Normalize whitespace
+        // Remove trailing hyphen.
+        //
+        // Methanol -
+        // ->
+        // Methanol
+        .replace(
+          /\s*-\s*$/,
+          ""
+        )
+
+        // Normalize whitespace.
         .replace(
           /\s+/g,
           " "
@@ -501,80 +575,68 @@ function parse(t) {
         .trim();
 
 
-    // --------------------------------------------------------
-    // Remove isolated OCR artefacts.
+    // Remove isolated OCR artefacts:
     //
     // Sodium hydroxide i
-    // ->
-    // Sodium hydroxide
-    //
     // Acetone E
-    // ->
-    // Acetone
-    // --------------------------------------------------------
-
-    x = x.replace(
-      /\s+[iIlIeE]$/,
-      ""
-    );
+    value =
+      value.replace(
+        /\s+[iIlIeE]$/,
+        ""
+      );
 
 
-    return x.trim();
+    return value.trim();
   }
 
 
   // ==========================================================
-  // CHEMICAL NAME SCORING
+  // NAME SCORING
   // ==========================================================
 
   function nameScore(
     line,
     index
   ) {
-
-    const x =
+    const value =
       cleanName(line);
 
-
     if (
-      x.length < 3 ||
-      x.length > 80
-    )
+      value.length < 3 ||
+      value.length > 80
+    ) {
       return -10000;
+    }
 
-
-    // Must contain actual letters
 
     const letters =
       (
-        x.match(
+        value.match(
           /[A-Za-zÀ-ÿ]/g
         ) || []
       ).length;
-
 
     if (letters < 3)
       return -10000;
 
 
-    // --------------------------------------------------------
-    // Strongly penalize tiny OCR fragments
-    //
-    // Example:
-    // "Ga o"
-    // --------------------------------------------------------
-
     const words =
-      x
+      value
         .split(/\s+/)
         .filter(Boolean);
 
 
+    // --------------------------------------------------------
+    // Tiny OCR garbage:
+    // "Ga o", etc.
+    // --------------------------------------------------------
+
     if (
-      x.length <= 5 &&
+      value.length <= 5 &&
       words.length <= 2
-    )
+    ) {
       return -500;
+    }
 
 
     // --------------------------------------------------------
@@ -582,153 +644,133 @@ function parse(t) {
     // --------------------------------------------------------
 
     if (
-      /\b(?:CAS|EC|Index|REACH|lot|batch|article|catalog|product)\b/i
-        .test(x)
-    )
+      /\b(?:CAS|CASNo|EC|ECNo|Index|REACH|lot|batch|article|catalog|product)\b/i
+        .test(value)
+    ) {
       return -10000;
+    }
 
 
     // --------------------------------------------------------
-    // Reject hazard language
+    // Reject safety language
     // --------------------------------------------------------
 
     if (
       /\b(?:danger|warning|hazard|causes|keep away|avoid|precaution|eyes?|irritation|drowsiness|sparks?|ignition)\b/i
-        .test(x)
-    )
+        .test(value)
+    ) {
       return -10000;
+    }
 
-
-    // --------------------------------------------------------
-    // Reject H/P statements
-    // --------------------------------------------------------
 
     if (
       /^[HP]\s*\d{3}\b/i
-        .test(x)
-    )
+        .test(value)
+    ) {
       return -10000;
+    }
 
 
     // --------------------------------------------------------
-    // Reject grades/use instructions
+    // Reject grade / application
     // --------------------------------------------------------
 
     if (
       /\b(?:for analysis|laboratory|use only|ACS|ISO|Reag|Ph Eur|molecular biology)\b/i
-        .test(x)
-    )
+        .test(value)
+    ) {
       return -10000;
+    }
 
 
     // --------------------------------------------------------
-    // Reject company/address information
+    // Reject addresses/company info
     // --------------------------------------------------------
 
     if (
       /\b(?:Germany|USA|GmbH|KGaA|Darmstadt|Karlsruhe)\b/i
-        .test(x)
-    )
+        .test(value)
+    ) {
       return -10000;
+    }
 
 
     if (
       /www\.|\.com\b/i
-        .test(x)
-    )
+        .test(value)
+    ) {
       return -10000;
+    }
 
-
-    // --------------------------------------------------------
-    // Reject known manufacturer lines
-    // --------------------------------------------------------
 
     if (
       makerRules.some(
         maker =>
-          maker.regex.test(x)
+          maker.regex.test(
+            value
+          )
       )
-    )
+    ) {
       return -10000;
+    }
 
 
     // --------------------------------------------------------
-    // Reject dates
-    // --------------------------------------------------------
-
-    if (
-      /^\d{4}-\d{2}-\d{2}$/
-        .test(x)
-    )
-      return -10000;
-
-
-    // --------------------------------------------------------
-    // Reject lines dominated by numbers
+    // Reject obvious codes
     // --------------------------------------------------------
 
     const numbers =
       (
-        x.match(
+        value.match(
           /\d/g
         ) || []
       ).length;
 
-
     if (
-      numbers >
-      letters
-    )
+      numbers > letters
+    ) {
       return -10000;
-
-
-    // --------------------------------------------------------
-    // Reject quantity-only lines
-    // --------------------------------------------------------
-
-    if (
-      /^\d+(?:[.,]\d+)?\s*(?:mg|kg|g|ml|mL|l|L)$/i
-        .test(x)
-    )
-      return -10000;
+    }
 
 
     let score = 0;
 
 
     // --------------------------------------------------------
-    // Useful word structure
+    // Multi-word chemical names
     // --------------------------------------------------------
-
-    if (
-      words.length >= 2
-    )
-      score += 10;
-
 
     if (
       words.length >= 2 &&
       words.length <= 5
-    )
-      score += 8;
+    ) {
+      score += 15;
+    }
 
 
     // --------------------------------------------------------
-    // Reasonable chemical-product length
+    // Single-word chemicals are also common:
+    // Methanol, Ethanol, Acetone
     // --------------------------------------------------------
 
     if (
-      x.length >= 6 &&
-      x.length <= 40
-    )
+      words.length === 1 &&
+      value.length >= 6
+    ) {
       score += 8;
+    }
 
+
+    // --------------------------------------------------------
+    // Useful length range
+    // --------------------------------------------------------
 
     if (
-      x.length >= 10 &&
-      x.length <= 30
-    )
-      score += 5;
+      value.length >= 6 &&
+      value.length <= 40
+    ) {
+      score += 8;
+    }
 
 
     // --------------------------------------------------------
@@ -737,58 +779,44 @@ function parse(t) {
 
     if (
       letters /
-      x.length >
+      value.length >
       0.7
-    )
+    ) {
       score += 8;
+    }
 
 
     // --------------------------------------------------------
-    // Typical product name capitalization
-    // --------------------------------------------------------
-
-    if (
-      /^[A-ZÀ-Ý][A-Za-zÀ-ÿ0-9 ,()+.\-]+$/
-        .test(x)
-    )
-      score += 6;
-
-
-    // --------------------------------------------------------
-    // Chemical-like endings
+    // Chemical-like names
     // --------------------------------------------------------
 
     if (
-      /\b(?:acid|hydroxide|chloride|bromide|iodide|nitrate|sulfate|sulphate|carbonate|phosphate|acetate|oxide|alcohol|acetone|ethanol|methanol)\b/i
-        .test(x)
-    )
-      score += 12;
+      /\b(?:acid|hydroxide|chloride|bromide|iodide|nitrate|sulfate|sulphate|carbonate|phosphate|acetate|oxide|acetone|ethanol|methanol|propanol|butanol)\b/i
+        .test(value)
+    ) {
+      score += 15;
+    }
 
 
     // --------------------------------------------------------
     // CAS proximity
-    //
-    // Product name is often located above CAS.
     // --------------------------------------------------------
 
     if (
       casAnchorIndex >= 0
     ) {
-
       const distance =
         casAnchorIndex -
         index;
-
 
       if (
         distance > 0 &&
         distance <= 12
       ) {
-
         score +=
           Math.max(
             0,
-            16 -
+            18 -
             distance
           );
       }
@@ -800,7 +828,7 @@ function parse(t) {
 
 
   // ==========================================================
-  // SELECT NAME
+  // SELECT CHEMICAL NAME
   // ==========================================================
 
   const nameCandidates =
@@ -842,7 +870,7 @@ function parse(t) {
 
 
   // ==========================================================
-  // RESULT
+  // RETURN PARSED RESULT
   // ==========================================================
 
   return {
@@ -862,7 +890,6 @@ function parse(t) {
 // ============================================================
 
 function save() {
-
   localStorage.setItem(
     K,
     JSON.stringify({
@@ -880,7 +907,6 @@ function save() {
 // ============================================================
 
 function safe(value) {
-
   const element =
     document.createElement(
       "div"
@@ -898,19 +924,15 @@ function safe(value) {
 // ============================================================
 
 function render() {
-
   $("#list").innerHTML =
     "";
 
-
   items.forEach(
     item => {
-
       const article =
         document.createElement(
           "article"
         );
-
 
       article.innerHTML =
         `<b>${
@@ -937,14 +959,12 @@ function render() {
           aria-label="Delete container"
         >×</button>`;
 
-
       article
         .querySelector(
           "button"
         )
         .onclick =
           () => {
-
             items =
               items.filter(
                 x =>
@@ -953,10 +973,8 @@ function render() {
               );
 
             save();
-
             render();
           };
-
 
       $("#list")
         .append(
@@ -965,11 +983,9 @@ function render() {
     }
   );
 
-
   $("#count")
     .textContent =
       `${items.length} containers`;
-
 
   $("#exports")
     .classList
@@ -985,14 +1001,12 @@ function render() {
 // ============================================================
 
 function editor(show = true) {
-
   $("#home")
     .classList
     .toggle(
       "hidden",
       show
     );
-
 
   $("#editor")
     .classList
@@ -1008,11 +1022,9 @@ function editor(show = true) {
 // ============================================================
 
 function fill() {
-
   $$("[data-field]")
     .forEach(
       input => {
-
         input.value =
           form[
             input.dataset.field
@@ -1020,11 +1032,9 @@ function fill() {
       }
     );
 
-
   $("#raw")
     .textContent =
       form.raw || "";
-
 
   $("#rawBox")
     .classList
@@ -1032,7 +1042,6 @@ function fill() {
       "hidden",
       !form.raw
     );
-
 
   updateCASState();
 }
@@ -1043,18 +1052,14 @@ function fill() {
 // ============================================================
 
 function updateCASState() {
-
   const value =
     $('[data-field="cas"]')
       .value;
 
-
   const status =
     $("#casState");
 
-
   if (!value) {
-
     status.textContent =
       "";
 
@@ -1064,18 +1069,14 @@ function updateCASState() {
     return;
   }
 
-
   if (cv(value)) {
-
     status.textContent =
       "✓ Valid CAS checksum";
 
     status.className =
       "ok";
   }
-
   else {
-
     status.textContent =
       "⚠ Invalid CAS format/checksum";
 
@@ -1090,9 +1091,7 @@ function updateCASState() {
 // ============================================================
 
 async function scan(file) {
-
   editor();
-
 
   const status =
     $("#status");
@@ -1100,13 +1099,11 @@ async function scan(file) {
   const progress =
     $("#progress");
 
-
   status
     .classList
     .remove(
       "hidden"
     );
-
 
   progress
     .classList
@@ -1114,24 +1111,20 @@ async function scan(file) {
       "hidden"
     );
 
-
   status.textContent =
     "Starting local OCR...";
 
-  progress.value = 0;
-
+  progress.value =
+    0;
 
   let worker = null;
 
-
   try {
-
     worker =
       await Tesseract.createWorker(
         "eng",
         1,
         {
-
           workerPath:
             "./ocr/worker.min.js",
 
@@ -1143,18 +1136,15 @@ async function scan(file) {
 
           logger:
             message => {
-
               status.textContent =
                 message.status ||
                 "Reading label";
-
 
               if (
                 typeof
                 message.progress ===
                 "number"
               ) {
-
                 progress.value =
                   Math.round(
                     message.progress *
@@ -1165,12 +1155,10 @@ async function scan(file) {
         }
       );
 
-
     const result =
       await worker.recognize(
         file
       );
-
 
     form =
       parse(
@@ -1178,9 +1166,7 @@ async function scan(file) {
         ""
       );
 
-
     fill();
-
 
     status.textContent =
       `OCR complete. Verify every field. App v${APP_VERSION}`;
@@ -1190,12 +1176,10 @@ async function scan(file) {
   }
 
   catch (error) {
-
     console.error(
       "OCR error:",
       error
     );
-
 
     status.textContent =
       `OCR failed: ${
@@ -1205,15 +1189,10 @@ async function scan(file) {
   }
 
   finally {
-
     if (worker) {
-
       try {
-
         await worker.terminate();
-
       }
-
       catch {}
     }
   }
@@ -1225,10 +1204,8 @@ async function scan(file) {
 // ============================================================
 
 function esc(value = "") {
-
   const string =
     String(value);
-
 
   return /[",\n]/
     .test(string)
@@ -1243,7 +1220,6 @@ function esc(value = "") {
 
 
 function csv() {
-
   const header = [
     "Timestamp",
     "Session",
@@ -1255,16 +1231,12 @@ function csv() {
     "Amount"
   ];
 
-
   const session =
-    $("#session")
-      .value;
-
+    $("#session").value;
 
   const rows =
     items.map(
       item => [
-
         item.timestamp,
         session,
         item.name,
@@ -1273,22 +1245,18 @@ function csv() {
         item.lot,
         item.manufacturer,
         item.amount
-
       ]
     );
-
 
   return (
     "\uFEFF" +
     [header, ...rows]
-
       .map(
         row =>
           row
             .map(esc)
             .join(",")
       )
-
       .join("\r\n")
   );
 }
@@ -1299,7 +1267,6 @@ function csv() {
 // ============================================================
 
 function createCSVFile() {
-
   const date =
     new Date()
       .toISOString()
@@ -1307,7 +1274,6 @@ function createCSVFile() {
         0,
         10
       );
-
 
   return new File(
     [csv()],
@@ -1321,37 +1287,30 @@ function createCSVFile() {
 
 
 // ============================================================
-// DOWNLOAD
+// DOWNLOAD CSV
 // ============================================================
 
 function downloadCSV() {
-
   const file =
     createCSVFile();
-
 
   const url =
     URL.createObjectURL(
       file
     );
 
-
   const anchor =
     document.createElement(
       "a"
     );
 
-
   anchor.href =
     url;
-
 
   anchor.download =
     file.name;
 
-
   anchor.click();
-
 
   setTimeout(
     () =>
@@ -1364,12 +1323,11 @@ function downloadCSV() {
 
 
 // ============================================================
-// PHOTOGRAPH CONTAINER
+// CAMERA
 // ============================================================
 
 $("#camera").onclick =
   () => {
-
     $("#photo")
       .click();
   };
@@ -1377,18 +1335,14 @@ $("#camera").onclick =
 
 $("#photo").onchange =
   event => {
-
     const file =
       event
         .target
         .files?.[0];
 
-
     if (file) {
-
       scan(file);
     }
-
 
     event.target.value =
       "";
@@ -1401,7 +1355,6 @@ $("#photo").onchange =
 
 $("#manual").onclick =
   () => {
-
     form = E();
 
     fill();
@@ -1416,7 +1369,6 @@ $("#manual").onclick =
 
 $("#cancel").onclick =
   () => {
-
     editor(false);
   };
 
@@ -1427,16 +1379,13 @@ $("#cancel").onclick =
 
 $("#add").onclick =
   () => {
-
     form = {
       ...form
     };
 
-
     $$("[data-field]")
       .forEach(
         input => {
-
           form[
             input.dataset.field
           ] =
@@ -1445,15 +1394,12 @@ $("#add").onclick =
         }
       );
 
-
     if (
       !form.name &&
       !form.cas
     ) {
-
       return;
     }
-
 
     items.push({
       ...form,
@@ -1466,17 +1412,14 @@ $("#add").onclick =
           .toISOString()
     });
 
-
     save();
-
     render();
-
     editor(false);
   };
 
 
 // ============================================================
-// CAS FIELD LISTENER
+// CAS LISTENER
 // ============================================================
 
 $('[data-field="cas"]')
@@ -1494,7 +1437,7 @@ $("#session")
 
 
 // ============================================================
-// DOWNLOAD BUTTON
+// DOWNLOAD
 // ============================================================
 
 $("#download")
@@ -1503,19 +1446,16 @@ $("#download")
 
 
 // ============================================================
-// SHARE BUTTON
+// SHARE
 // ============================================================
 
 $("#share")
   .onclick =
     async () => {
-
       const file =
         createCSVFile();
 
-
       try {
-
         if (
           navigator.share &&
           (
@@ -1526,7 +1466,6 @@ $("#share")
             })
           )
         ) {
-
           await navigator.share({
             title:
               $("#session")
@@ -1536,20 +1475,16 @@ $("#share")
               [file]
           });
         }
-
         else {
-
           downloadCSV();
         }
       }
 
       catch (error) {
-
         if (
           error.name !==
           "AbortError"
         ) {
-
           downloadCSV();
         }
       }
@@ -1561,7 +1496,6 @@ $("#share")
 // ============================================================
 
 try {
-
   const saved =
     JSON.parse(
       localStorage
@@ -1570,13 +1504,10 @@ try {
       "null"
     );
 
-
   if (saved) {
-
     items =
       saved.items ||
       [];
-
 
     $("#session").value =
       saved.session ||
@@ -1585,7 +1516,6 @@ try {
 }
 
 catch (error) {
-
   console.warn(
     "Could not restore inventory:",
     error
@@ -1604,7 +1534,6 @@ if (
   "serviceWorker" in
   navigator
 ) {
-
   navigator
     .serviceWorker
     .register(
@@ -1612,7 +1541,6 @@ if (
     )
     .catch(
       error => {
-
         console.warn(
           "Service worker registration failed:",
           error
