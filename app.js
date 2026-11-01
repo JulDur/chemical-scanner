@@ -1,135 +1,85 @@
 import Tesseract from "./ocr/tesseract.esm.min.js";
 
-const APP_VERSION = "1.8";
-const STORAGE_KEY = "chem-v8";
-const EMPTY = () => ({ name:"", cas:"", article:"", lot:"", manufacturer:"", amount:"", raw:"", ocrLines:[] });
-let items = [], form = EMPTY(), pickerField = "";
-const $ = s => document.querySelector(s);
-const $$ = s => [...document.querySelectorAll(s)];
+const APP_VERSION="1.9";
+const STORAGE_KEY="chem-v9";
+const MAX_OCR_SIDE=2400;
+const JPEG_QUALITY=0.86;
+const EMPTY=()=>({name:"",cas:"",article:"",lot:"",manufacturer:"",amount:"",raw:"",ocrLines:[]});
+let items=[],form=EMPTY(),pickerField="",ocrWorker=null,workerPromise=null;
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 
-function casValid(cas){
-  const m=String(cas||"").trim().match(/^(\d{2,7})-(\d{2})-(\d)$/);
-  if(!m)return false;
-  const d=(m[1]+m[2]).split("").map(Number).reverse();
-  return d.reduce((s,n,i)=>s+n*(i+1),0)%10===Number(m[3]);
-}
+function casValid(cas){const m=String(cas||"").trim().match(/^(\d{2,7})-(\d{2})-(\d)$/);if(!m)return false;const d=(m[1]+m[2]).split("").map(Number).reverse();return d.reduce((s,n,i)=>s+n*(i+1),0)%10===Number(m[3]);}
 function correctCASOCR(v){return String(v||"").replace(/[Oo]/g,"0").replace(/[Il]/g,"1").replace(/[Ss]/g,"5").replace(/B/g,"8");}
-function reconstructCAS(v){
-  const digits=correctCASOCR(v).replace(/\D/g,"");
-  if(digits.length<5||digits.length>10)return "";
-  const first=digits.slice(0,-3), candidate=`${first}-${digits.slice(-3,-1)}-${digits.slice(-1)}`;
-  return first.length>=2&&first.length<=7&&casValid(candidate)?candidate:"";
-}
+function reconstructCAS(v){const digits=correctCASOCR(v).replace(/\D/g,"");if(digits.length<5||digits.length>10)return "";const first=digits.slice(0,-3),candidate=`${first}-${digits.slice(-3,-1)}-${digits.slice(-1)}`;return first.length>=2&&first.length<=7&&casValid(candidate)?candidate:"";}
 function hasCASAnchor(line){return /CAS\s*(?:[- ]?\s*(?:No\.?|Number))?/i.test(line);}
 function afterCAS(line){return String(line||"").match(/CAS\s*(?:[- ]?\s*(?:No\.?|Number))?\s*[:#.]?\s*(.*)$/i)?.[1]?.trim()||"";}
-function extractCAS(line){
-  const v=correctCASOCR(afterCAS(line));
-  const normal=v.match(/\d{2,7}\s*-\s*\d{2}\s*-\s*\d/);
-  if(normal){const c=normal[0].replace(/\s+/g,"");if(casValid(c))return c;}
-  return reconstructCAS(v.match(/[0-9][0-9\s.\-]{3,18}[0-9]/)?.[0]||v);
-}
-function cleanName(line){
-  return String(line||"").replace(/^[^A-Za-zÀ-ÿ]+/,"").replace(/[\s|_=~]+$/g,"").replace(/\s*-\s*$/,"").replace(/\s+[iIlIeEA]$/,"").replace(/\s+/g," ").trim();
-}
-function extractAmount(line){
-  const m=String(line||"").match(/\b(\d+(?:[.,]\d+)?)\s*(mg|kg|g|mL|ml|L|l)\b/);
-  if(!m)return "";
-  const map={ml:"mL",l:"L",g:"g",kg:"kg",mg:"mg"};
-  return `${m[1]} ${map[m[2].toLowerCase()]}`;
-}
+function extractCAS(line){const v=correctCASOCR(afterCAS(line));const normal=v.match(/\d{2,7}\s*-\s*\d{2}\s*-\s*\d/);if(normal){const c=normal[0].replace(/\s+/g,"");if(casValid(c))return c;}return reconstructCAS(v.match(/[0-9][0-9\s.\-]{3,18}[0-9]/)?.[0]||v);}
+function cleanName(line){return String(line||"").replace(/^[^A-Za-zÀ-ÿ]+/,"").replace(/[\s|_=~]+$/g,"").replace(/\s*-\s*$/,"").replace(/\s+[iIlIeEA]$/,"").replace(/\s+/g," ").trim();}
+function extractAmount(line){const m=String(line||"").match(/\b(\d+(?:[.,]\d+)?)\s*(mg|kg|g|mL|ml|L|l)\b/);if(!m)return "";const map={ml:"mL",l:"L",g:"g",kg:"kg",mg:"mg"};return `${m[1]} ${map[m[2].toLowerCase()]}`;}
 function extractLot(line){return String(line||"").match(/\b(?:lot|batch)(?:\s*(?:no\.?|number))?\s*[:#.-]?\s*([A-Z0-9][A-Z0-9./-]{2,})/i)?.[1]?.trim()||"";}
-function extractArticle(line,manufacturer=""){
-  let m=String(line||"").match(/(?:article|article\s*no\.?|art\.?\s*no\.?|catalog(?:ue)?\s*(?:no\.?|number)?|cat\.?\s*no\.?|product\s*(?:no\.?|number))\s*[:#.-]?\s*([A-Z0-9][A-Z0-9./-]{2,})/i);
-  if(m)return m[1];
-  if(manufacturer==="Merck")return String(line).match(/\b\d\.\d{5}\.\d{4}\b/)?.[0]||"";
-  if(/Fisher/.test(manufacturer))return String(line).match(/\b([A-Z]{1,4}\d{3,8}-\d{1,4})\b/)?.[1]||"";
-  return "";
-}
-function normalizeForField(line,field){
-  if(field==="name")return cleanName(line);
-  if(field==="cas")return hasCASAnchor(line)?extractCAS(line):reconstructCAS(line);
-  if(field==="article")return extractArticle(line,form.manufacturer)||String(line).trim();
-  if(field==="lot")return extractLot(line)||String(line).trim();
-  if(field==="amount")return extractAmount(line)||String(line).trim();
-  if(field==="manufacturer")return String(line).replace(/^[^A-Za-z]+/,"").trim();
-  return String(line).trim();
-}
+function extractArticle(line,manufacturer=""){let m=String(line||"").match(/(?:article|article\s*no\.?|art\.?\s*no\.?|catalog(?:ue)?\s*(?:no\.?|number)?|cat\.?\s*no\.?|product\s*(?:no\.?|number))\s*[:#.-]?\s*([A-Z0-9][A-Z0-9./-]{2,})/i);if(m)return m[1];if(manufacturer==="Merck")return String(line).match(/\b\d\.\d{5}\.\d{4}\b/)?.[0]||"";if(/Fisher/.test(manufacturer))return String(line).match(/\b([A-Z]{1,4}\d{3,8}-\d{1,4})\b/)?.[1]||"";return "";}
+function normalizeForField(line,field){if(field==="name")return cleanName(line);if(field==="cas")return hasCASAnchor(line)?extractCAS(line):reconstructCAS(line);if(field==="article")return extractArticle(line,form.manufacturer)||String(line).trim();if(field==="lot")return extractLot(line)||String(line).trim();if(field==="amount")return extractAmount(line)||String(line).trim();if(field==="manufacturer")return String(line).replace(/^[^A-Za-z]+/,"").trim();return String(line).trim();}
+
 function parse(text){
-  const raw=String(text||"").replace(/\r/g,"");
-  const lines=raw.split("\n").map(x=>x.trim()).filter(Boolean);
-  const makers=[[/sigma[- ]?aldrich/i,"Sigma-Aldrich"],[/fisher\s*chemical/i,"Fisher Chemical"],[/thermo\s*fisher/i,"Thermo Fisher"],[/thermo\s*scientific/i,"Thermo Scientific"],[/fisher\s*scientific/i,"Fisher Scientific"],[/carl\s*roth/i,"Carl Roth"],[/supelco/i,"Supelco"],[/\bavantor\b/i,"Avantor"],[/\bvwr\b/i,"VWR"],[/\bmerck\b/i,"Merck"]];
-  const manufacturer=makers.find(([r])=>r.test(raw))?.[1]||"";
-  let cas="",casIndex=-1;
-  for(let i=0;i<lines.length;i++)if(hasCASAnchor(lines[i])){casIndex=i;cas=extractCAS(lines[i]);if(!cas&&lines[i+1]&&!/^\s*(?:EC|Index|REACH)/i.test(lines[i+1]))cas=reconstructCAS(lines[i+1]);if(cas)break;}
-  let lot="",article="",amount="";
-  for(const line of lines){lot ||= extractLot(line);article ||= extractArticle(line,manufacturer);amount ||= extractAmount(line);}
-  function score(line,index){
-    const x=cleanName(line), letters=(x.match(/[A-Za-zÀ-ÿ]/g)||[]).length, words=x.split(/\s+/).filter(Boolean);
-    if(x.length<3||x.length>80||letters<3)return -1e4;
-    if(x.length<=5&&words.length<=2)return -500;
-    if(/\b(?:CAS|CASNo|EC|ECNo|Index|REACH|lot|batch|article|catalog|product|danger|warning|hazard|causes|avoid|precaution|eyes?|Germany|USA|GmbH|KGaA)\b/i.test(x))return -1e4;
-    if(/www\.|\.com\b|^[HP]\s*\d{3}\b|for analysis|laboratory|use only|ACS|ISO|Reag|Ph Eur/i.test(x))return -1e4;
-    if(makers.some(([r])=>r.test(x)))return -1e4;
-    let s=0;if(words.length>=2&&words.length<=5)s+=15;if(words.length===1&&x.length>=6)s+=8;if(x.length>=6&&x.length<=40)s+=8;if(letters/x.length>.7)s+=8;
-    if(/\b(?:acid|hydroxide|chloride|bromide|iodide|nitrate|sulfate|carbonate|phosphate|acetate|oxide|acetone|ethanol|methanol|propanol|butanol)\b/i.test(x))s+=15;
-    if(casIndex>=0){const d=casIndex-index;if(d>0&&d<=12)s+=Math.max(0,18-d);}return s;
-  }
-  const name=lines.map((line,index)=>({value:cleanName(line),score:score(line,index)})).sort((a,b)=>b.score-a.score)[0]?.value||"";
-  return {name,cas,article,lot,manufacturer,amount,raw,ocrLines:lines};
+ const raw=String(text||"").replace(/\r/g,"");const lines=raw.split("\n").map(x=>x.trim()).filter(Boolean);
+ const makers=[[/sigma[- ]?aldrich/i,"Sigma-Aldrich"],[/fisher\s*chemical/i,"Fisher Chemical"],[/thermo\s*fisher/i,"Thermo Fisher"],[/thermo\s*scientific/i,"Thermo Scientific"],[/fisher\s*scientific/i,"Fisher Scientific"],[/carl\s*roth/i,"Carl Roth"],[/supelco/i,"Supelco"],[/\bavantor\b/i,"Avantor"],[/\bvwr\b/i,"VWR"],[/\bmerck\b/i,"Merck"]];
+ const manufacturer=makers.find(([r])=>r.test(raw))?.[1]||"";let cas="",casIndex=-1;
+ for(let i=0;i<lines.length;i++)if(hasCASAnchor(lines[i])){casIndex=i;cas=extractCAS(lines[i]);if(!cas&&lines[i+1]&&!/^\s*(?:EC|Index|REACH)/i.test(lines[i+1]))cas=reconstructCAS(lines[i+1]);if(cas)break;}
+ let lot="",article="",amount="";for(const line of lines){lot ||= extractLot(line);article ||= extractArticle(line,manufacturer);amount ||= extractAmount(line);}
+ function score(line,index){const x=cleanName(line),letters=(x.match(/[A-Za-zÀ-ÿ]/g)||[]).length,words=x.split(/\s+/).filter(Boolean);if(x.length<3||x.length>80||letters<3)return -1e4;if(x.length<=5&&words.length<=2)return -500;if(/\b(?:CAS|CASNo|EC|ECNo|Index|REACH|lot|batch|article|catalog|product|danger|warning|hazard|causes|avoid|precaution|eyes?|Germany|USA|GmbH|KGaA)\b/i.test(x))return -1e4;if(/www\.|\.com\b|^[HP]\s*\d{3}\b|for analysis|laboratory|use only|ACS|ISO|Reag|Ph Eur/i.test(x))return -1e4;if(makers.some(([r])=>r.test(x)))return -1e4;let s=0;if(words.length>=2&&words.length<=5)s+=15;if(words.length===1&&x.length>=6)s+=8;if(x.length>=6&&x.length<=40)s+=8;if(letters/x.length>.7)s+=8;if(/\b(?:acid|hydroxide|chloride|bromide|iodide|nitrate|sulfate|carbonate|phosphate|acetate|oxide|acetone|ethanol|methanol|propanol|butanol)\b/i.test(x))s+=15;if(casIndex>=0){const d=casIndex-index;if(d>0&&d<=12)s+=Math.max(0,18-d);}return s;}
+ const candidates=lines.map((line,index)=>({value:cleanName(line),score:score(line,index)})).sort((a,b)=>b.score-a.score);const best=candidates[0];const name=best&&best.score>=12?best.value:"";
+ return {name,cas,article,lot,manufacturer,amount,raw,ocrLines:lines};
 }
+
+async function prepareImage(file){
+ const t0=performance.now();const bitmap=await createImageBitmap(file,{imageOrientation:"from-image"});const originalWidth=bitmap.width,originalHeight=bitmap.height;const scale=Math.min(1,MAX_OCR_SIDE/Math.max(originalWidth,originalHeight));const width=Math.max(1,Math.round(originalWidth*scale)),height=Math.max(1,Math.round(originalHeight*scale));
+ const canvas=document.createElement("canvas");canvas.width=width;canvas.height=height;const ctx=canvas.getContext("2d",{alpha:false});ctx.fillStyle="#fff";ctx.fillRect(0,0,width,height);ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality="high";ctx.drawImage(bitmap,0,0,width,height);bitmap.close();
+ const blob=await new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(new Error("Image conversion failed")),"image/jpeg",JPEG_QUALITY));
+ const previewURL=URL.createObjectURL(blob);const prepSeconds=(performance.now()-t0)/1000;return {blob,previewURL,originalWidth,originalHeight,width,height,originalBytes:file.size,processedBytes:blob.size,prepSeconds};
+}
+async function getWorker(status,progress){
+ if(ocrWorker)return ocrWorker;if(workerPromise)return workerPromise;
+ workerPromise=Tesseract.createWorker("eng",1,{workerPath:"./ocr/worker.min.js",langPath:"./ocr/lang",corePath:"./ocr/core",logger:m=>{status.textContent=m.status||"Preparing OCR";if(typeof m.progress==="number")progress.value=Math.round(m.progress*100);}}).then(w=>{ocrWorker=w;return w;}).finally(()=>workerPromise=null);
+ return workerPromise;
+}
+function formatBytes(n){if(!n)return "0 MB";return `${(n/1024/1024).toFixed(2)} MB`;}
+function showPreview(info,ocrSeconds){const img=$("#ocrPreviewImage"),meta=$("#ocrMeta");if(img.dataset.url)URL.revokeObjectURL(img.dataset.url);img.src=info.previewURL;img.dataset.url=info.previewURL;$("#ocrPreviewBox").classList.remove("hidden");meta.textContent=`Original: ${info.originalWidth}×${info.originalHeight}, ${formatBytes(info.originalBytes)} | OCR image: ${info.width}×${info.height}, ${formatBytes(info.processedBytes)} | Prepare: ${info.prepSeconds.toFixed(1)} s | OCR: ${ocrSeconds.toFixed(1)} s`;}
 
 function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify({session:$("#session").value,items}));}
 function safe(v){const d=document.createElement("div");d.textContent=v;return d.innerHTML;}
-function render(){
-  $("#list").innerHTML="";
-  items.forEach(item=>{const a=document.createElement("article");a.innerHTML=`<b>${safe(item.name||"Unnamed chemical")}</b><small>${safe(item.cas||"No CAS")}${item.article?` • ${safe(item.article)}`:""}</small><button class="delete" aria-label="Delete container">×</button>`;a.querySelector("button").onclick=()=>{items=items.filter(x=>x.id!==item.id);save();render();};$("#list").append(a);});
-  $("#count").textContent=`${items.length} containers`;$("#exports").classList.toggle("hidden",!items.length);
-}
+function render(){$("#list").innerHTML="";items.forEach(item=>{const a=document.createElement("article");a.innerHTML=`<b>${safe(item.name||"Unnamed chemical")}</b><small>${safe(item.cas||"No CAS")}${item.article?` • ${safe(item.article)}`:""}</small><button class="delete" aria-label="Delete container">×</button>`;a.querySelector("button").onclick=()=>{items=items.filter(x=>x.id!==item.id);save();render();};$("#list").append(a);});$("#count").textContent=`${items.length} containers`;$("#exports").classList.toggle("hidden",!items.length);}
 function editor(show=true){$("#home").classList.toggle("hidden",show);$("#editor").classList.toggle("hidden",!show);}
 function updateCASState(){const v=$('[data-field="cas"]').value,s=$("#casState");s.textContent=!v?"":casValid(v)?"✓ Valid CAS checksum":"⚠ Invalid CAS format/checksum";s.className=!v?"":casValid(v)?"ok":"warn";}
 function fill(){$$('[data-field]').forEach(i=>i.value=form[i.dataset.field]||"");$("#raw").textContent=form.raw||"";$("#rawBox").classList.toggle("hidden",!form.raw);updateCASState();buildOCRButtons();}
-
-function ensurePicker(){
-  if($("#ocrPicker"))return;
-  const p=document.createElement("div");p.id="ocrPicker";p.className="ocr-picker hidden";p.innerHTML=`<div class="ocr-picker-card"><div class="ocr-picker-head"><b>Select OCR text</b><button id="closeOCRPicker" type="button">×</button></div><button class="ocr-choice clear-choice" data-clear="1" type="button">Leave blank</button><div id="ocrChoices"></div></div>`;document.body.append(p);
-  $("#closeOCRPicker").onclick=closePicker;p.onclick=e=>{if(e.target===p)closePicker();};p.querySelector('[data-clear="1"]').onclick=()=>applyPickerValue("");
-}
+function ensurePicker(){if($("#ocrPicker"))return;const p=document.createElement("div");p.id="ocrPicker";p.className="ocr-picker hidden";p.innerHTML=`<div class="ocr-picker-card"><div class="ocr-picker-head"><b>Select OCR text</b><button id="closeOCRPicker" type="button">×</button></div><button class="ocr-choice clear-choice" data-clear="1" type="button">Leave blank</button><div id="ocrChoices"></div></div>`;document.body.append(p);$("#closeOCRPicker").onclick=closePicker;p.onclick=e=>{if(e.target===p)closePicker();};p.querySelector('[data-clear="1"]').onclick=()=>applyPickerValue("");}
 function closePicker(){$("#ocrPicker")?.classList.add("hidden");}
 function applyPickerValue(value){const input=$(`[data-field="${pickerField}"]`);if(input){input.value=value;if(pickerField==="cas")updateCASState();}closePicker();}
-function openPicker(field){
-  pickerField=field;ensurePicker();const box=$("#ocrChoices");box.innerHTML="";
-  const unique=[...new Set(form.ocrLines||[])];
-  unique.forEach(line=>{const normalized=normalizeForField(line,field);const b=document.createElement("button");b.type="button";b.className="ocr-choice";b.innerHTML=`<span>${safe(line)}</span>${normalized!==line?`<small>Use: ${safe(normalized||"blank")}</small>`:""}`;b.onclick=()=>applyPickerValue(normalized);box.append(b);});
-  $("#ocrPicker").classList.remove("hidden");
-}
-function buildOCRButtons(){
-  ensurePicker();
-  $$('[data-field]').forEach(input=>{const label=input.closest("label");if(!label||label.querySelector(".ocr-open"))return;const b=document.createElement("button");b.type="button";b.className="ocr-open";b.textContent="▼ OCR";b.onclick=e=>{e.preventDefault();openPicker(input.dataset.field);};label.append(b);});
-}
+function openPicker(field){pickerField=field;ensurePicker();const box=$("#ocrChoices");box.innerHTML="";[...new Set(form.ocrLines||[])].forEach(line=>{const normalized=normalizeForField(line,field),b=document.createElement("button");b.type="button";b.className="ocr-choice";b.innerHTML=`<span>${safe(line)}</span>${normalized!==line?`<small>Use: ${safe(normalized||"blank")}</small>`:""}`;b.onclick=()=>applyPickerValue(normalized);box.append(b);});$("#ocrPicker").classList.remove("hidden");}
+function buildOCRButtons(){ensurePicker();$$('[data-field]').forEach(input=>{const label=input.closest("label");if(!label||label.querySelector(".ocr-open"))return;const b=document.createElement("button");b.type="button";b.className="ocr-open";b.textContent="▼ OCR";b.onclick=e=>{e.preventDefault();openPicker(input.dataset.field);};label.append(b);});}
 
 async function scan(file){
-  editor();const status=$("#status"),progress=$("#progress");status.classList.remove("hidden");progress.classList.remove("hidden");status.textContent="Starting local OCR...";progress.value=0;let worker=null;
-  try{worker=await Tesseract.createWorker("eng",1,{workerPath:"./ocr/worker.min.js",langPath:"./ocr/lang",corePath:"./ocr/core",logger:m=>{status.textContent=m.status||"Reading label";if(typeof m.progress==="number")progress.value=Math.round(m.progress*100);}});const result=await worker.recognize(file);form=parse(result.data.text||"");fill();status.textContent=`OCR complete. Verify every field. App v${APP_VERSION}`;progress.value=100;}
-  catch(error){console.error("OCR error:",error);status.textContent=`OCR failed: ${error?.message||String(error)}`;}
-  finally{if(worker)try{await worker.terminate();}catch{}}
+ editor();const status=$("#status"),progress=$("#progress");status.classList.remove("hidden");progress.classList.remove("hidden");status.textContent="Preparing image locally...";progress.value=0;
+ try{const prepared=await prepareImage(file);status.textContent=ocrWorker?"Recognizing text...":"Initializing local OCR...";const worker=await getWorker(status,progress);const ocrStart=performance.now();const result=await worker.recognize(prepared.blob);const ocrSeconds=(performance.now()-ocrStart)/1000;form=parse(result.data.text||"");fill();showPreview(prepared,ocrSeconds);status.textContent=`OCR complete. Verify every field. App v${APP_VERSION}`;progress.value=100;}
+ catch(error){console.error("OCR error:",error);status.textContent=`OCR failed: ${error?.message||String(error)}`;}
 }
 
 function esc(v=""){const s=String(v);return /[",\n]/.test(s)?`"${s.replaceAll('"','""')}"`:s;}
 function csv(){const h=["Timestamp","Session","Name","CAS","ArticleNumber","Lot","Manufacturer","Amount"],session=$("#session").value,rows=items.map(x=>[x.timestamp,session,x.name,x.cas,x.article,x.lot,x.manufacturer,x.amount]);return "\uFEFF"+[h,...rows].map(r=>r.map(esc).join(",")).join("\r\n");}
 function createCSVFile(){return new File([csv()],`chemical_inventory_${new Date().toISOString().slice(0,10)}.csv`,{type:"text/csv"});}
 function downloadCSV(){const f=createCSVFile(),u=URL.createObjectURL(f),a=document.createElement("a");a.href=u;a.download=f.name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
+function handleFileInput(e){const file=e.target.files?.[0];if(file)scan(file);e.target.value="";}
 
 $("#camera").onclick=()=>$("#photo").click();
-$("#photo").onchange=e=>{const file=e.target.files?.[0];if(file)scan(file);e.target.value="";};
-$("#manual").onclick=()=>{form=EMPTY();fill();editor();};
+$("#chooseImage").onclick=()=>$("#gallery").click();
+$("#photo").onchange=handleFileInput;
+$("#gallery").onchange=handleFileInput;
+$("#manual").onclick=()=>{form=EMPTY();fill();$("#ocrPreviewBox").classList.add("hidden");editor();};
 $("#cancel").onclick=()=>editor(false);
 $("#add").onclick=()=>{form={...form};$$('[data-field]').forEach(i=>form[i.dataset.field]=i.value.trim());if(!form.name&&!form.cas)return;items.push({...form,id:crypto.randomUUID(),timestamp:new Date().toISOString()});save();render();editor(false);};
-$('[data-field="cas"]').oninput=updateCASState;
-$("#session").onchange=save;
-$("#download").onclick=downloadCSV;
+$('[data-field="cas"]').oninput=updateCASState;$("#session").onchange=save;$("#download").onclick=downloadCSV;
 $("#share").onclick=async()=>{const f=createCSVFile();try{if(navigator.share&&(!navigator.canShare||navigator.canShare({files:[f]})))await navigator.share({title:$("#session").value,files:[f]});else downloadCSV();}catch(e){if(e.name!=="AbortError")downloadCSV();}};
-
 try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");if(saved){items=saved.items||[];$("#session").value=saved.session||"Lab inventory";}}catch(e){console.warn("Could not restore inventory:",e);}
 render();ensurePicker();
 if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js").catch(e=>console.warn("Service worker registration failed:",e));
+window.addEventListener("pagehide",()=>{if(ocrWorker){ocrWorker.terminate().catch(()=>{});ocrWorker=null;}});
 console.log(`Chemical Scanner v${APP_VERSION}`);
