@@ -2,8 +2,8 @@ import Tesseract from "./ocr/tesseract.esm.min.js";
 
 const APP_VERSION="1.10";
 const STORAGE_KEY="chem-v10";
-const MAX_OCR_SIDE=1200;
-const JPEG_QUALITY=0.72;
+const MAX_OCR_SIDE=900;
+const JPEG_QUALITY=0.65;
 const EMPTY=()=>({name:"",cas:"",article:"",lot:"",manufacturer:"",amount:"",raw:"",ocrLines:[]});
 let items=[],form=EMPTY(),pickerField="",ocrWorker=null,workerPromise=null;
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
