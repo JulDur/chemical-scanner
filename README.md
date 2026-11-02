@@ -4,12 +4,6 @@ Static GitHub Pages build with locally packaged Tesseract.js 7, worker, WASM cor
 
 Chemical Scanner v2.0 bottle-label OCR update
 
-Replace these files in the GitHub repository root:
-1. app.js
-2. sw.js
-
-No index.html or styles.css change is needed if v1.9/v1.10 is already installed.
-
 Changes:
 - OCR resolution increased to max 1800 px for real bottle labels.
 - Creates a color image plus an enhanced grayscale/contrast image locally.
