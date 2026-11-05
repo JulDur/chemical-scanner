@@ -1,0 +1,849 @@
+﻿Inventory ID,CAS Number,Chemical Name,Formula,SAP Material Number,Supplier,Article Number,Container Size,Lot,Purity,Storage Location,Suggested Storage Location
+68,1025-15-6,"1,3,5-Triallyl-1,3,5-triazine-2,4,6(1H,3H,5H)-trione",C12H15N3O3,,Thermo Scientific,342121000,100 g,A0463780,,C8.2,C8.2
+68,1025-15-6,"1,3,5-Triallyl-1,3,5-triazine-2,4,6(1H,3H,5H)-trione",C12H15N3O3,,Sigma-Aldrich,342121000,100 g,102805343,,C8.2,C8.2
+369,7235-40-7,β-Carotene,C40H56,,,,,,,,
+167,134-03-2,(+)-Sodium L-ascorbate,C6H7NaO6,,Sigma-Aldrich,A4034-100G,100 g,102631544,,C3.3,C3.3
+167,134-03-2,(+)-Sodium L-ascorbate,C6H7NaO6,,Sigma-Aldrich,11140-250G,250 g,102695949,0.99,C3.3,C3.3
+860,2216-51-5,(−)-Menthol,C10H20O,,Sigma-Aldrich,15785-100G,100 g,102862470,0.98,C4.3,C4.3
+32,73058-30-7,(2S)-2-Benzyl-aziridine,C9H11N,,Sigma-Aldrich,FLUH99C78801-1G,1 g,F034409,0.99,C6.1,C6.1
+181,13822-56-5,(3-Aminopropyl)trimethoxysilane,C6H17NO3Si,,,,,,,,
+229,2530-83-8,(3-glycidoxypropyl)trimethoxysilane,C9H20O5Si,,,,,,,,
+741,56844-94-5,(Chloromethyl)polystyrene,,,Sigma-Aldrich,63868-10G,10G,BCCB9339,,Dissicator,Dissicator
+273,4336-70-3,(Cyanomethyl)triphenylphosphonium chloride,,,,,,,,,
+265,36635-61-7,(p-Toluenesulphonyl)methyl isocyanide,C₉H₉NO₂S,,,,,,,,
+286,5039-78-1,[2-(Methacryloyloxy)ethyl]trimethylammonium chloride solution,,,,,,,,,
+476,86-52-2,1-(Chloromethyl)naphthalene,,,Sigma-Aldrich,25170-50ML,50 ml,102794949,0.97,C5.4,C5.4
+218,2179072-33-2,"1-(Fluorosulfonyl)-2,3-dimethyl-1H-imidazol-3-ium trifluoromethanesulfonate",,,,,,,,,
+25,2094-98-6,"1,1' Azobis(cyclohexanecarbonitrile)",C14H20N4,,Sigma-Aldrich,380210-25G,25G,1003715059,0.98,F3.1,F3.1
+25,2094-98-6,"1,1' Azobis(cyclohexanecarbonitrile)",C14H20N4,,Sigma-Aldrich,380210- 25G,25G,1003715059,,F3.1,F3.1
+290,5144-89-8,"1,10-Phenanthroline monohydrate",C12H8N2 · xH2O,,Sigma-Aldrich,77500-5G-F,5 g,102720131,0.99,C8.1,C8.1
+3,4885-02-3,"1,1-Dichlorodimethyl ether",Cl2CHOCH3,,,,,,,,
+246,2855-27-8,"1,2,4-Trivinylcyclohexane, mixture of isomers",,,Sigma-Aldrich,T89109-100G,100g,102707156,98,C4.4,C4.4
+454,78-90-0,"1,2-Diaminopropane",C3H10N2,,Sigma-Aldrich,117498-100G,100 g,can,0.99,C8.2,C8.2
+81,107-06-2,"1,2-Dichloroethane",C2H4Cl2,50001757,Sigma-Aldrich,319929-500ML,500 ML,102738588,0.99,C8.4,C8.4
+81,107-06-2,"1,2-Dichloroethane",C2H4Cl2,50001757,Carl Roth,T869.2,2.5 L,326350116,0.99,C8.4,C8.4
+756,110-71-4,"1,2-dimethoxyethane",,,Sigma-Aldrich,E27408-1L,1000' ml,1003819888,99%,C8.3,C8.3
+79,106-88-7,"1,2-Epoxybutane",C4H8O,,Sigma-Aldrich,109975-250ML,250 mL,MKCS2969,0.99,C8.3,C8.3
+79,106-88-7,"1,2-Epoxybutane",C4H8O,,Sigma-Aldrich,8.20551.0100,100 ml,S8051451336,,C8.3,C8.3
+249,2984-50-1,"1,2-Epoxyoctane",C8H16O,,Sigma-Aldrich,260258-25G,25 ml,102714603,,C7.2,C7.2
+249,2984-50-1,"1,2-Epoxyoctane",C8H16O,,BLD Pharma,BD53453,25 g,CTA072,98%,F3.1,C7.2
+319,57-55-6,"1,2-propanediol / propylene glycol",C3H8O2,,Acros Organics,158720010,1 L,A0408254,0.99,C3.3,C3.3
+103,109-76-2,"1,3-Diaminopropane",C3H10N2,,Sigma-Aldrich,D23602-500G,500 mL,102603374,0.99,C8.2,C8.2
+103,109-76-2,"1,3-Diaminopropane",C3H10N2,,Sigma-Aldrich,8.08272.0500,500 mL,S7846472 323,0.99,C8.2,C8.2
+103,109-76-2,"1,3-Diaminopropane",C3H10N2,,Sigma-Aldrich,D23602-25G,25 g,102965172,0.99,C8.2,C8.2
+223,2425-79-8,"1,4-Butandioldiglycidyl ether",,,Sigma-Aldrich,220892-50G,50 g,1003552762,0.95,C5.2,C5.2
+111,110-63-4,"1,4-butanediol",C4H10O2,,,,,,,,
+209,17351-75-6,"1,4-cyclohexane dimethanol divinyl ether",,,BASF,50064284,500 ml,11487775L0,,C5.2,C5.2
+110,110-60-1,"1,4-Diaminobutane",C4H12N2,,,,,,,,
+108,110-52-1,"1,4-Dibromobutane",C4H8Br2,,Sigma-Aldrich,140805-500G,100 g,1003654933,99,C4.4,C4.4
+142,123-91-1,"1,4-Dioxane",,,,,,,,,
+344,6606-59-3,"1,6-hexanediol dimethacrylate",C14H22O4,,,,,,,,
+266,3710-30-3,"1,7-Octadiene",C8H14,,Sigma-Aldrich,02501-100G-A,100 g,102625750,0.98,C8.3,C8.3
+346,6674-22-2,"1,8-Diazabicyclo[5.4.0]-undec-7-ene",C9H16N2,,Sigma-Aldrich,139009-100G,100 g,102970182,0.98,C8.1,C8.1
+245,2854-16-2,1-Amino-2-methylpropan-2-ol,C4H11NO,,,,,,,,
+366,71-36-3,1-Butanol,C4H10O,,Sigma-Aldrich,19422-5ML,5 ml,102549654,,C7.2,C7.2
+366,71-36-3,1-Butanol,C4H10O,,Sigma-Aldrich,537993-1L,1 L,102490941,0.99,C7.2,C7.2
+366,71-36-3,1-Butanol,C4H10O,,Sigma-Aldrich,360465-1L,1 L,SHBP1304,0.994,C7.2,C7.2
+27,448245-52-1,1-Butyl-3-methylimidazolium dicyanamide,,,Sigma-Aldrich,55220-5G-F,5 g,102648564,0.97,C4.4,C4.4
+101,109-69-3,1-chlorobutane,C4H9Cl,,Sigma-Aldrich,8.01640.0100,100 mL,S8256140 306,0.998,C8.2,C8.2
+44,1002-69-3,1-Chlorodecane,C10H21Cl,,Sigma-Aldrich,C32909-100G,100 g,102787302,0.98,C5.2,C5.2
+301,543-59-9,1-Chloropentane,C5H11Cl,,Sigma-Aldrich,238376-100ML,100 ml,1003671950,0.99,C7.1,C7.1
+28,540-54-5,1-Chloropropane,C3H7Cl,,Sigma-Aldrich,C68555-100ML,100 ml,102828232,0.98,F3.1,F3.1
+222,2425-54-9,1-Chlorotetradecane,C14H29Cl,,Sigma-Aldrich,252239-100G,100 g,102758550,0.98,C3.3,C3.3
+127,112-30-1,1-decanol,C10H22O,,,,,,,,
+129,112-55-0,1-Dodecanethiol,C10H18SH,,Sigma-Aldrich,471364-100ML,100 ml,102875909,98,C5.2,C5.2
+192,143314-17-4,1-Ethyl-3-methylimidazolium acetate,C8H14N2O2,,Sigma-Aldrich,51053-100G-F,100 g,102658411,0.95,C4.4,C4.4
+343,65039-09-0,1-Ethyl-3-methylimidazolium chloride,,,Sigma-Aldrich,30764-100G-F,100 g,102619854,,C4.3,C4.3
+2,4023-02-3,1H-pyrazole-1-carboximidine hydrochloride,C4H6N4.HCl,,Sigma-Aldrich,402516-50G,50 g,1003850806,0.99,8.1,8.1
+2,4023-02-3,1H-pyrazole-1-carboximidine hydrochloride,C4H6N4.HCl,,BLD Pharma,BD58903-100G,100 g,GRY643,0.97,8.1,8.1
+120,111-87-5,1-Octanol,,,,,,,,,
+367,71-41-0,1-Pentanol,C5H12O,,Sigma-Aldrich,138975-500ML,500 mL,STBJ4502,0.99,C7.1,C7.1
+367,71-41-0,1-Pentanol,C5H12O,,Sigma-Aldrich,8.07500.0100,100 mL,S8313700,,,C7.1
+480,88-12-0,1-Vinyl-2-pyrrolidone,C6H9NO,,,,,,,,
+274,4403-36-5,"2-(1,3-Dioxoisoindolin-2-yl)ethanesulfonylchloride",C10H8ClNO4S,,,,,,,,
+482,883-44-3,"2-(3-Hydroxypropyl)isoindoline-1,3-dione",C11H11NO3,,Ambeed,A139927-500G,500 g,A139927-AQ9,,C4.2,C4.2
+133,118-29-6,"2-(Hydroxymethyl)isoindoline-1,3-dione",,50001711,BLD Pharma,BD17691,4 kg,GMC357,0.97,C4.3,C4.3
+302,5455-98-1,"2-(oxiran-2-ylmethyl)isoindoline-1,3-dione",,,,,,,,,
+513,929-59-9,"2,2'-(Ethylenedioxy)bis(ethylamine)",C6H16N2O2,,,,,,,,
+270,4097-89-6,"2,2',2""-triaminotriethylamine",C6H18N4,,,,,,,,
+299,540-84-1,"2,2,4-trimethylpentane / Isooctane",(CH3)2CHCH2C(CH3)3,50001867,Sigma-Aldrich,8.21627.1000,1 L,s6054027,,C7.3,C7.3
+299,540-84-1,"2,2,4-trimethylpentane / Isooctane",(CH3)2CHCH2C(CH3)3,50001867,Sigma-Aldrich,8.21627.1000,1 L,S6054027,0.99,C7.3,C7.3
+299,540-84-1,"2,2,4-trimethylpentane / Isooctane",(CH3)2CHCH2C(CH3)3,50001867,VWR,28775.368P,5 L,25D144019,0.98,C7.3,C7.3
+299,540-84-1,"2,2,4-trimethylpentane / Isooctane",(CH3)2CHCH2C(CH3)3,50001867,VWR,28775.368,5 x 5 L,26B054007,0.98,C7.3,C7.3
+250,2997-92-4,"2,2'-azobis(2-methylpropionamidine) dihydrochloride",,,Sigma-Aldrich,440914-100G,100 g,1003561102,0.97,F3.1,F3.1
+250,2997-92-4,"2,2'-azobis(2-methylpropionamidine) dihydrochloride",,,Sigma-Aldrich,440914-25g,25g,MKCR5715,0.97,F3.1,F3.1
+452,78-67-1,"2,2'-Azobis(2-methyl-propionitrile)",,,,,,,,,
+370,7328-91-8,"2,2-Dimethyl-1,3-propanediamine",C5H14N2,,,,,,,,
+511,92-44-4,"2,3-Naphthalenediol",C10H8O2,,,,,,,,
+150,128-37-0,"2,6-Di-tert-butyl-4-methylphenol",C15H24O,,,,,,,,
+331,6168-72-5,2-aminopropan-1-ol,C3H9NO,,Ambeed,A131092,500 g,A131092-010,0.99,C6.3,C6.3
+235,2576-47-8,2-bromoethylamine hydrobromide,C2H6BrN.BrH,,,,,,,,
+478,870-24-6,2-Chloroethylamine hydrochloride,C2H6CIN.HCl,,Sigma-Aldrich,C40200-100G,100 g,WXBD6925V,0.99,C8.1,C8.1
+478,870-24-6,2-Chloroethylamine hydrochloride,C2H6CIN.HCl,,AmBeed,A766373-1000g,1000 g,A76637 3-HB1,0.9982,C8.1,C8.1
+764,6266-35-9,2-Chloropropan-1-amine hydrochloride,C3H9Cl2N,,BLD Pharma,BD232612-100MG,100 mg,GKC906,0.95,C4.1,C4.1
+73,104-76-7,2-ethyl-1-hexanol,C8H18O,,Sigma-Aldrich,538051-1L,1 L,MKCT0026,0.996,C4.4,C4.4
+73,104-76-7,2-ethyl-1-hexanol,C8H18O,,Sigma-Aldrich,8.00990.1000,1 L,S8301390 307,,C4.4,C4.4
+70,103-11-7,2-ethylhexyl acrylate,,,,,,,,,
+225,2461-15-6,2-Ethylhexyl glycidyl ether,C11H22O2,,Sigma-Aldrich,251747-250ML,250 ml,102672651,98,C4.4,C4.4
+213,1892-29-1,2-Hydroxyethyl disulfide,C4H10O2S2,,,,,,,,
+321,583-39-1,2-Mercaptobenzimidazole,,,,,,,,,
+124,1120-64-5,2-methyl-2-oxazoline,C4H7NO,,,,,,,,
+350,67-63-0,2-Propanol,CH3CH(OH)CH3,50001729,Roth,9866.6,5 L,316395149,0.995,C7.5,C7.5
+703,827-54-3,2-Vinylnaphthalene,,,BLD,BD78917-25g,25 g,FNX146,99.87%,F3.1,F3.1
+463,79551-14-7,"3-(2-Pyridyl)-5,6-di(2-furyl)-1,2,4-triazine-5′,5′′-disulfonic acid disodium salt",C16H8N4Na2O8S2,,,,,,,,
+753,1119-62-6,"3,3′-Dithiodipropionic acid",C6H10O4S2,,Sigma-Aldrich,109010-250G,250 g,1003824067,,C4.3,C4.3
+243,26741-53-7,"3,9-Bis(2,4-di-tert-butylphenoxy)-2,4,8,10-tetraoxa-3,9-diphosphaspiro[5.5]undecane",C33H50O6P2,,,,,,,,
+200,156-87-6,3-amino-1-propanol,C3H9NO,,Thermo Scientific,B23041,100 g,10230588,0.99,C6.3,C6.3
+200,156-87-6,3-amino-1-propanol,C3H9NO,,Sigma-Aldrich,104465000,500 ml,A0451520,0.99,C6.3,C6.3
+200,156-87-6,3-amino-1-propanol,C3H9NO,,Sigma-Aldrich,ACRO104465000,500 ml,A0463457,0.99,C6.3,C6.3
+284,5003-71-4,3-bromopropylamine hydrobromide,C3H8BrN.BrH,,,,,,,,
+102,109-75-1,3-Butenenitrile,C4H5N,,,,,,,,
+512,927-74-2,3-Butyn-1-ol,C4H6O,,,,,,,,
+333,6276-54-6,3-chloropropan-1-amine hydrochloride,C3H9Cl2N,,Thermo Scientific,162012500,50 g,A0433683,0.98,C4.1,C4.1
+333,6276-54-6,3-chloropropan-1-amine hydrochloride,C3H9Cl2N,,Sigma-Aldrich,142549-50G,50 g,1003683071,0.98,C4.1,C4.1
+333,6276-54-6,3-chloropropan-1-amine hydrochloride,C3H9Cl2N,,BLD pharma,BD21875,4000 g,FGA396,0.98,C4.1,C4.1
+739,n.2,3-Chloropropylamine Hydrochrloride 70%,,,,,,,,,
+689,mixture,3M Adhesive cleaner 08984,,,,,,,,,C8.5
+661,Mixture,"3M™ Hybrid Adhesive Sealant 760, White, Gray and Black",,,,,,,,,C8.5
+239,2638-94-0,"4,4'-Azobis(4-cyanovaleric acid)",C12H16N4O4,,Sigma-Aldrich,11590-25G,25 g,102603190,≥98.0%,F3.1,F3.1
+58,10081-67-1,"4,4-Bis(α,α-dimethylbenzyl)diphenylamine",C30H31N,50001697,Apollo,A5550526,100 g,OR1011281,,C4.1,C4.1
+247,28768-32-3,"4,4'-Methylenebis(N,N-diglycidylaniline",,,,,,,,,
+63,101-68-8,"4,4'-Methylenediphenyl diisocyanate",,,,,,,,,
+64,101-80-4,"4,4'-Oxydianiline",C12H12N2O,,,,,,,,
+238,2628-16-2,4-Acetoxystyrene,,,BLD Pharma,BD93403-100G,100 g,FGV199,0.9902,F1.1,F1.1
+5,6346-09-4,4-Aminobutyraldehyde diethyl acetal,,,,,,,,,
+371,73874-95-0,"4-Aminopiperidine, 4-BOC protected",C10H20N2O2,,,,,,,,
+291,5162-44-7,4-Bromobut-1-ene,BrC4H4,,,,,,,,
+334,628-20-6,4-chlorobutyronitrile,C4H6ClN,,,,,,,,
+138,122413-85-8,"4-Glycidyloxy-2,2,6,6-tetramethylpiperidine 1-oxyl free radical",,,,,,,,,
+733,108-11-2,4-Methyl-2-pentanol,C6H14O,,Sigma-Aldrich,109916-100ML,100 ml,488768,98%,C7.2,C7.2
+91,108-10-1,4-Methyl-2-pentanone,C6H12O,,,,,,,,
+364,70187-32-5,4-Methylmorpholine N-oxide monohydrate,,,Sigma-Aldrich,67873-25G,25 g,102678997,,C8.1,C8.1
+765,622-97-9,4-Methylstyrene,CH3C6H4CH=CH2,,,,,,,,
+520,98-29-3,4-tert-Butylcatechol,C10H14O2,,Thermo Scientific,154351000,100 g,A0464429,0.99,C8.1,C8.1
+520,98-29-3,4-tert-Butylcatechol,C10H14O2,,Thermo Scientific,154351000,100 g,A0436424,0.99,C8.1,C8.1
+202,1592-20-7,4-vinylbenzyl chloride,C9H9Cl,,,,,,,,
+53,100-43-6,4-Vinylpyridine,C7H7N,,,,,,,,
+121,1119-51-3,5-Bromopent-1-ene,C5H9Br,,,,,,,,
+293,5259-98-3,5-Chloro-1-pentanol,C5H11Cl,,Sigma-Aldrich,FLUH99C75067-100G,1 g,FCC32384,90%,C4.4,C4.4
+26,23144-52-7,8-Chloro-1-octanol,C8H19OCl,,Sigma-Aldrich,415693-25ML,25 mL,102714603,0.96,C3.3,C3.3
+716,103-84-4,Acetanilide,CH3CONHC6H5,,Sigma-Aldrich,00401,5g,,99.5%,C4.3,C4.3
+340,64-19-7,Acetic acid,C2H4O2,,Sigma-Aldrich,A6283-1L,1000 ml,1003835182,0.99,C7.2,C7.2
+92,108-24-7,acetic anhydride,C4H6O3,,Thermo Scientific,149490010,1 L,A0444083,0.99,C8.2,C8.2
+351,67-64-1,Acetone,,50001759,Huberlab,211007.0715,5 x 10 L,0002961527,technical,C1.5,C1.5
+380,75-05-8,Acetonitrile,C2H3N,,Sigma-Aldrich,360457-1L,1 L,STBK9226,0.995,C7.2,C7.2
+385,75-36-5,acetyl chloride,C2H3ClO,,Thermo Scientific,151270010,1 L,A0433304,0.98,C7.2,C7.2
+887,123-54-6,Acetylacetone,,50001741,Sigma-Aldrich,1096000100,100 ml,103023094,,C8.2,C8.2
+457,79-06-1,Acrylamide,C3H5NO,,,,,,,,
+458,79-06-1 / 110-26-9,acrylamide/bis-acrylamide 30% sol,C3H5NO,,,,,,,,
+459,79-10-7,Acrylic Acid,,,,,,,,,
+83,107-13-1,Acrylonitrile,C3H3N,,Sigma-Aldrich,320137-1L,1 L,1003651770,0.99,C8.5,C8.5
+83,107-13-1,Acrylonitrile,C3H3N,,Thermo Scientific,149630025,2.5 L,A0449386,0.99,C8.5,C8.5
+83,107-13-1,Acrylonitrile,C3H3N,,Sigma-Aldrich,320137-1L,1 L,S8386934 313,0.99,C8.5,C8.5
+83,107-13-1,Acrylonitrile,C3H3N,,Sigma-Aldrich,320137-1L,1 L,S8386934 313,0.99,C8.4,C8.5
+83,107-13-1,Acrylonitrile,C3H3N,,Sigma-Aldrich,320137-1L,1 L,102688258,0.99,C8.5,C8.5
+654,67762-90-7,"AEROSIL® R 202 - Silicones and siloxanes, dimethyl-, reaction products with silica",,,Evonik,,100,114012932,,C1.1,C1.1
+656,1344-28-1,AEROXIDE® Alu C - Aluminium oxide,Al2O3,,Evonik,,100 g,113120971,,C1.1,C1.1
+655,713508-70-4,"AEROXIDE® Alu C 805 - Silane, trimethoxyoctyl-, reaction products with aluminium oxide",,,Evonik,,100,113110767,,C1.1,C1.1
+696,mixture,Alaska Motorvask Spray,,,,,,,,,C8.5
+889,9005-38-3,Alginic acid sodium salt,(C6H7O7)A(C6H7O7)BNa,50001771,Thermo Scientific,J61887.22,100 g,U19M026,,C3.3,C3.3
+863,"CO2: 124-38-9, N2: 7727-37-9",ALIGAL 13 - 30 % CO2 / 70% N2,CO2 / N2,,,,,,,,
+22,1718-34-9,Alizarin Yello R sodium salt,C13 H8 N3 Na O5,,Thermo Fisher,38707.14,25 g,P21I072,,C4.3,C4.3
+652,Mixture,Alkane standard solution C8-C20,,,Sigma-Aldrich,04070-1ML,1 ml,102809504,,C8.2,C8.5
+39,10017-11-5,Allylamine hydrochloride,C3H8ClN,,Sigma-Aldrich,A1453073-25g,25 g,A14553073-QA4,0.62,C8.2,C8.2
+39,10017-11-5,Allylamine hydrochloride,C3H8ClN,,Fluorochem,F304479,500 g,24-409833-1,,C8.2,C8.2
+375,7446-70-0,aluminium chloride,AlCl3,,,,,,,,
+189,142844-00-6,aluminium oxide 150 basic,Al2O3,,Merck,1.01061.1000,1 kg,TA2077861,,C3.1,C3.1
+646,Mixture,Aluminium Standard Solution / Al Certipur®,,,Sigma-Aldrich,1.19770.0100,100 ml,HC32535870,1000 ppm,C5.2,C8.5
+646,Mixture,Aluminium Standard Solution / Al Certipur®,,,Supelco,1.19812.0500,500 ml,HC31103212,,F3.1,C8.5
+445,7784-31-8,Aluminium sulfate octadecahydrate,Cl2O12S3(H2O)18,,Thermo Scientific,123680010,1000 g,A0450569,,C5.4,C5.4
+217,21645-51-2,Aluminum hydroxide,Al(OH)3,,Sigma-Aldrich,239186,25 g,1003678067,,C3.2,C3.2
+444,7784-27-2,Aluminum nitrate nonahydrate,Al(NO3)3-9H2O,,Sigma-Aldrich,237973-100G,100 g,1003583152,0.98,C6.1,C6.1
+198,15305-07-4,Aluminum N-nitrosophenylhydroxylamine,C18H15AlN6O6,,,,,,,,
+169,1344-28-1,Aluminum oxide,,,Sigma-Aldrich,199443,1000g,102732806,,C4.1,C1.1
+680,197809-12-4,"Amberlite HPR900, OH form",,,Thermo Scientific,301345000,500 g,A0452442,,C6.1,C6.1
+508,9052-45-3,AmberLite MAC-3 H Cation exchange resin,,,Sigma-Aldrich,546 976-250g,250 g,MKCP2019,,C4.3,C4.3
+507,9050-97-9,Amberlite™ IRA-900 Ion Exchange Resin chloride form,,,Sigma-Aldrich,216585-500G,500 g,MKCN4673,,C4.3,C4.3
+507,9050-97-9,Amberlite™ IRA-900 Ion Exchange Resin chloride form,,,Sigma-Aldrich,216585-500G,500 g,MKCR7084,,C4.3,C4.3
+267,37264-66-7,Amberlite™ IRA910 Ion Exchange Resin,,,Sigma-Aldrich,06457-1KG,1 kg,BCCH7388,,C6.4,C6.4
+267,37264-66-7,Amberlite™ IRA910 Ion Exchange Resin,,,Sigma-Aldrich,06457-1KG,1 kg,102773942,,C6.4,C6.4
+455,78-96-6,Amino-2-propanol,C3H9NO,,Sigma-Aldrich,110248-1L,1 L,102712421,0.93,C6.3,C6.3
+455,78-96-6,Amino-2-propanol,C3H9NO,,Sigma-Aldrich,95343-500MG,0.5 g,102920676,,F2.2,C6.3
+341,645-36-3,Aminoacetaldehyde diethyl acetal,C6H15NO2,,,,,,,,
+179,13774-81-7,Ammonia Borane complex,BH3NH3,,,,,,,,
+416,7664-41-7,Ammonia in methanol,NH3,,,,,,,,
+164,1336-21-6,ammonia sol. 25%,NH4,,Merck,1.0542.1011,1 L,K53071032105,For analysis,C6.3,C6.3
+164,1336-21-6,ammonia sol. 25%,NH4,,Merck,1.0542.1011,1 L,K53892732146,For analysis,C6.3,C6.3
+336,631-61-8,ammonium acetate,C2H4O2H3N,,Sigma-Aldrich,A7330-100G,100 g,102538796,0.98,C3.1,C3.1
+78,1066-33-7,ammonium bicarbonate,CH5NO3,,Acros Organics,393212500,250 g,A0426532,0.99,C4.3,C4.3
+288,506-87-6,Ammonium carbonate,(NH4)2CO3,,Sigma-Aldrich,207861-100G,100 g,1003659287,>30% NH3 basis,C3.2,C3.2
+136,12125-02-9,Ammonium chloride,NH4Cl,,Sigma-Aldrich,A4514-1KG,1000 g,1003616016,0.995,C4.2,C4.2
+136,12125-02-9,Ammonium chloride,NH4Cl,,Sigma-Aldrich,213330-500G,500 g,BCCJ1357,0.995,C4.2,C4.2
+136,12125-02-9,Ammonium chloride,NH4Cl,,Sigma-Aldrich,A45514-100G,100 g,SLBT1045,0.995,C4.2,C4.2
+298,540-69-2,Ammonium formate,HCO2NH4,,,,,,,,
+165,1336-21-6,ammonium hydroxide 20%,H5NO,,Thermo Scientific,390070010,1 L,AD436539,,C6.3,C6.3
+443,7783-83-7,ammonium iron(III) sulphate dodecahydrate,(NH₄)Fe(SO₄)₂.12H₂O,,VWR,21094.233,250 g,21I154126,,C4.2,C4.2
+430,7727-54-0,Ammonium persulfate,,,Sigma-Aldrich,248614-100G,100 g,102920135,0.98,C2.1,C2.1
+528,Mixture,Ammonium Standard Solution,NH3,,Sigma-Aldrich,1.25025.0100,100 ml,HC17263025,6mg/l,C3.3,C8.5
+442,7783-20-2,Ammonium sulfate,(NH4)2SO4,,,,,,,,
+57,100-66-3,Anisole,C7H8O,,,,,,,,
+13,10025-91-9,Antimony(III) chloride,SbCl3,,Sigma-Aldrich,311375-100G,100 g,102759051,0.99,C6.1,C6.1
+698,Mixture,Anti-Seize Montagepaste - Weicon,,,,,,,,,C8.5
+715,Mixture,Aquastar Water standard 1% Certified Reference Material for KF,,,Merk,1.88052,1 g,HC56748752,0.01,C7.1,C8.5
+859,1668-00-4,Arsenazo(III),,,,,,,,,
+285,503-29-7,Azetidine,C2H5N,,TCI,A3257,1 g,NSPHI-QJ,0.98,F2.1,F2.1
+71,10361-37-2,Barium chloride,BaCl2,,,,,,,,
+56,100-52-7,benzaldehyde,C7H6O,,,,,,,,
+650,63449-41-2,Benzalkonium chloride,,,Sigma-Aldrich,12060-100G,100 g,102788946,,C5.4,C5.4
+305,55-21-0,Benzamide,C7H7NO,,,,,,,,
+864,98-09-9,Benzenesulfonyl chloride,C6H5ClO2S,,Sigma-Aldrich,8.00470.0500,100 ml,S8468270 412,,C5.2,C5.2
+515,94-36-0,benzoyl peroxide 75%,C14H10O4,,Sigma-Aldrich,8.01641.0250,250 g,S8297041,0.75,F2.1,F2.1
+515,94-36-0,benzoyl peroxide 75%,C14H10O4,,Sigma-Aldrich,8.01641.0100,100 g,1003918034,0.75,F2.1,F2.1
+54,100-46-9,benzylamine,C7H9N,,Thermo Scientific,105851000,100 mL,A0439166,0.99,C6.3,C6.3
+763,100-53-8,Benzylmercaptan,C7H8S,,,,,,,,
+313,56-93-9,Benzyltrimethylammonium chloride,C10H16ClN,,Sigma-Aldrich,228982-250G,250 g,102723737,0.97,C8.1,C8.1
+648,590-46-5,Betaine hydrochloride,,,Sigma-Aldrich,B3501-250G,250 g,1003724760,0.99,C5.1,C5.1
+708,821-48-7,Bis(2-chloroethyl)amine hydrochloride,,,Sigma-Aldrich,B38503-100G,100 g,102845801,,C5.4,C5.4
+309,56-18-8,Bis(3-aminopropyl)amine,C6H17N3,,,,,,,,
+14,10035-06-0,Bismuth(III) nitrate pentahydrate,Bi(NO3)3 · 5H2O,,Sigma-Aldrich,248592-100G,100 g,1003687720,0.98,C2.1,C2.1
+205,1675-54-3,Bisphenol A diglycidyl ether,C21H24O4,,,,,,,,
+201,15761-38-3,Boc-Ala-OH,C8H15NO4,,,,,,,,
+317,57294-38-9,Boc-GABA-OH,,,,,,,,,
+275,4530-20-5,Boc-Gly-OH,,,,,,,,,
+178,13734-41-3,Boc-Val-OH,,,,,,,,,
+259,3303-84-2,Boc-β-Ala-OH,,,,,,,,,
+183,109-99-9/14044-65-6,Boran tetrahydrofuran complex solution,C4H11BO,,,,,,,,
+162,13292-87-0,Borane dimethyl sulfide complex solution,C2H9BS,,,,,,,,
+15,10043-35-3,Boric acid,H3BO3,,Sigma-Aldrich,B0394-100G,100 g,0000365065,0.995,C8.1,C8.1
+15,10043-35-3,Boric acid,H3BO3,,Sigma-Aldrich,B0394-100G,100 g,SLCQ2868,0.995,C8.1,C8.1
+99,109-63-7,Boron trifluoride diethyl etherate,BF3 C4H10O,,,,,,,,
+492,9002-92-0,Brij L23,(C2H4O)nC12H26O,,,,,,,,
+262,34722-90-2,Bromothymol Blue sodium salt,C27H27BrNaO5S,,Sigma-Aldrich,114421-5g,5 g,SHBQ0931,,C3.2,C3.2
+679,Mixture,Busch VM100,,,,,,,,,C8.5
+481,88211-50-1,But-3-yn-1-amine hydrochloride,,,,,,,,,
+184,141-32-2,Butylacrylate,,,,,,,,,
+228,25013-16-5,Butylated hydroxyanisole,C11H16O2,,,,,,,,
+277,471-34-1,Calcium Carbonate,,,Sigma-Aldrich,310034-500G,500 g,1003821270,0.98,C6.1,C6.1
+52,10043-52-4,calcium chloride,CaCl2,,Roth,CN92.2,1 Kg,260297236,0.96,C4.2,C4.2
+52,10043-52-4,calcium chloride,CaCl2,,Sigma-Aldrich,746495-100G,100 g,SLBN4504V,0.97,C4.2,C4.2
+52,10043-52-4,calcium chloride,CaCl2,,Roth,1C34.1,1000 g,194348800,0.95,C4.2,C4.2
+768,1305-62-0,Calcium hydroxide,Ca(OH)2,,Sigma-Aldrich,239232-100G,100 g,1003771647,95,C6.1,C6.1
+173,13477-34-4,Calcium nitrate tetrahydrate,Ca(NO3)2*4H2O,,Sigma-Aldrich,237124-500G,500 g,1003725450,0.99,C6.1,C6.1
+320,5794-28-5,Calcium oxalate monohydrate,CaCO4*H2O,,,,,,,,
+163,1333-86-4,"Carbon black, acetylene",,,,,,,,,
+310,56-23-5,Carbon tetrachloride,CCl4,,,,,,,,
+135,120-80-9,Catechol,C6H6O2,,,,,,,,
+294,530-62-1,"CDI (1,1'- carbonyldiimidazole)",,,,,,,,,
+499,9004-62-0,Cellosize QP-4400H Hydroxy ethyl cellulose,n/A,,Dow Chemicals,00000167222,250 g,F203M5526,0.8,C3.2,C3.2
+499,9004-62-0,Cellosize QP-4400H Hydroxy ethyl cellulose,n/A,,Sigma-Aldrich,8.22068.0500,500 g,S78359568 234,,C3.2,C3.2
+498,9004-34-6,cellulose microcrystalline,(C6H10O5)n,,Merck,1.02331.0500,500 g,K41278431,,C3.2,C3.2
+757,n.a,Cellulose Thimble,,,Supelco,64840-U,80Pc,193841,,C3.2,C3.2
+17,10294-41-4,Cerium(III) nitrate hexahydrate,CeN3O9*6H2O,50001703,Thermo Scientific,218695000,500 g,A0480230,0.99,C2.1,C2.1
+17,10294-41-4,Cerium(III) nitrate hexahydrate,CeN3O9*6H2O,50001703,Thermo Scientific,011329.A1,1000 g,T01K024,0.995,C2.1,C2.1
+17,10294-41-4,Cerium(III) nitrate hexahydrate,CeN3O9*6H2O,50001703,Thermo Scientific,011329-A1,5 x 1000 g,62600055,0.995,C2.1,C2.1
+876,13590-82-4,Cerium(IV) sulfate,CeO8S2,,Sigma-Aldrich,359099-100G,100 g,102998154,,C4.3,C4.3
+123,112-02-7,Cetyltrimethylammonium chloride solution,,,Sigma-Aldrich,292737-500ML,500 ml,102678780,,C5.2,C5.2
+123,112-02-7,Cetyltrimethylammonium chloride solution,,,Sigma-Aldrich,292737-25ML,25 ml,102806053,,C5.2,C5.2
+681,999-81-5,Chlormequatchlorid,C5 H13 Cl2 N,,Thermo Scientific,2154210000,100 g,A0459883,0.98,C8.1,C8.1
+87,107-30-2,Chlormethylmethylether,C2H5ClO,,,,,,,,
+872,79-11-8,Chloroacetic acid,,,Sigma-Aldrich,8004121000,500 g,102872459,,C8.3,C8.3
+84,107-14-2,Chloroacetonitrile,C2H2ClN,,,,,,,,
+456,79-04-9,Chloroacetyl chloride,C2H2Cl2O,,,,,,,,
+96,108-90-7,Chlorobenzene,C6H5Cl,,,,,,,,
+352,67-66-3,Chloroform,CHCl3,,Honeywell,C2432-2.5L,2.5 L,N0600,0.995,C8.3,C8.3
+447,7790-94-5,chlorosulfonic acid,HClO3S,,Sigma-Aldrich,8.00220.1000,1 L,S8270220,,C5.5,C5.5
+392,75-77-4,Chlorotrimethylsilane,ClSI(CH3)3,,,,,,,,
+8,7789-02-8,Chromium(III)nitrate nonahydrate,,,Sigma-Aldrich,239259-100G,100 g,102681504,0.99,C2.1,C2.1
+326,5949-29-1,Citric acid monohydrate,C6H8O7.H2O,50001756,Sigma-Aldrich,C7129-1KG,1000 g,102703306,0.98,C4.3,C4.3
+326,5949-29-1,Citric acid monohydrate,C6H8O7.H2O,50001756,Sigma-Aldrich,C7129-1KG,1000 g,103049043,0.98,C4.3,C4.3
+43,10026-22-9,Cobalt(II) nitrate hexahydrate,,,Sigma-Aldrich,230375-100G,100 g,102676614,0.98,C2.1,C2.1
+479,871658-67-2,Co-MOF-74,Co2C8O6H2,,,,,,,,
+376,7447-39-4,Copper(II) chloride,CuCl2,,Sigma-Aldrich,222011-1KG,1 kg,BCCK1890,97,C5.4,C5.4
+376,7447-39-4,Copper(II) chloride,CuCl2,,Sigma-Aldrich,222011,50 g,bcbt2964,0.97,C5.4,C5.4
+45,10031-43-3,copper(II) nitrate trihydrate,,,Sigma-Aldrich,61197-250G,250 g,BCCJ7372,,C2.1,C2.1
+435,7758-98-7,Copper(II) sulfate,CuSO4,,Sigma-Aldrich,61230-100G-F,100 g,102648561,0.99,C5.4,C5.4
+168,13426-91-0,Copper(II)-ethylenediamine complex,C4H18CuN4O2,,Thermo Fisher,460680010,1000 ml,A0462327,1M,C6.3,C6.3
+278,4786-20-3,Crotononitril,,,,,,,,,
+176,135-20-6,Cupferron,C6H9N3O2,,,,,,,,
+93,108-77-0,Cyanuric chloride,C3Cl3N3,,,,,,,,
+112,110-82-7,Cyclohexane,C6H12,,Sigma-Aldrich,179191-1L,1 L,102580500,0.99,C7.4,C7.4
+112,110-82-7,Cyclohexane,C6H12,,Sigma-Aldrich,227048-2L,2 L,102580500,0.995,C7.4,C7.4
+97,108-93-0,Cyclohexanol,C6H12O,,Sigma-Aldrich,105899-2.5L,2.5 L,102590519,0.99,C4.4,C4.4
+199,156-57-0,Cysteamine hydrochloride,C2H7NS HCl,,Sigma-Aldrich,M6500-100g,100 g,102531294,0.98,F3.1,F3.1
+529,26142-30-3,D.E.R. 732 Epoxy Resin,,,,,,,,,
+296,538-75-0,DCC (Dicyclohexylcarbodiimide),C13H22N2,,,,,,,,
+510,91-17-8,Decahydronaphtalene,C10H18,,,,,,,,
+300,541-02-6,decamethylcyclopentasiloxane,C10H30O5Si5,,,,,,,,
+180,138-14-7,Deferoxamine mesylate salt,C25H48N6O8 · CH4O3S,,,,,,,,
+677,Mixture,Deltron D835 Hardener DP402,,,PPG,842321,3L,2403800527,,MHL,C8.5
+530,68412-01-1,Denacol,,,,,,,,,
+134,1187-42-4,Diaminomaleonitrile,,,,,,,,,
+736,74-95-3,Dibromomethane,CH2Br2,,Sigma-Aldrich,D41686-500ml,500 ml,1003747489,99%,C4.4,C4.4
+393,75-78-5,dichlorodimethylsilane,C2H6Cl2Si,,,,,,,,
+381,75-09-2,Dichloromethane,,,VWR,23373.32,2.5 L,23E174007,0.99,C8.3,C8.3
+381,75-09-2,Dichloromethane,,,Acros Organics,326850010,1 L,2171379,0.999,C8.3,C8.3
+381,75-09-2,Dichloromethane,,,Sigma-Aldrich,34856-2.5L,2.5 L,SDBB9349,0.999,C8.4,C8.3
+18,111-42-2,Diethanolamine,C4H11NO2,,Sigma-Aldrich,8031161000,1000 ml,S8566216 439,,C8.2,C8.2
+256,3167-63-3,Diethyl (chloromethyl)phosphonate,C?H??ClO?P,,,,,,,,
+232,2537-48-6,Diethyl (cyanomethyl)phosphonate,C?H??NO?P,,,,,,,,
+328,60-29-7,Diethyl ether,(CH2H5)2O,,Sigma-Aldrich,1.00921.1000,1000 ml,K54909121 306,,C7.2,C7.2
+328,60-29-7,Diethyl ether,(CH2H5)2O,,Sigma-Aldrich,1.00931.1000,1 L,SHBQ6969,,C7.2,C7.2
+472,84-66-2,Diethyl phthalate,,,,,,,,,
+665,109-89-7,Diethylamine,C4H11N,,Sigma-Aldrich,31730-250ML,250 ml,102854451,0.995,C8.2,C8.2
+345,660-68-4,Diethylammonium chloride,C4H12ClN,,Sigma-Aldrich,8.20393.0250,250 g,S8210893 306,,C8.1,C8.1
+116,111-46-6,diethylene glycol,C4H10O3,,,,,,,,
+415,764-99-8,Diethylene glycol divinyl ether,C8H14O3,,,,,,,,
+119,111-77-3,diethylene glycol methyl ether,C5H12O3,,Sigma-Aldrich,579548-4L,4 L,MKCN9694,0.99,C7.3,C7.3
+115,111-40-0,diethylenetriamine,C4H13N3,,Sigma-Aldrich,D93856-100ML,100 mL,STBJ5524,0.99,F2.2,F2.2
+353,67-68-5,dimethyl sulfoxide,C2H6OS,,Sigma-Aldrich,472301-1L,1 L,SHBQ5127,0.999,C3.3,C3.3
+287,506-59-2,Dimethylamine hydrochloride,,,Sigma-Aldrich,126365-100G,100 g,102580219,0.99,C4.3,C4.3
+666,204-697-4,Dimethylamine solution in Methanol,C2H7N,,Sigma-Aldrich,388246-25ML,25 ml,1003700905,,C8.2,C8.2
+132,117-81-7,Dioctyl phthalate,C24H38O4,,,,,,,,
+471,838-85-7,Diphenyl hydrogen phosphate,,,,,,,,,
+651,16788-57-1,Dipotassium hydrogen phosphate trihydrate,K₂HPO₄·3H₂O,,VWR,191432,100 g,U1125120088,,C3.2,C3.2
+651,16788-57-1,Dipotassium hydrogen phosphate trihydrate,K₂HPO₄·3H₂O,,Sigma-Aldrich,P5504-100g,100 g,102810423,,C3.2,C3.2
+190,142-84-7,Dipropylamin,(CH3CH2CH2)2NH,,Sigma-Aldrich,D214752,500 ml,102626633,99,C8.3,C8.3
+48,10039-32-4,di-Sodium hydrogen phosphate dodecanhydrate,Na2HPO4*12H2O,,Carl Roth,N350.1,1 kg,173321958,0.99,c3.1,c3.1
+131,117499-16-8,"Di-tert-butyl (azanediylbis(ethane-2,1-diyl)dicarbamate",,,,,,,,,
+470,82409-02-7,"Di-tert-butyl (azanediylbis(propane-3,1-diyl)dicarbamate",,,,,,,,,
+224,24424-99-5,Di-tert-butyl pyrocarbonate,,,,,,,,,
+161,1321-74-0,Divinylbenzene,C10H10,,Sigma-Aldrich,169099,250 ml,1003727348,0.55,F3.1,F3.2
+161,1321-74-0,Divinylbenzene,C10H10,,Sigma-Aldrich,414565-1L,1 L,MKCR1486,0.8,F3.1,F3.2
+161,1321-74-0,Divinylbenzene,C10H10,,Thermo Scientific,42805,250 g,Q30E042,0.55,F3.1,F3.2
+161,1321-74-0,Divinylbenzene,C10H10,,Sigma-Aldrich,8035981000,1000 ml,S8518998 410,,F3.2,F3.2
+161,1321-74-0,Divinylbenzene,C10H10,,Sigma-Aldrich,8.03598.025,1 L,S8518998 410,0.6,F3.2,F3.2
+161,1321-74-0,Divinylbenzene,C10H10,,Sigma-Aldrich,8035981000,1L,102901291,,F3.2,F3.2
+161,1321-74-0,Divinylbenzene,C10H10,,Sigma-Aldrich,414565-1L,1L,102579953,0.8,F3.2,F3.2
+125,1122-58-3,DMAP,C7H10N2,,,,,,,,
+196,151-21-3,dodecyl sulfate sodium salt,C12H25NaO4S,,Sigma-Aldrich,8.22050.0100,100 g,S8289050,,C7.1,C7.1
+145,124-22-1,dodecylamine,C12H27N,,Acros Organics,117661000,100 g,A0402181,0.98,C8.1,C8.1
+758,n.a.,DPPH Antioxidant Assay Kit,,,Dojindo,D678,100 tests,HD852,,F4,F4
+531,n-a,Emal E-27C,,,,,,,,,
+532,Mixture,EPA 524 Surrogate Standard Mix,,,Sigma-Aldrich,48466,1 ml,LRAC9609,,F2,C8.5
+533,Mixture,EPA 8240 Calibration Mix,,,Sigma-Aldrich,47364,1 ml,LRAD0596,,F2.2,C8.5
+534,Mixture,EPA VOC Mix 1,,,,,,,,,C8.5
+535,"7-56-1, 108-88-3, 71-43-2, 91-20-3, 99-87-6, 100-42-5, 87-61-6",EPA VOC Mix 2,,,Sigma-Aldrich,CRM48777,1 mL,LRAD8577,,F2.2,F2.2
+535,"7-56-1, 108-88-3, 71-43-2, 91-20-3, 99-87-6, 100-42-5, 87-61-6",EPA VOC Mix 2,,,Sigma-Aldrich,CRM48777,1 ml,LRAD9688,,F2.2,F2.2
+719,106899-94-9,"Epomin SP-006, SP-0012, SP-018",,,Nippon Shokubai CO.LTD.,SP-012,1000,4I04K1,,C6.2,C6.2
+719,106899-94-9,"Epomin SP-006, SP-0012, SP-018",,,Nippon Shokubai CO.LTD.,SP-018,1000,4I19K1,,C6.2,C6.2
+719,106899-94-9,"Epomin SP-006, SP-0012, SP-018",,,Nippon Shokubai CO.LTD.,SP-006,1000,4I17K1,,C6.2,C6.2
+521,n/a,Epoxyharz,,,,,,,,,C7.3
+212,1787-61-7,eriochrome black T,C20H13N3O7SNa,,,,,,,,
+338,64-17-5,Ethanol,C2H5OH,70000140,Sigma-Aldrich,1.00983.2500,2.5 L,I1350683 425,0.99,C7.3,C7.3
+338,64-17-5,Ethanol,C2H5OH,70000140,Sigma-Aldrich,1.08543.0250,250 ml,I1218843 229,,C7.3,C7.3
+338,64-17-5,Ethanol,C2H5OH,70000140,Sigma-Aldrich,1.00983.2500,2500 ml,I1490883618,,C7.3,C7.3
+675,64-17-5,Ethanol (Feinsprit / Industriesprit),C2H5OH,70000140,,,,,,,C7.3
+185,141-43-5,Ethanolamine,C2H7NO,,Sigma-Aldrich,E9508-500ML,500 ml,1003641722,0.98,C6.3,C6.3
+214,2002-24-6,ethanolamine hydrochloride,C2H7NO.HCl,,Sigma-Aldrich,E6133-100G,100 g,1003415721,0.99,C4.2,C4.2
+186,141-78-6,Ethyl acetate,CH3COOC2H5,,Roth,4442.1,2500 ml,041123CR,0.998,,C1.3
+186,141-78-6,Ethyl acetate,CH3COOC2H5,,Thermo Scientific,149470050,5000 ml,2412165,0.99,C1.3,C1.3
+668,75-04-7,Ethylamine aqueous solution,,,,,,,,,F2.2
+379,75-04-7,Ethylamine Solution in Methanol,C2H7N,,Sigma-Aldrich,395064-100ML,100 ml,1003738072,,F2.2,F2.2
+307,557-66-4,Ethylammonium chloride,C2H8ClN,,Sigma-Aldrich,8.00874.0250,250 g,S8202774 313,,C3.3,C3.3
+50,100-41-4,Ethylbenzene,,,,,,,,,
+86,107-21-1,ethylene glycol,C2H6O2,,VWR,24407.326,2.5 L,20D274001,0.98,C8.2,C8.2
+118,111-76-2,Ethylene glycol butyl ether,C6H14O2,,Sigma-Aldrich,53755-1L-A,1 L,1003525462,0.99,C4.4,C4.4
+519,97-90-5,Ethylene Glycol Dimethylmethacrylate,C10H14O4,,,,,,,,
+76,10595-06-9,Ethylene glycol phenyl ether methacrylate,,,,,,,,,
+85,107-15-3,ethylenediamine,C2H8N2,,Sigma-Aldrich,8.00947.0500,500 mL,S6039247,,,C8.2
+85,107-15-3,ethylenediamine,C2H8N2,,Sigma-Aldrich,8.00947.0500,500 mL,S8314547 330,,C8.2,C8.2
+191,1429-50-1,ethylenediaminetetra(methylenephosphonic acid),C6H20N2O12P4,,,,,,,,
+72,10378-23-1,ethylenediaminetetraacetic acid tetrasodium salt dihydrate,C10H12N2Na4O8.2H2O,,,,,,,,
+221,23911-25-3,Ethylenediaminetetraacetic dianhydride,,,,,,,,,
+886,mixture,Falcosil N-Plus,,,,,,,,,C8.5
+664,2338-05-8,Fe(III)citrate monohydrate,,,,,,,,,
+743,-,Ferric Nitrate 38%,-,,Cromogenia,,1 L,,38%,C5.3,C5.3
+687,Mixture,Flawfinder Dye Penetrant Spray,,,,,,,,,C8.5
+868,28920-43-6,Fmoc chloride,C15H11ClO2,,Sigma-Aldrich,23186,1 g,BCCM7018,0.99,F2.1,F2.1
+215,200336-86-3,Fmoc-Asp(O-2-PhiPr)-OH,,,,,,,,,
+104,109-87-5,formaldehyde dimethyl acetal,C3H8O2,,,,,,,,
+283,50-00-0,Formaldehyde solution,,,Roth,4235.1,1L,373341389,0.3,C8.2,C8.2
+339,64-18-6,Formic acid,CH2O2,,Sigma-Aldrich,F0507-1L,1000 ml,1003690555,95,C8.2,C8.2
+402,764-42-1,Fumaronitile,C4H2N2,,,,,,,,
+24,19598-90-4,Gadolinium(III) nitrate hexahydrate,Gd(NO3)3*6H2O,,Sigma-Aldrich,211591-25G,25 g,1003754679,0.999,C2.1,C2.1
+195,149-91-7,Gallic acid,C7H6O5,,,,,,,,
+634,mixture,Gas mixture - 50 ppm NH₃ in N₂ calibration gas,,,,,,,,,C8.5
+869,"124-38-9, 7727-37-9",Gas Mixture 450ppm CO2 in N2,,,,,,,,,
+485,9000-70-8,Gelatin from cold water fish skin,,,,,,,,,C3.1
+486,9000-70-8,Gelatine,,,Merck,1.04078.1000,1 kg,K51538478 036,,C3.1,C3.1
+486,9000-70-8,Gelatine,,,Merck,1.04078.1000,1 kg,K54272678 229,,C3.1,C3.1
+487,9000-70-8,Gelatine from bovine skin,,,Sigma-Aldrich,G9391-100G,100 g,0000271353,,3.1,C3.1
+487,9000-70-8,Gelatine from bovine skin,,,Sigma-Aldrich,G9391-500G,100 g,0000271354,,3.1,C3.1
+488,9000-70-8,Gelatine from porcine skin,,,Sigma-Aldrich,G2500-100G,100 g,1003615925,,C3.1,C3.1
+488,9000-70-8,Gelatine from porcine skin,,,Sigma-Aldrich,G2500-500G,500 g,0000284205,,C3.1,C3.1
+699,mixture,Gleitmo 805,,,,,,,,,C8.5
+312,56-81-5,glycerol,C3H8O3,,Sigma-Aldrich,15523-1L-R,1 L,STBJ3477,0.99,C3.3,C3.3
+203,15965-99-8,Glycidyl hexadecyl ether,C19H38O2,,Sigma-Aldrich,473642-50G,50g,102740297,,C4.3,C4.3
+80,106-91-2,glycidyl methacrylate,C7H10O3,,Sigma-Aldrich,151238-100G,100 g,102814420,0.97,F2.2,F2.2
+29,56-40-6,Glycine,C2H5NO2,,Sigma-Aldrich,1005900001,1 kg,,,C3.5,C3.5
+688,Mixture,Gorilla Super Glue Gel,,,,,,,,,C8.5
+861,50-01-1,Guanidine hydrochloride,,,Sigma-Aldrich,50950-250G,250 g,102968175,0.98,C4.2,C4.2
+38,9000-01-5,Gum arabic from acacia tree,,,,,,,,,
+690,mixture,Hammerite - Metal paint - Hammerred black,,,,,,,,,C8.5
+355,68083-14-7,heating bath fluid ROTITHERM® H 250,n/a,,Roth,1670.1,1 L,103310618,,C3.5,C3.5
+335,63148-62-9,"Heizbadflüssigkeit ROTITHERM® M 150, 5 l",,,Carl Roth,990.2,5000 ml,284349103,,C3.5,C3.5
+878,7440-59-7,Helium,,,,,,,,,
+314,57-09-0,hexadecyltrimethylammonium bromide,C19H42NBr,,,,,,,,
+143,124-09-4,Hexamethylenediamine,C6H16N2,,Sigma-Aldrich,H11696-500G,500 g,STBL1866,0.98,C6.4,C6.4
+143,124-09-4,Hexamethylenediamine,C6H16N2,,Sigma-Aldrich,H11696-500G,500 g,STBL1866,0.98,,C6.4
+59,100-97-0,hexamethylenetetramine,C6H12N4,,Sigma-Aldrich,8.18712.5000,5 kg,S8076812 110,,C7.1,C7.1
+109,110-54-3,hexane,C6H14,,Carl Roth,T861.1,2.5 L,016725CR,99,C7.4,C7.4
+759,n.a.,High temperature sealing grease,n.a.,,,,,,,,F4
+737,Mixture,Humidisorb Plus X-Corrode Packets,,,,,,,,,C8.5
+713,Mixture,Hydranal - Methanol Rapid,,,Honeywell,37817-500ml,500 ml,m1580,,C8.5,C8.5
+67,10217-52-4,Hydrazin hydrate,H4N4.xH2O,,,,,,,,
+450,7803-57-8,hydrazine monohydrate,N2H4,,,,,,,,
+47,10035-10-6,hydrobromic acid 48%,HBr,,,,,,,,
+408,7647-01-0,Hydrochloric acid 0.1 M,HCl,,VWR,1.09060.4000,4000 ml,HC45061560,0.1 M,C5.3,C5.3
+409,7647-01-0,Hydrochloric acid 0.5 M,HCl,,,,,,,,C5.3
+410,7647-01-0,Hydrochloric acid 1.0 M,HCl,,,,,,,,C5.3
+411,7647-01-0,Hydrochloric acid 25%,HCl,,Sigma-Aldrich,1.00316.1011,1 L,Z1040416 551,0.25,C5.3,C5.3
+413,7647-01-0,Hydrogen chloride solution,HCl,,,,,,,,C5.3
+427,7722-84-1,hydrogen peroxide,H2O2,50001780,Sigma-Aldrich,1.08600.1000,1000 g,57318200638,0.35,F3.1,F3.1
+140,123-31-9,Hydroquinone,C6H6O2,,,,,,,,
+151,1306-06-5,Hydroxyapatite,,,,,,,,,
+4,5470-11-1,Hydroxylamine hydrochloride,H2NOH.HCl,,,,,,,,
+493,9002-93-1,IGEPAL CA-630,,,Sigma-Aldrich,I3021-100ML,100 ml,102687212,,C6.3,C6.3
+248,288-32-4,Imidazole,C3H4N2,,Thermo Scientific,122025000,500 g,A0462504,99,C8.1,C8.1
+187,142-73-4,iminodiacetic acid,C4H7NO4,,,,,,,,
+475,860-22-0,Indigo Carmine analytical reagent,C16H8N2Na2O8S2,,,,,,,,
+558,Mixture,Interflon Lube TF Aerosol,,,,,,,,,C8.5
+700,74-88-4,Iodomethane,CH3I,,Sigma-Aldrich,289566-100G,100g,102857390,,F2.2,F2.2
+439,7782-61-8,Iron standard for ICP,FeNO3,,Sigma-Aldrich,56209-100ML,100 mL,56209-100ML,10 g/L,C5.2,C6.4
+175,13478-10-9,iron(II) chloride tetrahydrate,Cl2Fe.4H2O,,Sigma-Aldrich,220299-250G,250 g,STBH1841,0.98,C5.4,C5.4
+441,7782-63-0,iron(II) sulfate heptahydrate,FeO4S.7H2O,,Sigma-Aldrich,215422-250G,250 g,MKCG4978,0.99,C4.3,C4.3
+891,14024-18-1,Iron(III) acetylacetonate,Fe(C5H7O2)3,,Sigma-Aldrich,F380-25G,25 g,1003804638,0.97,C5.2,C5.2
+423,7705-08-0,iron(III) chloride,Cl3Fe,,Fisher Scientific,I/1035/50,250 g,2213859,0.97,C5.4,C5.4
+423,7705-08-0,iron(III) chloride,Cl3Fe,,Sigma-Aldrich,157740-100G,100 g,STBK3467,0.97,C5.4,C5.4
+423,7705-08-0,iron(III) chloride,Cl3Fe,,Sigma-Aldrich,157740-1KG,1000 g,102708262,97,C5.4,C5.4
+423,7705-08-0,iron(III) chloride,Cl3Fe,,Sigma-Aldrich,157740-2.5KG,2.5 Kg,102837302,0.97,C5.4,C5.4
+424,7705-08-0,iron(III) chloride 40%,Cl3Fe,,,,,,,,C5.4
+440,7782-61-8,Iron(III) nitrate nonahydrate,Fe(NO3)3�� 9H2O,,Sigma-Aldrich,216828-1KG,1 kg,1003682209,0.98,C6.4,C6.4
+440,7782-61-8,Iron(III) nitrate nonahydrate,Fe(NO3)3�� 9H2O,,Sigma-Aldrich,216828-2.5KG,2.5 kg,1003716104,0.98,C6.4,C6.4
+440,7782-61-8,Iron(III) nitrate nonahydrate,Fe(NO3)3�� 9H2O,,Cromogenia,,,260225,,C2.1,C6.4
+197,15244-10-7,iron(III) sulfate hydrate,Fe2O12S3.xH2O,,Sigma-Aldrich,307718-500G,500 g,102933453,0.97,C5.4,C5.4
+197,15244-10-7,iron(III) sulfate hydrate,Fe2O12S3.xH2O,,chemira,2028.11,100 g,B.213316,,C5.4,C5.4
+770,123-92-2,Isoamyl acetate,,,,,,,,,
+141,123-51-3,Isoamyl alcohol,,,,,,,,,
+323,5888-33-5,Isobornyl acrylate,,,,,,,,,
+453,78-83-1,Isobutanol,C4H10O,,VWR,20833.297,1000 ml,24E244005,0.996,C7.2,C7.2
+453,78-83-1,Isobutanol,C4H10O,,Roth,CP09.1,1L,135370023,0.99,C7.2,C7.2
+453,78-83-1,Isobutanol,C4H10O,,Roth,CP09.1,1 L,475383688,0.99,C7.2,C7.2
+257,31807-55-3,Isododecane,,50001881,Thermo Scientific,A14235,500 ml,61700402,0.8,C8.3,C8.3
+257,31807-55-3,Isododecane,,50001881,Thermo Fisher,A14235.AP,500 ml,A14235.AP402,0.8,C8.3,C8.3
+257,31807-55-3,Isododecane,,50001881,Thermo Fisher,A14235.AP,500 ml,10229352,0.8,C8.3,C8.3
+522,n/a,Isopar L flame fluid,,,Magic FX,MFX3086,5 L,,,C7.3,C7.3
+384,75-31-0,isopropylamine,,,,,,,,,
+717,Mixture,Julabo Thermal H10,,,Julabo,,5000,,,F3 Hood,C8.5
+697,Mixture,K2 - Contact Spray,,,,,,,,,C8.5
+465,8008-20-6,kerosene,n/a,,Sigma-Aldrich,329460-3.8L,3.8 L,MKCN0698,,C7.3,C7.3
+536,Mixture,KF Aquastar Solvent,,,Sigma-Aldrich,1.88015.1000,1000 ml,HX45374915,,C8.5,C8.5
+536,Mixture,KF Aquastar Solvent,,,Sigma-Aldrich,1.88015.1000,1000 ml,HX57077215,,C8.5,C8.5
+536,Mixture,KF Aquastar Solvent,,,Sigma-Aldrich,1.88015.1000,1000 ml,HX58052415,,C8.5,C8.5
+536,Mixture,KF Aquastar Solvent,,,Sigma-Aldrich,1.88015.1000,1000 ml,HX68475315,,C8.5,C8.5
+537,mixture,KF Aquastar Titrant 5,,,Sigma-Aldrich,1.88010.1000,1000 ml,HX45260110,,C8.5,C8.5
+538,mixture,KF Hydranal Composite 5,,,Honeywell,34805-500ML,500 ml,N1770,,C8.5,C8.5
+762,n.a.,Krytox® GPL 205 grease,,,MERc K,Z568600,2 Oz,,,,F4
+714,10039-26-6,"Lactose Standard 5 % (Aquastar, for KF)",C12H22O11 · H2O,,Merk,1.12939,10 g,HC44922139,5%,Dissicator KF,Dissicator KF
+714,10039-26-6,"Lactose Standard 5 % (Aquastar, for KF)",C12H22O11 · H2O,,Merk,1.12939,10 g,HC335909,5%,Dissicator KF,Dissicator KF
+714,10039-26-6,"Lactose Standard 5 % (Aquastar, for KF)",C12H22O11 · H2O,,Merk,1.12939,10 g,HC57221639,,Dissicator KF,Dissicator KF
+710,8002-43-5,"L-alpha-Lecithin, granular, from soybean oil",C42H80NO8P,,Thermo Scientific,413102500,250 g,A0465409,,C3.3,C3.3
+874,100587-94-8,Lanthanum(III) nitrate hydrate,La(NO3)3·xH2O,,Sigma-Aldrich,238554-100G,100 g,1003845554,0.995,C2.1,C2.1
+33,74-79-3,L-Arginine,C6H14N4O2,,Sigma-Aldrich,W381918-1KG,1000 g,1003709228,0.99,C3.4,C3.4
+289,50-81-7,L-Ascorbic acid,C6H8O6,,Sigma-Aldrich,255564-100G,100 g,1003638682,0.99,C3.3,C3.3
+289,50-81-7,L-Ascorbic acid,C6H8O6,,Sigma-Aldrich,A9290 2-500G,500 g,102969603,0.99,C3.3,C3.3
+539,n-a,Latemul PD-450,,,,,,,,,
+75,105-74-8,Lauroyl peroxide,C24H46O4,,Sigma-Aldrich,8.43861.0100,100 g,S8331961 301,,C7.1,C7.1
+670,Mixture,LCK 301 HACH Aluminium test kit,,,,,,,,,C8.5
+671,LCK303,LCK 303 HACH Ammonium Test Kit,,50001865,,,,,,,
+705,mixture,LCK 320 HACH Iron test kit,,,Hach,LCK320,4 boxes,,,F4,C8.5
+705,mixture,LCK 320 HACH Iron test kit,,,Hach,LCK320,10 boxes,25261,,F4,C8.5
+870,-,LCK 364 - Zirconium,,,,,,,,,C5.3
+673,LCK380,LCK 380 HACH TOC cuvette test (difference method) 2-65 mg/l,,,,,,,,,
+672,LCK385,LCK 385 HACH TOC vial test (purging method) 3-30mg/l,,50001872,,,,,,,
+9,8068-05-1,"Lignin, alkali",,,Sigma-Aldrich,471003-100G,100 g,1003620807,,C3.3,C3.3
+903,8061-51-6,Lignosulfonic acid sodium salt,,50001869,,,,,,,
+206,16853-85-3,lithium aluminum hydride solution 2M in THF,H4AlLi,,,,,,,,
+208,16949-15-8,Lithium borohydride solution,LiBH4,,,,,,,,
+154,1310-66-3,Lithium hydroxide monohydrate,,,,,,,,,
+37,7790-69-4,Lithium nitrate,LiNO3,,Sigma-Aldrich,227986-100G,100 g,102620766,,C2.1,C2.1
+653,61-90-5,L-Leucine,C6H13NO2,,Sigma-Aldrich,L8000-25G,25 g,102843400,0.98,c3.4,c3.4
+31,657-27-2,L-Lysine monohydrochloride,C6H14N2O2 HCl,,Sigma-Aldrich,L5626-500G,500 g,1003605075,,C3.4,C3.4
+588,mixture,Loctite 243,,,,,,,,,C8.5
+685,Mixture,Loctite 276,,,,,,,,,C8.5
+678,Mixture,Loctite 401,,,,,,,,,C8.5
+561,67-64-1,Loctite SF 7649,N/A,70000141,,,,,,,C1.5
+686,Mixture,Low Foam Heavy - Surface cleaner,,,,,,,,,C8.5
+397,7631-86-9,"Ludox® AM, 30% colloidal silica",mixture,,,,,,,,c3.1
+446,7786-30-3,magnesium chloride,Cl2Mg,,Sigma-Aldrich,M8266-100G,100 g,SLCP7797,0.98,C3.2,C3.2
+152,1309-42-8,Magnesium hydroxide,Mg(OH)2,,Sigma-Aldrich,310093,25 g,102614669,95,C3.2,C3.2
+170,13446-18-9,Magnesium nitrate hexahydrate,Mg(NO3)2*6H2O,,Sigma-Aldrich,237175-100G,100 g,1003723627,,C3.4,C3.4
+751,10034-81-8,Magnesium perchlorate,Mg(ClO4)2,,Velp Scientifica,A00000225,454 g,20380162,,C2.2,C2.2
+219,22189-08-8,magnesium sulfate hydrate,MgSO4.xH2O,,Roth,0261.2,1 kg,320298013,0.99,C3.4,C3.4
+46,10034-99-8,Magnesium sulphate heptahydrate,MgSO4.x7H2O,,,,,,,,
+106,110-16-7,Maleic acid,C4H4O4,,Sigma-Aldrich,M0375-500G,500 g,102622574,0.99,C5.1,C5.1
+171,13446-34-9,manganese(II) chloride tetrahydrate,Cl2Mn.4H2O,,,,,,,,
+216,20694-39-7,Manganese(II) nitrate tetrahydrate,,,Sigma-Aldrich,63547-100G,100 g,102665984,0.97,C2.1,C2.1
+94,108-78-1,Melamine,C3H6N6,,Sigma-Aldrich,M2659,1 Kg,1003670657,99,C8.1,C8.1
+373,7439-97-6,mercury,Hg,50001874,Sigma-Aldrich,261017-1KG,1000 g,102437080,,Hg-hood,Hg-hood
+373,7439-97-6,mercury,Hg,50001874,Sigma-Aldrich,261017-1KG,1000 g,102526298,,Hg-hood,Hg-hood
+711,Mixture,Mercury binder MERCURISORB-ROTH - Emergency set in plastic case,,,Roth,A0465409,100 g,,,Hg- Hood,C8.5
+308,55844-94-5,Merrifield's peptide resin,C25H25Cl,,Sigma-Aldrich,577901-25G,25 g,MKCM3124,,C3.2,C3.2
+308,55844-94-5,Merrifield's peptide resin,C25H25Cl,,Sigma-Aldrich,221503-25G,25 g,STBK5962,,C3.2,C3.2
+308,55844-94-5,Merrifield's peptide resin,C25H25Cl,,Sigma-Aldrich,63868-10g,10 g,bccb9339,,,C3.2
+462,79-41-4,Methacrylic Acid,,,,,,,,,
+354,126-98-7,Methacrylonitrile,C4H5N,,,,,,,,
+349,67-56-1,Methanol,CH4O,50001795,Sigma-Aldrich,1.06009.2500,2.5 L,I1263409302,0.999,C8.4,C8.4
+349,67-56-1,Methanol,CH4O,50001795,Thermo Fisher,423955000,500 mL,A0457556,0.998,C8.4,C8.4
+349,67-56-1,Methanol,CH4O,50001795,Huberlab,1411.5000,5L,2025-10-02,0.995,C8.4,C8.4
+349,67-56-1,Methanol,CH4O,50001795,Huberlab,1411.5000,5 L,2025-10-02,0.995,C8.4,C8.4
+349,67-56-1,Methanol,CH4O,50001795,Thermo Scientific,325740025,2.5 L,2672051,0.99,C8.4,C8.4
+518,96-33-3,Methyl acrylate,,,,,,,,,
+501,9004-67-5,methyl cellulose,n/a,,Sigma-Aldrich,M0512-250G,250 g,SLBT4343,,C3.2,C3.2
+460,79-22-1,Methyl chloroformate,C2H3ClO2,,,,,,,,
+469,80-62-6,Methyl methacrylate,,,,,,,,,
+304,547-58-0,Methyl Orange,,,,,,,,,
+667,74-89-5,Methylamine Solution in Methanol,CH5N,,Sigma-Aldrich,395048-100ML,100 ml,102850858,,C8.2,C8.2
+378,74-89-5,Methylamine Solution in water,CH5N,,,,,,,,C8.2
+324,593-51-1,Methylammonium chloride,CH6ClN,,Sigma-Aldrich,8.06020.0250,250 g,S8358420 327,,C4.3,C4.3
+139,122965-43-9,Methylene Blue hydrate,C16H18ClN3S � xH2O,,Sigma-Aldrich,28514-100g,100 g,102725164,95,C4.3,C4.3
+504,9032-42-2,Methylhydroxyethylcellulose,,,,,,,,,C3.2
+777,25013-15-4,Methylstyrene,,,,,,,,,
+749,-,Miele ProCare Lab 10 AP,-,,,,5L,,,C6.5,C5.3
+740,n.a.,Miele ProCare Lab 30P,-,,,,5L,,,C5.5,F4
+740,n.a.,Miele ProCare Lab 30P,-,,,,5L,,,C5.4,F4
+873,8042-47-5,Mineral oil,,50001710,Sigma-Aldrich,330779-1L,1000 ml,103002110,,C3.3,C3.3
+873,8042-47-5,Mineral oil,,50001710,Sigma-Aldrich,330779-1L,1000 ml,103035402,,C3.3,C3.3
+873,8042-47-5,Mineral oil,,50001710,Sigma-Aldrich,330779-1L,1000 m,103035402,,C3.3,C3.3
+226,246538-78-3,mineral spirits,C11-C13,,Sigma-Aldrich,262560-4L,4 L,SHBP191,,C7.3,C7.3
+745,n.a.,Molecular Sieve 0.3 nm,-,,Metrohm,,1000 g,2024010032,,,F4
+337,63231-69-6,Molecular sieves 13X,,,Sigma-Aldrich,208647,1000 g,1003510607,,C4.5,C4.5
+254,308080-99-1,Molecular sieves 3A,n/a,,Acros Organics,197245000,500 g,A0405053,,"C3,4","C3,4"
+254,308080-99-1,Molecular sieves 3A,n/a,,Sigma-Aldrich,334286-1KG,1000 g,1003412244,,C3.4,"C3,4"
+563,Mixture,Molykote p-37 Antiseize Paste,,,,,,,,,C8.5
+693,mixture,Motip - Primer,,,,,,,,,C8.5
+732,9002-89-5,Mowiol® 18-88,(C2H4O)n,,Sigma-Aldrich,81365-250G,260 g,102796322,,C3.3,C3.3
+754,n.a,MQuant Ammonium Test,n.a.,,,,,,,,C3.2
+755,n.a.,MQuant Peroxide Test,n.a.,,,,,,,,F4
+692,Mixture,MZ-90,,,,,,,,,C8.5
+707,111-41-1,N-(2-Hydroxyethyl)ethylenediamine,C4H12N2O,,Sigma-Aldrich,127582-100G,100 g,1003742458,,C8.2,C8.2
+1,3891-07-4,N-(2-hydroxyethyl)phthalimide,C10H9NO3,,,,,,,,
+297,5394-18-3,N-(4-Bromobut-1-yl)phthalimide,C12H12BrNO2,,,,,,,,
+516,954-81-4,N-(5-bromopentyl)phthalamide,C13H14BrNO2,,,,,,,,
+276,4605-14-5,"N,N?-bis-(3-aminopropyl)-1,3-propandiamine",C9H24N4,,,,,,,,
+514,93-46-9,"N,N-Di-2-naphthyl-1,4-phenylenediamine",C26H20N2,,,,,,,,
+361,693-13-0,"N,N'diisopropylcarbodiimide (DIC)",,,,,,,,,
+365,7087-68-5,"N,N-diisopropylethylamine",C8H19N,,,,,,,,
+149,127-19-5,"N,N-Dimethylacetamide",C4H9NO,,Sigma-Aldrich,270555-1L,1 L,1033859134,0.999,C8.2,C8.2
+649,1643-20-5,"N,N-Dimethyldodecylamine N-oxide solution",,,,,,,,,
+356,68-12-2,"N,N-Dimethylformamide",C3H7NO,,Thermo Scientific,348435000,500 mL,2357377,0.998,C8.2,C8.2
+356,68-12-2,"N,N-Dimethylformamide",C3H7NO,,Sigma-Aldrich,D158550-1L,1000 ml,83206,,C8.2,C8.2
+372,74-31-7,"N,N'-Diphenyl-1,4-phenylene-diamine",C18H16N2,,,,,,,,
+107,110-26-9,"N,N'-Methylenebis(acrylamide)",,,,,,,,,
+211,1760-24-3,N-[3-(trimethoxysilyl)propyl]ethylenediamine,C8H22N2O3Si,,,,,,,,
+731,5590-29-4,"N1-(2-Chloroethyl)ethane-1,2-diamine dihydrochloride",C4H13Cl3N2,,BLD,BD01528621,10G,GLW547,,C4.3,C4.3
+318,574-98-1,N-2-bromoethylphthalimide,C10H8BrNO2,,,,,,,,
+303,5460-29-7,N-3-bromopropylphthalimide,C11H10BrNO2,,,,,,,,
+464,8006-28-8,Natronkalk mit Indikator,,,,,,,,,
+449,780-25-6,N-benzylidenebenzylamine,C14H13N,,,,,,,,
+332,622-29-7,N-benzylidenemethylamine,C8H9N,,,,,,,,
+316,57260-73-8,N-Boc-ethylenediamine,C?H??N?O?,,,,,,,,
+144,124-18-5,n-decane,C10H22,,VWR,87030.32,2.5 L,22L154003,0.99,C8.3,C8.3
+144,124-18-5,n-decane,C10H22,,VWR,87030.180,100 ml,23C234002,0.99,C8.3,C8.3
+128,112-40-3,n-dodecane,C12H26,,Acros Organics,117590025,2.5 L,A0411268,0.99,C5.4,C5.4
+540,n-a,Neopelex G-65,,,,,,,,,
+210,17557-23-2,Neopentyl glycol diglycidyl ether,,,,,,,,,
+188,142-82-5,n-Heptane,C7H16,,VWR,24548.367,5 L,26D304007,technical,C7.3,C7.3
+292,524-38-9,N-hydroxyphthalimide,C8H5NO3,,,,,,,,
+174,13478-00-7,Nickel(II) nitrate hexahydrate,,,Sigma-Aldrich,72253-250G,250 g,1003617782,0.97,C2.1,C2.1
+264,3625-57-8,Nile Blue A,C20H20ClN3O,,,,,,,,
+34,7697-37-2,Nitric acid,HNO3,,Sigma-Aldrich,438073-2.5L,2.5 L,102807091,0.70,C2.3,C2.3
+34,7697-37-2,Nitric acid,HNO3,,Sigma-Aldrich,438073-2.5L,2.5 L,102990808,0.70,C2.3,C2.3
+871,7727-37-9,Nitrogen,N2,,,,,,,,
+388,75-52-5,Nitromethane,CH3NO2,,,,,,,,
+117,111-65-9,n-Octane,C8H18,,VWR,7482-5ML,5 ml,102576262,,C8.2,C8.2
+117,111-65-9,n-Octane,C8H18,,VWR,26024.292,1 L,21D134005,,C8.2,C8.2
+117,111-65-9,n-Octane,C8H18,,VWR,26025.238,250 mL,21J074008,,C8.2,C8.2
+329,6066-82-6,Novabiochem HOSu (Hydroxysuccinimide),,,,,,,,,
+541,Mixture,"n-Paraffin Mix C7, C8, C9, C10",,,Sigma-Aldrich,47101,1 ml,LRAD1958,,F3,C8.5
+62,101-54-2,N-Phenyl-p-phenylenediamine,C12H12N2,,,,,,,,
+159,13162-05-05,N-Vinylformamide,C3H5NO,,,,,,,,
+263,3485-84-5,N-Vinylphthalimide,,,Thermo Scientific,370200250,25 g,A0409227,0.99,C4.1,C4.1
+263,3485-84-5,N-Vinylphthalimide,,,Thermo Scientific,370200250,25 g,A0409227,0.99,,C4.1
+263,3485-84-5,N-Vinylphthalimide,,,BLDPharm,BD33333,100 g,DQL846,0.99,C4.1,C4.1
+227,2483-46-7,"Nα,Nε-Di-Boc-L-Lysine",C16H30N2O6,,Thermo Scientific,H62019,100g,S14I040,0.98,F1,F1
+279,4813-57-4,octadecyl acrylate,,,Sigma-Aldrich,409693-250G,250 g,MKCS4156,,C2.2,C2.2
+360,68609-96-1,Octyl/decyl glycidyl ether,,,Sigma-Aldrich,412821-250ML,250 ml,1003497903,,C8.2,C8.2
+858,95-54-5,o-Phenylenediamine,C6H8N2,,,,,,,,
+461,79-37-8,Oxalyl chloride,C2Cl2O2,,,,,,,,
+720,no CAS,PAA-006,,,Nittobo,,1000,40926,,C6.2,C6.2
+721,no CAS,PAA-01,,,Nittobo,,1000,11202,,C6.2,C6.2
+722,no CAS,PAA-05,,,Nittobo,,1000,11011,,C6.2,C6.2
+722,no CAS,PAA-05,,,Nittobo,,250,11011,,C6.2,C6.2
+725,no CAS,PAA-10L-10C,,,Nittobo,,1000,30301,,C6.2,C6.2
+724,no CAS,PAA-15C,,,Nittobo,,1000,20217,,C6.2,C6.2
+729,no CAS,PAA-HCl_05,,,Nittobo,,250,00316,,C6.2,C6.2
+728,no CAS,PAA-HCl-01,,,Nittobo,,250,20509,,C6.2,C6.2
+730,no CAS,PAA-HCl-10L,,,Nittobo,,250,20331,,C6.2,C6.2
+723,no CAS,PAA-N5000,,,Nittobo,,250,00908,,C6.2,C6.2
+466,8012-95-1,paraffin oil,n/a,,Sigma-Aldrich,18512-1L,1 L,STBJ4943,,C5.4,C5.4
+253,30525-89-4,Paraformaldehyde,(CH2O)n,,Roth,0335.3,1 kg,443335066,94.5-96.5%,F2,F2
+727,no CAS,PAS-21,,,Nittobo,,250,00331,,C6.2,C6.2
+726,no CAS,PAS-21CL,,,Nittobo,,250,00907,,C6.2,C6.2
+282,4986-89-4,Pentaerythritol tetraacrylate,,,,,,,,,
+347,6683-19-8,"Pentaerythritol tetrakis(3,5-di-tert-butyl-4-hydroxy-hydrocinnamate)",,,Sigma-Aldrich,441783-100G,100G,1003846857,0.95,C3.2,C3.2
+268,4067-16-7,pentaethylenehexamine,C10H28N6,,Sigma-Aldrich,292753-1l,1 L,BCBV5958,,F3.2,F3.2
+100,109-66-0,Pentane,C5H12,,Sigma-Aldrich,34956-2.5L,2500 ml,STBL3425,0.99,C8.4,C8.4
+394,7601-90-3,Perchloric acid,HClO4,,,,,,,,
+695,mixture,Permabond A1046,,,,,,,,,C8.5
+342,64742-48-9,petroleum,n/a,,Sigma-Aldrich,1.09718.1000,1 L,K53277318,,C8.2,C8.2
+425,77-09-8,phenolphtalein indicator solution,C20H14O4,,,,,,,,
+669,7664-38-2,Phosphoric acid,H3PO4,,Sigma-Aldrich,79622-100G,100 g,102714043,0.99,C5.4,C5.4
+766,7719-12-2,Phosphorus trichloride,,,,,,,,,
+41,10025-87-3,Phosphorus(V) oxychloride,Cl3OP,,Sigma-Aldrich,201170-250G,250 g,102684441,,C8.2,C8.2
+428,7723-14-0,"Phosphorus, red",P,,Sigma-Aldrich,04004-250,250 g,20265053,97,F3.1,F3.1
+483,88-99-3,Phthalic acid,,,Sigma-Aldrich,80010-100G,100 G,102644597,0.995,C5.4,C5.4
+474,85-41-6,Phthalimide,C8H5NO2,,Carl Roth,1E88.2,1000 g,355379011,0.98,C3.3,C3.3
+88,1074-82-4,Phthalimide potassium salt,C8H4KNO2,,Sigma-Aldrich,160385-500G,500 g,BCCJ6475,98,C4.3,C4.3
+662,14306-25-3,Phytic acid sodium salt hydrate,C6H18O24P6 · xNa+· yH2O,,Sigma-Aldrich,P8810-25G,25 g,102819258,,C3.2,C3.2
+113,110-85-0,piperazine,C4H10N2,,Sigma-Aldrich,8.07325.0250,250 g,S7821025,"anhydrous, for synrhesis",C8.1,C8.1
+113,110-85-0,piperazine,C4H10N2,,Sigma-Aldrich,P45907-100G,100 g,STBK2562,0.99,C8.1,C8.1
+877,110-89-4,Piperidine,,,,,,,,,
+12,9003-11-6,Pluronic® 123 Surfactant,n/a,,,,,,,,
+523,9004-62-0,Pluronic® F 127 Prill,(C3H6O.C2H4O)x,,,,,,,,C3.2
+503,9017-40-7,"Poly(4-vinylpyridine), cross-linked",,,Sigma-Aldrich,81391-25G,25 g,BCCJ8792,,C3.3,C3.3
+11,9003-05-8,poly(acrylamide),(C3H5NO)n,,,,,,,,
+10,9003-01-4,poly(acrylic acid) solution 35%,,,,,,,,,
+647,26062-79-3,Poly(diallyldimethylammonium chloride) solution,(C8H16ClN)n,,Sigma-Aldrich,409022-25ML,25 ml,1003745555,,C3.5,C3.5
+230,25322-68-3,Poly(ethylene glycol),(C2H4O)nH2O,,Sigma-Aldrich,81300-1KG,1000 g,102662807,,C3.4,C3.5
+230,25322-68-3,Poly(ethylene glycol),(C2H4O)nH2O,,Sigma-Aldrich,P3265-1kg,1000 g,1003588652,,C3.5,C3.5
+230,25322-68-3,Poly(ethylene glycol),(C2H4O)nH2O,,Sigma-Aldrich,P3015-500g,500 g,BCBW8262,,C3.5,C3.5
+241,26570-48-9,Poly(ethylene glycol) diacrylate,,,,,,,,,
+240,26403-72-5,Poly(ethylene glycol) diglycidyl ether,,,,,,,,,
+244,26915-72-0,Poly(ethylene glycol) methyl ether methacrylate,,,,,,,,,
+231,25322-68-3,Poly(ethylene oxide),(C2H4O)nH2O,,Sigma-Aldrich,182001-250g,250 g,1003491416,,C3.1,C3.5
+234,25736-61-2,Poly(styrene-alt-maleic acid) sodium salt solution,,,,,,,,,
+489,9002-86-2,Poly(vinyl chloride),C2H3ClO,,Sigma-Aldrich,81387-250G,250 g,102636153,,c3.3,c3.3
+490,9002-88-4,polyethylene,(C2H4)n,,Thermo Scientific,43951,250 g,X11E001,,C3.4,C3.4
+494,9002-98-6,Polyethylenimin -Lösung,,,Sigma-Aldrich,408700-250ML,250 mL,1003538259,,C5.2,C5.2
+497,9003-53-6,Polystyrene,(C8H8)x,,Sigma-Aldrich,182427-1KG,1 kg,MKCN2696,,C3.4,C3.4
+497,9003-53-6,Polystyrene,(C8H8)x,,Sigma-Aldrich,441147-1KG,1 kg,MKCP7904,,C3.4,C3.4
+497,9003-53-6,Polystyrene,(C8H8)x,,Sipoly,1024,0.5 kg,220310003,,C3.4,C3.4
+734,25213-24-5,"Polyvinyl alcohol 49-88, partially saponified",(C₄H₆O₂ · C₂H₄O)n,,,,,,,-,-
+495,9003-22-9,polyvinyl chloride,n/a,,,,,,,,
+491,9002-89-5,Polyvinylalcohol,[-CH2CHOH-]n,,Sigma-Aldrich,P8136-250G,250 g,102583062,0.87,C3.3,C3.3
+491,9002-89-5,Polyvinylalcohol,[-CH2CHOH-]n,,Sigma-Aldrich,348406-25G,25 g,MKCK4266,0.98,C3.3,C3.3
+491,9002-89-5,Polyvinylalcohol,[-CH2CHOH-]n,,Sigma-Aldrich,363170-500G,500 g,MKCR6863,0.87,C3.3,C3.3
+491,9002-89-5,Polyvinylalcohol,[-CH2CHOH-]n,,Sigma-Aldrich,363138-500G,500 g,WXBD8988V,0.98,C3.3,C3.3
+491,9002-89-5,Polyvinylalcohol,[-CH2CHOH-]n,,Sigma-Aldrich,363081-1KG,1 kg,MKBV6314V,0.87,C3.4,C3.3
+491,9002-89-5,Polyvinylalcohol,[-CH2CHOH-]n,,Sigma-Aldrich,363103-500G,500 g,MKBX9187V,0.87,C3.3,C3.3
+491,9002-89-5,Polyvinylalcohol,[-CH2CHOH-]n,,Sigma-Aldrich,P8136-250G,250 g,SLCM5091,0.87,C3.3,C3.3
+491,9002-89-5,Polyvinylalcohol,[-CH2CHOH-]n,,Roth,1T34.1,100 g,365335377,,C3.3,C3.3
+496,9003-39-8,polyvinylpyrrolidone,(C6H9NO)x,,Sigma-Aldrich,PVP360-100G,100 g,102633546,,C3.2,C3.2
+496,9003-39-8,polyvinylpyrrolidone,(C6H9NO)x,,Sigma-Aldrich,81420-100G,100 g,BCCJ6215,,C3.2,C3.2
+496,9003-39-8,polyvinylpyrrolidone,(C6H9NO)x,,Sigma-Aldrich,81420-500G,500 g,BCCJ6215,,C3.2,C3.2
+496,9003-39-8,polyvinylpyrrolidone,(C6H9NO)x,,Sigma-Aldrich,856568-100G,100 g,MKCM3255,,C3.2,C3.2
+496,9003-39-8,polyvinylpyrrolidone,(C6H9NO)x,,Sigma-Aldrich,PVP10-100G,100 g,WXBD8655V,,C3.2,C3.2
+682,298-14-6,Potassium bicarbonate,CHKO3,,Sigma-Aldrich,237205-2.5kg,2500 g,102894302,0.997,C3.5,C3.5
+682,298-14-6,Potassium bicarbonate,CHKO3,,Sigma-Aldrich,237205-500G,500 g,102841403,,C1.2,C3.5
+407,7646-93-7,potassium bisulfate,HKO4S,,,,,,,,
+6,7758-01-2,Potassium bromate,KBrO3,,,,,,,,
+7,7758-02-3,potassium bromide,KBr,,Thermo Scientific,206390250,25 g,A0433931,0.99,C4.3,C4.3
+322,584-08-7,potassium carbonate,K2CO3,,Sigma-Aldrich,209619-100G,100 g,BCCG4242,0.99,C4.3,C4.3
+322,584-08-7,potassium carbonate,K2CO3,,Sigma-Aldrich,310263-2.5KG,2500 g,102691049,,,C4.3
+322,584-08-7,potassium carbonate,K2CO3,,Sigma-Aldrich,310263-5KG,5000 g,102786884,0.99,C4.5,C4.3
+377,7447-40-7,Potassium chloride,KCl,,Sigma-Aldrich,P3911-500G,500 g,1027779679,0.99,C3.1,C3.1
+377,7447-40-7,Potassium chloride,KCl,,Sigma-Aldrich,P3911-55G,500 g,102997798,0.99,C3.1,C3.1
+761,877-24-7,Potassium hydrogen phthalate,HOOCC6H4COOK,,Sigma-Aldrich,P1088-100g,100 g,1003820057,0.9995,C3.2,C3.2
+153,1310-58-3,Potassium hydroxide,KOH,,Roth,P747.1,500 g,331300319,0.85,C6.1,C6.1
+153,1310-58-3,Potassium hydroxide,KOH,,Sigma-Aldrich,8.14353,1000 g,102816669,,C6.1,C6.1
+418,7681-11-0,Potassium iodide,KI,,Sigma-Aldrich,221945-100G,100g,1003711244,0.99,C8.1,C8.1
+431,7757-79-1,potassium nitrate,KNO3,,Thermo Scientific,205915000,500 g,A0440683,0.99,C2.1,C2.1
+431,7757-79-1,potassium nitrate,KNO3,,Sigma-Aldrich,221295-500G,500 g,1003877043,0.99,C2.1,C2.1
+434,7758-09-0,potassium nitrite,KNO2,,,,,,,,
+426,7722-64-7,Potassium permanganate,KMnO4,,Sigma-Aldrich,223468-1KG,1000 g,102552866,0.99,C2.1,C2.1
+429,7727-21-1,potassium persulfate,K2S2O8,,,,,,,,
+885,7758-11-4,Potassium phosphate dibasic,HK2O4P,50001735,Sigma-Aldrich,P3786-100G,100 g,0000526987,0.98,C3.2,C3.2
+438,7778-77-0,Potassium phosphate monobasic,H2KO4P,,Sigma-Aldrich,P5379-1KG,1000 g,102717987,,C3.2,C3.2
+36,7778-53-2,Potassium phosphate tribasic,K3PO4,,Sigma-Aldrich,RDD019-1KG,1000 g,1003694689,0.98,C6.4,C6.4
+260,333-20-0,potassium thiocyanate 0.1 M,CHKNS,,,,,,,,
+477,865-47-4,Potassium-tert-butoxide 20% solution,C4H9KO,,,,,,,,
+382,75178-96-0,"Propane-1,3-Diamine, N-BOC protected",C8H18N2O2,,,,,,,,
+98,109-60-4,Propyl acetate,C5H10O2,,,,,,,,
+683,121-79-9,Propyl gallate,C10H12O5,,,,,,,,
+82,107-10-8,Propylamine,CH3CH2CH2NH2,,Sigma-Aldrich,240958,50 ml,240958-50ml,99,F2.2,F2.2
+82,107-10-8,Propylamine,CH3CH2CH2NH2,,Sigma-Aldrich,53646-1ML,1 ml,102745852,,C8.2,F2.2
+389,75-56-9,propylene oxide,C3H6O,,,,,,,,
+746,n.a,Pufferlössung pH 10 ROTI Calipure,n.a,,Roth,,500 ml,,,C6.5,C3.2
+742,-,Pufferlössung pH7 ROTI Calipure,-,,Roth,,500 ml,,,C5.2,C5.3
+744,-,Pufferlösung pH4 ROTI Calipure,,,Cromogenia,,1 L,,38%,C5.3,C5.3
+77,106-42-3,p-Xylene,,,Sigma-Aldrich,1.08684.1000,1000 ml,K54022784,,C8.2,C8.2
+114,110-86-1,pyridine,C5H5N,,Sigma-Aldrich,1.07462.1000,1 L,K53869062 149,,C7.2,C7.2
+484,89-32-7,Pyromellitic dianhydride,,,,,,,,,
+220,22722-98-1,"Red-Al, sodium bis(2-methoxyethoxy) aluminium hydride solution",C6H16AlNaO4,,,,,,,,
+542,-,Rheodol SP-S10V,,,,,,,,,C5.3
+691,mixture,Roclean L403,,,,,,,,,C8.5
+362,69-72-7,Salicylic Acid,,,,,,,,,
+89,107-97-1,Sarcosine,CH3NHCH2CO2H,,Thermo Scientific,A14594.36,500g,10245372,0.98,C3.1,C3.1
+89,107-97-1,Sarcosine,CH3NHCH2CO2H,,Thermo Scientific,157740025,2.5 kg,A0477267,0.98,C3.1,C3.1
+398,7631-86-9,Sea sand,SiO2,,Roth,8441.3,500 g,493338517,,c3.1,c3.1
+702,Mixture,Shell Naturelle Grease S5 V120P 2,,,,,,,,,C8.5
+701,Mixture,Shell Omala S2 GX 150,,,,,,,,,C8.5
+399,7631-86-9,Silica gel 60,SiO2,,Roth,0712.4,1000 g,027252226,,C3.4,c3.1
+399,7631-86-9,Silica gel 60,SiO2,,Palas,,,130809-048-024,,C.04,c3.1
+42,10026-04-7,silicon tetrachloride,Cl4Si,,,,,,,,
+436,7761-88-8,silver nitrate 0.1 M,AgNO3,,Sigma-Aldrich,1.09081.1003,1 L,HC27678881,"0,1 M",C5.3,C5.3
+657,1344-00-9,"SIPERNAT® 820 A - Silicic acid, aluminum sodium salt",AlNaO6Si2,,,,,,,,
+658,67762-90-7,"SIPERNAT® D 17 - Silicones and siloxanes, dimethyl-, reaction products with silica",,,Evonik,,,173081741,,C1.1,C1.1
+767,Mixture,SmartCal,,,,,,,,,C8.5
+242,26628-22-8,Sodium azide,NaN3,,,,,,,,
+207,16940-66-2,Sodium borohydride,NaBH4,,,,,,,,
+281,497-19-8,Sodium carbonate,Na2CO3,,Sigma-Aldrich,S2127,5000 g,,,C6.4,C6.4
+414,7647-14-5,Sodium chloride,NaCl,,Sigma-Aldrich,S9888-1KG,1000 g,0000366072,0.99,C3.5,C3.5
+414,7647-14-5,Sodium chloride,NaCl,,Carl Roth,601.1,1 Kg,194349905,0.99,C3.5,C3.5
+414,7647-14-5,Sodium chloride,NaCl,,,,25 Kg,,100 %,Mammoth,C3.5
+769,6132-04-3,Sodium citrate dihydrate,C6H5Na3O7 · 2H2O,,Sigma-Aldrich,W302600-1KG-K,1000 g,1003824145,0.99,C3.2,C3.2
+193,143-33-9,Sodium cyanide,NaCN,,,,,,,,
+236,25895-60-7,sodium cyanoborohydrate,NaBH3CN,,,,,,,,
+237,25895-60-7,sodium cyanoborohydrate solution 1M in THF,NaBH3CN,,,,,,,,
+23,18197-26-7,Sodium diformylamide,,,,,,,,,
+663,68915-31-1,Sodium hexametaphosphate,,,,,,,,,
+403,7646-69-7,sodium hydride,,,,,,,,,
+194,144-55-8,Sodium hydrogen carbonate,NaHCO3,50001868,,,,,,,
+157,1310-73-2,Sodium hydroxide,NaOH,50001721,Sigma-Aldrich,S5881-1KG,5 x 1000 g,0000511658,,C6.1,C6.1
+157,1310-73-2,Sodium hydroxide,NaOH,50001721,Sigma-Aldrich,S5881-1KG,10 x 1000 g,103046538,0.98,C6.1,C6.1
+862,1310-73-2,Sodium hydroxide 30% in aqueous solution,NaOH,50001721,VWR,28217.361,5 L,26F104004,30 %,C6.4,C6.1
+158,1310-73-2,Sodium hydroxide solution 0.1 M,NaOH,50001721,VWR,1.09141.4000,4000 ml,HC30918641,,C6.5,C6.1
+158,1310-73-2,Sodium hydroxide solution 0.1 M,NaOH,50001721,Merck,1.09141.4000,4000 ml,HC56593241,0.1 M,C6.5,C6.1
+641,1310-73-2,"Sodium hydroxide solution, 2 M",NaOH,50001721,Katayama,,1000 L,,,Mammoth,C6.1
+879,1310-73-2,"Sodium hydroxide, 50% solution",NaOH,50001721,Carl Roth,8655.4,5 x 5 L,226392749,0.5,Old fumehood,C6.1
+419,7681-52-9,Sodium hypochlorite solution,,50001790 (Kemi),Sigma-Aldrich,425044-1L,1 L,102628736,,F3.2,F3.2
+419,7681-52-9,Sodium hypochlorite solution,,50001790 (Kemi),Sigma-Aldrich,425044-1L,1 L,102528847,0.15,F3.2,F3.2
+419,7681-52-9,Sodium hypochlorite solution,,50001790 (Kemi),Ch emos,A0287962,,,13%,Mammoth,F3.2
+419,7681-52-9,Sodium hypochlorite solution,,50001790 (Kemi),Wilhelmsen,,,,,Mammoth,F3.2
+49,10039-56-2,Sodium hypophosphite monohydrate,,,Sigma-Aldrich,S5012-11G,100 g,102949036,0.99,C4.1,C4.1
+421,7681-82-5,sodium iodide,NaI,,VWR,27915.231,250 g,22J144117,,C8.1,C8.1
+421,7681-82-5,sodium iodide,NaI,,Sigma-Aldrich,793558-100G,100g,MKCN8760,0.99,C8.1,C8.1
+420,7681-57-4,Sodium Metabisulfite,Na2O5S2,,Sigma-Aldrich,31448-500G,500 g,1003717244,0.98,C6.1,C6.1
+357,6834-92-0,Sodium metasilicate,,50001769,Sigma-Aldrich,F300-25G,25 g,1003804638,0.97,C4.4,C4.4
+146,124-41-4,Sodium Methoxide,,,,,,,,,
+400,7631-99-4,Sodium nitrate,NaNO3,,Sigma-Aldrich,1.06535.1000,1000 g,A1588635 204,,C2.1,C2.1
+401,7632-00-0,Sodium nitrite,NaNO2,,Sigma-Aldrich,8.22285.0100,100 g,S6068085 342,,C2.1,C2.1
+390,7558-79-4,sodium phosphate dibasic,HNa2O4P,,Sigma-Aldrich,795410-100G,100 g,SLBM3481V,0.99,C3.2,C3.2
+55,10049-21-5,Sodium Phosphate monobasic monohydrate,,,Sigma-Aldrich,S9638-500G,500 g,102633660,0.98,C3.2,C3.2
+60,10101-89-0,sodium phosphate tribasic dodecahydrate,Na3PO4.12H2O,,Sigma-Aldrich,04277-1KG,1 kg,STBK7219,0.98,C4.2,C4.2
+684,13517-23-2,Sodium phosphite dibasic pentahydrate,Na2HPO3 · 5H2O,,Sigma-Aldrich,04283-250G,250 g,102844631,,C3.2,C3.2
+892,27599-56-0,Sodium Polyacrylate,,50001779,Sigma-Aldrich,432784-250G,250 g,103054316,0.99,C3.4,C3.4
+172,13472-36-1,Sodium pyrophosphate decahydrate,,,,,,,,,
+432,7757-82-6,Sodium Sulfate,Na2SO4,,Sigma-Aldrich,238597-2.5KG,2.5 Kg,102634904,0.99,C3.1,C3.1
+432,7757-82-6,Sodium Sulfate,Na2SO4,,Sigma-Aldrich,238597-500G,500 g,102975077,0.99,C3.1,C3.1
+433,7757-83-7,Sodium sulfite,Na2O3S,,Sigma-Aldrich,239321-500G,500 g,1003726794,0.98,C3.4,C3.4
+330,6106-24-7,Sodium tartrate dihydrate,,,,,,,,,
+437,7772-98-7,Sodium thiosulfate,,,,,,,,,
+311,56553-60-7,sodium triacetoxyborohydride,NaC4H10O6B,,,,,,,,
+16,10213-10-2,Sodium tungstate dihydrate,Na2WO4 · 2H2O,,Sigma-Aldrich,223336-100G,100 g,102771099,0.99,C4.3,C4.3
+358,68551-16-6,Soltrol® 125 isoparaffin,C9-C11,,Chevron Phillips,1080822,1 L,21EP12508,,C5.2,C5.2
+359,68551-19-9,Soltrol® 170 isoparaffin,C12-C14,,Chevron Phillips,1017354,1 L,21AP17001,,C8.2,C8.2
+524,n/a,Soltrol® 220 isoparaffin,C13-C16,,Chevron Phillips,1017373,1 L,20GP22001,,C8.2,C7.3
+738,na,Sorbead Orange 2050,,,,,,,,,
+166,1338-43-8,Span® 80,C24H44O5,,,,,,,,
+525,9005-84-9,"Starch, soluble",,,,,,,,,
+51,100-42-5,Styrene,C8H9,50001880,Sigma-Aldrich,8076791000,1000 ml,102814694,Lanxes?,F2.3,F2.3
+51,100-42-5,Styrene,C8H9,50001880,Sigma-Aldrich,8076791000,1000 ml,102963520,,F2.3,F2.3
+517,96-09-3,Styrene oxide,C8H8O,,Sigma-Aldrich,S5006-100G-A,100g,102651571,0.97,C8.2,C8.2
+502,9011-13-6,Styrene/Maleic Anhydride Copolymer (67/33),C12H10O3,,,,,,,,
+295,5329-14-6,sulfamic acid,H3NO3S,,Sigma-Aldrich,242772-500G,500 g,MKCM3704,0.99,C5.1,C5.1
+417,7664-93-9,Sulfuric acid 98%,H2SO4,50001734,Sigma-Aldrich,258105-1L-PC,1 L,103006291,0.95-0.98,C5.5,C5.5
+417,7664-93-9,Sulfuric acid 98%,H2SO4,50001734,Sigma-Aldrich,258105-1L-PC,3 x 1 L,103055633,0.95-0.98,C5.5,C5.5
+467,8014-95-7,Sulfuric acid fuming 20-30% SO3,H2SO4*SO3,,Honeywell,10190815,1000 g,O3300,0.2,C5.5,C5.5
+467,8014-95-7,Sulfuric acid fuming 20-30% SO3,H2SO4*SO3,,Thermo Fisher,419975000,500 ml,A0470424,0.2,C5.5,C5.5
+467,8014-95-7,Sulfuric acid fuming 20-30% SO3,H2SO4*SO3,,Thermo Fisher,419975000,500 ml,A0455305,0.2,C5.5,C5.5
+468,8014-95-7,Sulfuric acid fuming 65% SO3,H2SO4*SO3,,Sigma-Aldrich,1.00720.1002,1 L,K95942820,0.65,C5.5,C5.5
+448,7791-25-5,Sulphuryl chloride,Cl2O2S,,Thermo Scientific,ACRO169450010,1 kg,A0455060,0.985,C8.2,C8.2
+712,68855-54-9,Super-Absorbent Powder (Kieselguhr),,,Velp,A00000317,10 g,26/22,,Dissicator,Dissicator
+233,2564-83-2,TEMPO,,,,,,,,,
+391,75-65-0,tert-Butanol,C4H10O,,Sigma-Aldrich,360538-1L,1000 ml,102666586,0.99,C7.2,C7.2
+383,75178-96-0,tert-Butyl (3-aminopropyl)carbamate,"C8H18N2O""",,,,,,,,
+177,135632-53-0,tert-Butyl (piperidin-4-ylmethyl)carbamate,C11H22N2O2,,,,,,,,
+271,4248-19-5,tert-butyl carbamate,C5H11NO2,,,,,,,,
+204,1634-04-4,tert-Butyl methyl ether,C5H12O3,,Sigma-Aldrich,443808-2.5L,2.5 L,1003681239,,C7.3,C7.3
+368,7150-72-3,tert-Butyl vinylcarbamate,C7H13NO2,,,,,,,,
+735,1746-23-2,tert-Butylstyrene,C12H16,,Thermo Scientific,L12356.AP,500 ml,W18k001,94%,F2.2,F2.2
+718,1643-19-2,Tetrabutylammonium bromide,C16H36BrN,,,,,,,,
+148,127-18-4,Tetrachloroethylene,,,,,,,,,
+348,670-54-2,Tetracyanoethylene,C6N4,,,,,,,,
+122,1119-97-7,tetradecyltrimethylammonium bromide,C17H38NBr,,,,,,,,
+451,78-10-4,tetraethyl orthosilicate,C8H20O4Si,,,,,,,,
+130,112-57-2,tetraethylenepentamine,C8H23N5,,Acros Organics,138110025,2.5 kg,A0427984,TECHNIC.,F2.3,F2.3
+105,109-99-9,Tetrahydrofuran,C4H8O,50001731,Thermo Scientific,446400025,2.5 L,A0482646,0.99,C7.2,C7.2
+706,7719-09-7,Thionyl chloride,SOCl2,,Sigma-Aldrich,8081541000,1000 ml,102839138,,C5.5,C5.5
+526,no CAS,Thymolphthalein Indicator Solution,,,Carl Roth,8152.1,500ml,8152.1,0.1,C7.1,C6.2
+40,10025-69-1,Tin(II) chloride dihydrate,SnCl2 2H2O,,Sigma-Aldrich,208035-100G,100 g,102779879,0.98,F2.2,F2.2
+404,7646-78-8,Tin(IV) chloride,SnCl4,,,,,,,,
+883,10026-06-9,Tin(IV) chloride pentahydrate,,50001732,Sigma-Aldrich,244678,100 g,102992995,0.98,C6.1,C6.1
+405,7646-78-8,"Tin(IV) chloride, anhydrous",SnCl4,,,,,,,,
+660,13463-67-7,Titanium dioxide,,,Sigma-Aldrich,700347-25G,25 g,1003705321,,C8.2,C8.2
+35,7705-07-9,Titanium(III) chloride solution,TiCl3,,Sigma-Aldrich,14010-250ML-R,250 mL,1003706037,0.1,C5.2,C5.2
+387,7550-45-0,Titanium(IV) chloride solution,Cl4Ti,,,,,,,,
+752,546-68-9,Titanium(IV) isopropoxide,Ti[OCH(CH3)2]4,,Sigma-Aldrich,8218950250,250 ml,102882776,,C7.1,C7.1
+875,13825-74-6,Titanium(IV) oxysulfate,,,Sigma-Aldrich,14023-100G,100 g,103009555,,C4.3,C4.3
+543,,Titrant 5,,,Sigma-Aldrich,1.88010.0500,500 ml,HX44661610,,C8.5,
+543,,Titrant 5,,,Sigma-Aldrich,1.88010.1000,1000 ml,HX57784410,,C8.5,
+182,139-33-3,Titriplex III solution (ETDA),,,Sigma-Aldrich,1084314000,4 L,HC44107731,,C6.5,C6.5
+182,139-33-3,Titriplex III solution (ETDA),,,,,100,,,Dissicator,C6.5
+95,108-88-3,Toluene,C7H8,,Sigma-Aldrich,179418-2.5L,2.5 L,1003648500,0.995,C8.4,C8.4
+95,108-88-3,Toluene,C7H8,,Scharlau,ZO00851000,1L,21202511,,C8.4,C8.4
+95,108-88-3,Toluene,C7H8,,Sigma-Aldrich,179418-2.5L,2.5 L,1003808743,0.995,C8.4,C8.4
+674,Mixture,Total Organic Carbon Direct Method Low Range Test`N Tube Reagent Set,,,,,,,,,C8.5
+61,101-37-1,Triallyl cyanurate,C12H15N3O3,,,,,,,,
+272,42594-17-2,Tricyclo[5.2.1.0]decanedimethanol diacrylate,,,,,,,,,
+137,121-44-8,triethylamine,C6H15N,,Sigma-Aldrich,8.08352.1000,1 L,S8534352415,,C8.3,C8.3
+137,121-44-8,triethylamine,C6H15N,,Sigma-Aldrich,8.08352.0100,100 mL,S8308052,,,C8.3
+137,121-44-8,triethylamine,C6H15N,,Sigma-Aldrich,471283-100ML,100 mL,STBK9770,0.995,,C8.3
+306,554-68-7,Triethylammonium chloride,(C2H5)3N*HCl,,Sigma-Aldrich,8.21135.0250,250 g,S8145935 326,,C4.4,C4.4
+126,112-27-6,triethylene glycol,C6H14O4,,Sigma-Aldrich,T59455-1L,1 L,STBD3908V,0.99,C3.3,C3.3
+509,90640-67-8,triethylenetetramine,C6H18N4,,,,,,,,
+395,76-05-1,Trifluoroacetic acid,CF3COOH,,,,,,,,
+269,407-25-0,Trifluoroacetic anhydride,C4F6O3,,,,,,,,
+645,512-56-1,Trimethyl phosphate,C3H9O4P,,,,,,,,
+386,75-50-3,Trimethylamine,C3H9N,,Sigma-Aldrich,8211771000,1 L,S8290877321,0.4,C7.2,C7.2
+325,593-81-7,Trimethylammonium chloride,(CH3)3N*HCl,,Sigma-Aldrich,8.21178.0005,5 g,S8256378 227,,C4.1,C4.1
+252,30499-70-8,trimethylolpropane triglycidyl ether,,,,,,,,,
+258,3290-92-4,trimethylolpropane trimethacrylate,C18H26O6,,,,,,,,
+30,603-35-0,Triphenylphosphine,,,,,,,,,
+69,102-69-2,Tripropylamine,C29H21N,,Sigma-Aldrich,143979-500ml,500 ml,BCCG731,98,C8.3,C8.3
+255,31570-04-4,"Tris(2,4-di-tert-butylphenyl)phosphite",,,Sigma-Aldrich,441791-100G,100 g,1003814854,,C3.2,C3.2
+396,760952-88-3,Tris(3-hydroxypropyltriazolylmethyl)amine,C18H30N10O3,,,,,,,,
+506,9036-19-5,Triton™ X-100,(C2H4O)nC14H22O,,Sigma-Aldrich,x100-100ML,100 mL,102569182,,C5.3,C5.3
+709,1314-35-8,Tungsten oxide,,,Velp,A00000439,25 g,51/24,,EA Drawer,EA Drawer
+505,9032-42-2,Tylose® MH 1000,,,Sigma-Aldrich,93802-250G,250 g,102551384,,C3.2,C3.2
+315,57-13-6,Urea,CH4N2O,,Sigma-Aldrich,U5128-100G,100 g,1003565860,,C3.1,C3.1
+315,57-13-6,Urea,CH4N2O,,Thermo Scientific,J65769.36,500 g,Z19K026,0.99,3.1,C3.1
+363,69-93-2,Uric acid,C5H4N4O3,,Sigma-Aldrich,U2625-100G,100 g,102702861,0.99,C3.3,C3.3
+363,69-93-2,Uric acid,C5H4N4O3,,Sigma-Aldrich,U2625-25G,25 G,1026723412,,C3.3,C3.3
+19,123334-20-3,Vanadium(IV) oxide sulfate hydrate,VOSO4 · xH2O,,Sigma-Aldrich,233706-25G,25 g,0000329493,0.97,C8.1,C8.1
+90,108-05-4,Vinyl acetate,C4H6O2,,,,,,,,
+261,3377-92-2,Vinyl pivalate,C7H12O2,,,,,,,,
+74,105-38-4,Vinyl propionate,C5H8O2,,,,,,,,
+147,1271-51-8,Vinylferrocene,C12H12FE,,,,,,,,
+251,3039-83-6,Vinylsulfonic acid sodium salt solution,C2H3NaO3S,,,,,,,,
+694,mixture,VS 150 - Busch - Gear oil for Vacuum pumps,,,,,,,,,C8.5
+527,no cas,Wijs solution,,,,,,,,,
+747,-,Xelorex RS 1300,-,,Solenis,,250 g,81260756P0,,C6.2,C5.3
+902,1611-35-4,Xylenol orange,C31H32O13N2S1,50001875,,,,,,,
+901,13494-98-9,Yttrium(III) nitrate hexahydrate,Y(NO3)3 · 6H2O,50001866,,,,,,,
+160,1318-02-1,"Zeolite ZSM-5, ammonium",,,Thermo Fisher,45879.22,100 g,R10K020,,C3.3,C3.3
+406,7646-85-7,zinc chloride,Cl2Zn,,Thermo Fisher,A16281,100 g,10240961,0.98,C5.4,C5.4
+406,7646-85-7,zinc chloride,Cl2Zn,,Sigma-Aldrich,793523-100G,100 g,MKCC7426,0.98,C5.4,C5.4
+66,10196-18-6,Zinc nitrate hexahydrate,,,Sigma-Aldrich,228737-100G,100 g,BCCJ7302,0.98,C2.2,C2.2
+66,10196-18-6,Zinc nitrate hexahydrate,,,Sigma-Aldrich,96482-1KG,1 kg,102662796,0.99,C2.2,C2.2
+374,7446-20-0,Zinc sulfate heptahydrate,O4SZn.7H2O,,Sigma-Aldrich,31665-1KG,1 kg,102620436,99.5,C5.1,C5.1
+884,10026-11-6,Zirconium(IV) chloride anhydrous,,50001733,,,,,,,
+898,14475-63-9,Zirconium(IV) hydroxide,H4O4Zr,50001812,,,,,,,
+21,14985-18-3,Zirconium(IV) oxynitrate hydrate,ZrO(NO3)2 · xH2O,,Roth,1HPN.2,500 g,0363734319,,C2.1,C2.1
+897,7446-31-3,Zirconium(IV) sulfate tetrahydrate,H8O12S2Zr,50001822,,,,,,,
+704,13986-27-1,Zirconium(IV)-nitrate pentahydrate,,50001696,Roth,1HPN.1,100,334356644,>98%,C2.1,C2.1
+899,13520-92-8,Zirconyl chloride octahydrate,,50001821,Thermo Fisher,208375000,500 g,A0484478,0.98,C5.2,C5.2
+280,492-62-6,α-D-Glucose,,,,,,,,,
+327,5989-81-1,α-lactose monohydrate,C12H22O11.H2O,,,,,,,,
+65,10191-41-0,α-Tocoperol,,,,,,,,,
