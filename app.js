@@ -1,8 +1,8 @@
 import Tesseract from "./ocr/tesseract.esm.min.js";
 
-const APP_VERSION="2.6";
-const STORAGE_KEY="chem-v26";
-const LEGACY_STORAGE_KEYS=["chem-v25","chem-v241","chem-v24","chem-v23","chem-v22","chem-v21"];
+const APP_VERSION="2.6.1";
+const STORAGE_KEY="chem-v261";
+const LEGACY_STORAGE_KEYS=["chem-v26","chem-v25","chem-v241","chem-v24","chem-v23","chem-v22","chem-v21"];
 const MAX_OCR_SIDE=1800,JPEG_QUALITY=.84;
 const OCR_PASSES=[
  {key:"colorSparse",label:"color / sparse text",image:"colorBlob",psm:"11"},
@@ -10,8 +10,8 @@ const OCR_PASSES=[
  {key:"thresholdBlock",label:"threshold / text block",image:"thresholdBlob",psm:"6"},
  {key:"sharpSparse",label:"sharpened / sparse text",image:"sharpBlob",psm:"11"}
 ];
-const FIELDS=["name","cas","article","lot","manufacturer","amount","suggestedStorage","sapMaterial"];
-const EMPTY=()=>({name:"",cas:"",article:"",lot:"",manufacturer:"",amount:"",suggestedStorage:"",sapMaterial:"",inventoryMatch:null,raw:"",ocrLines:[],photos:[],parserDebug:null});
+const FIELDS=["name","cas","article","lot","manufacturer","amount","suggestedStorage"];
+const EMPTY=()=>({name:"",cas:"",article:"",lot:"",manufacturer:"",amount:"",suggestedStorage:"",inventoryMatch:null,raw:"",ocrLines:[],photos:[],parserDebug:null});
 let items=[],form=EMPTY(),pickerField="",ocrWorker=null,workerPromise=null,containerOpen=false;
 let cameraStream=null,cameraTrack=null,cameraZoom=1,cameraZoomCaps=null,cameraQueue=[],cameraBusy=false;
 let chemicalLookup=[],lookupByCAS=new Map(),lookupLoaded=false;
@@ -37,8 +37,8 @@ function parseCSV(text){
  return rows.map(r=>Object.fromEntries(headers.map((h,i)=>[h,cleanLine(r[i]||"")])));
 }
 function normalizeCASKey(v){return reconstructCAS(v)||cleanLine(v);}
-function normalizeSupplierKey(v){return (makerFrom(v)||cleanLine(v)).toLowerCase().replace(/[^a-z0-9]+/g,"");}
-function normalizeArticleKey(v){return normalizeCode(v).toUpperCase().replace(/[^A-Z0-9]/g,"");}
+function normalizeSupplierKey(v){const x=(makerFrom(v)||cleanLine(v)).toLowerCase().replace(/[^a-z0-9]+/g,"");if(/sigma|aldrich|supelco/.test(x))return "sigmaaldrich";if(/merck|emd|millipore/.test(x))return "merck";if(/thermo|fisher/.test(x))return "thermofisher";if(/roth/.test(x))return "carlroth";if(/vwr|avantor/.test(x))return "vwravantor";return x;}
+function normalizeArticleKey(v){return normalizeCode(v).toUpperCase().replace(/[^A-Z0-9]/g,"").replace(/^0+(?=\d)/,"");}
 function rebuildLookupIndex(){lookupByCAS=new Map();for(const r of chemicalLookup){const cas=normalizeCASKey(r["CAS Number"]);if(!cas)continue;if(!lookupByCAS.has(cas))lookupByCAS.set(cas,[]);lookupByCAS.get(cas).push(r);}lookupLoaded=chemicalLookup.length>0;updateLookupStatus();}
 function cacheLookup(rows){chemicalLookup=rows.filter(r=>r["CAS Number"]||r["Chemical Name"]);localStorage.setItem(LOOKUP_STORAGE_KEY,JSON.stringify(chemicalLookup));rebuildLookupIndex();}
 function restoreLookup(){try{const rows=JSON.parse(localStorage.getItem(LOOKUP_STORAGE_KEY)||"[]");if(Array.isArray(rows)&&rows.length){chemicalLookup=rows;rebuildLookupIndex();return true;}}catch{}return false;}
@@ -50,8 +50,11 @@ function chooseInventoryRow(rows,article="",manufacturer=""){
   return score(b)-score(a);
  })[0]||null;
 }
-function inventoryMatchFor(values){const cas=normalizeCASKey(values.cas);if(cas&&lookupByCAS.has(cas)){const row=chooseInventoryRow(lookupByCAS.get(cas),values.article,values.manufacturer);return row?{type:"CAS exact",row}:null;}
- const articleKey=normalizeArticleKey(values.article),supplierKey=normalizeSupplierKey(values.manufacturer);if(articleKey){const row=chemicalLookup.find(r=>normalizeArticleKey(r["Article Number"])===articleKey&&(!supplierKey||normalizeSupplierKey(r.Supplier)===supplierKey));if(row)return{type:"Supplier + article",row};}
+function inventoryMatchFor(values){
+ const cas=normalizeCASKey(values.cas);
+ if(cas&&lookupByCAS.has(cas)){const row=chooseInventoryRow(lookupByCAS.get(cas),values.article,values.manufacturer);return row?{type:"CAS exact",row}:null;}
+ const articleKey=normalizeArticleKey(values.article),supplierKey=normalizeSupplierKey(values.manufacturer);
+ if(articleKey){const rows=chemicalLookup.filter(r=>normalizeArticleKey(r["Article Number"])===articleKey);if(rows.length===1)return{type:"Article exact",row:rows[0]};if(rows.length>1&&supplierKey){const exact=rows.filter(r=>normalizeSupplierKey(r.Supplier)===supplierKey);if(exact.length===1)return{type:"Supplier + article",row:exact[0]};}}
  return null;
 }
 function applyInventoryMatch(values,{preserveManual=false}={}){const match=inventoryMatchFor(values);if(!match)return{...values,inventoryMatch:null};const r=match.row,out={...values,inventoryMatch:{type:match.type,id:r["Inventory ID"]||"",name:r["Chemical Name"]||""}};
@@ -60,18 +63,21 @@ function applyInventoryMatch(values,{preserveManual=false}={}){const match=inven
  if(r.Supplier&&!out.manufacturer)out.manufacturer=r.Supplier;
  if(r["Article Number"]&&!out.article)out.article=r["Article Number"];
  out.suggestedStorage=r["Suggested Storage Location"]||r["Storage Location"]||out.suggestedStorage||"";
- out.sapMaterial=r["SAP Material Number"]||out.sapMaterial||"";
+ 
  return out;}
-function reapplyInventoryToForm(){const current=currentFieldValues(),matched=applyInventoryMatch({...form,...current},{preserveManual:true});form={...form,...matched};fill();}
+function reapplyInventoryToForm(){
+ const base={...form,...currentFieldValues()},matched=applyInventoryMatch(base,{preserveManual:true});form={...form,...matched};
+ $$('[data-field]').forEach(i=>{if(i.dataset.field in form)i.value=form[i.dataset.field]||"";});updateCASState();renderInventoryMatch();
+}
 async function importLookupFile(file){const rows=parseCSV(await file.text());if(!rows.length||!("CAS Number" in rows[0])||!("Chemical Name" in rows[0]))throw new Error("The CSV needs CAS Number and Chemical Name columns.");cacheLookup(rows);return rows.length;}
 function updateLookupStatus(message=""){const e=$("#lookupStatus");if(e)e.textContent=message||(lookupLoaded?`${chemicalLookup.length} lookup rows cached locally.`:"No chemical lookup loaded.");}
 function ensureInventoryUI(){if($("#inventoryLookupPanel"))return;const point=$("#rawBox")||$("#editor");if(!point)return;const panel=document.createElement("section");panel.id="inventoryLookupPanel";panel.className="inventory-panel";panel.innerHTML=`<b>Chemical Inventory lookup</b><div id="lookupStatus"></div><div class="inventory-actions"><button type="button" id="importChemicalLookup">Import lookup CSV</button><button type="button" id="clearChemicalLookup">Clear lookup</button><input id="chemicalLookupFile" type="file" accept=".csv,text/csv" hidden></div><div id="inventoryMatchState"></div>`;point.parentNode.insertBefore(panel,point);
  $("#importChemicalLookup").onclick=()=>$("#chemicalLookupFile").click();$("#chemicalLookupFile").onchange=async e=>{const f=e.target.files?.[0];if(!f)return;try{const count=await importLookupFile(f);updateLookupStatus(`${count} lookup rows imported and cached locally.`);reapplyInventoryToForm();}catch(err){updateLookupStatus(`Import failed: ${err.message}`);}e.target.value="";};
  $("#clearChemicalLookup").onclick=()=>{localStorage.removeItem(LOOKUP_STORAGE_KEY);chemicalLookup=[];rebuildLookupIndex();};updateLookupStatus();
 }
-function ensureExtraFields(){const editorEl=$("#editor");if(!editorEl||$('[data-field="suggestedStorage"]'))return;const rawBox=$("#rawBox"),wrap=document.createElement("div");wrap.className="inventory-fields";wrap.innerHTML=`<label>Suggested Storage <input data-field="suggestedStorage" placeholder="Suggested from matching CAS"></label><small>Based on the most common recorded location for the matched CAS. Verify before use.</small><label>SAP Material Number <input data-field="sapMaterial" placeholder="From Chemical Inventory" readonly></label>`;(rawBox?.parentNode||editorEl).insertBefore(wrap,rawBox||null);
+function ensureExtraFields(){const editorEl=$("#editor");if(!editorEl||$('[data-field="suggestedStorage"]'))return;const rawBox=$("#rawBox"),wrap=document.createElement("div");wrap.className="inventory-fields";wrap.innerHTML=`<label>Suggested Storage <input data-field="suggestedStorage" placeholder="Suggested from matching CAS"></label><small>Based on the most common recorded location for the matched CAS. Verify before use.</small>`;(rawBox?.parentNode||editorEl).insertBefore(wrap,rawBox||null);
 }
-function renderInventoryMatch(){const e=$("#inventoryMatchState");if(!e)return;if(!form.inventoryMatch){e.textContent=lookupLoaded?"No inventory match for the current CAS/article.":"";e.className="inventory-match";return;}e.textContent=`Inventory match (${form.inventoryMatch.type}): ${form.inventoryMatch.name}${form.suggestedStorage?` • Suggested storage ${form.suggestedStorage}`:""}`;e.className="inventory-match matched";}
+function renderInventoryMatch(){const e=$("#inventoryMatchState");if(!e)return;if(!form.inventoryMatch){e.textContent=lookupLoaded?"No inventory match for the current CAS/article.":"";e.className="inventory-match";return;}e.innerHTML=`<strong>🟢 Inventory match</strong><br>${safe(form.inventoryMatch.name)}<br>${safe(form.cas||"")}${form.suggestedStorage?`<br>Suggested storage: ${safe(form.suggestedStorage)}`:""}`;e.className="inventory-match matched";}
 
 
 function casValid(cas){const m=String(cas||"").trim().match(/^(\d{2,7})-(\d{2})-(\d)$/);if(!m)return false;return (m[1]+m[2]).split("").map(Number).reverse().reduce((s,n,i)=>s+n*(i+1),0)%10===Number(m[3]);}
@@ -162,7 +168,7 @@ async function processPhoto(file){if(!containerOpen)startContainer();const statu
 function renderPhotoStrip(){const box=$("#containerPhotos");if(!box)return;box.innerHTML="";form.photos.forEach((p,i)=>{const c=document.createElement("div");c.className="photo-card";c.innerHTML=`<img src="${p.thumbURL}" alt="Bottle photo ${i+1}"><span>Photo ${i+1}<br>${p.confidence.toFixed(0)}%</span><button type="button">×</button>`;c.querySelector("button").onclick=()=>removePhoto(p.id);box.append(c);});$("#photoCount").textContent=`${form.photos.length} photo${form.photos.length===1?"":"s"}`;}
 function removePhoto(id){const p=form.photos.find(x=>x.id===id);if(p?.thumbURL)URL.revokeObjectURL(p.thumbURL);form.photos=form.photos.filter(x=>x.id!==id);form={...EMPTY(),...(form.photos.length?applyInventoryMatch(buildConsensus(form.photos)):{}),photos:form.photos};fill();renderPhotoStrip();}
 function currentFieldValues(){const out={};$$('[data-field]').forEach(i=>out[i.dataset.field]=i.value.trim());return out;}
-function debugText(){const corrected=currentFieldValues(),auto=Object.fromEntries(FIELDS.map(f=>[f,form[f]||""])),parts=[`CHEMICAL SCANNER PARSER DEBUG`,`App version: ${APP_VERSION}`,`Created: ${new Date().toISOString()}`,`Photos: ${form.photos.length}`,``,`AUTOMATIC PARSER VALUES`,JSON.stringify(auto,null,2),``,`CURRENT / MANUALLY CORRECTED VALUES`,JSON.stringify(corrected,null,2),``,`TOP PARSER CANDIDATES`];for(const field of FIELDS){parts.push(`\n[${field.toUpperCase()}]`);const list=form.parserDebug?.candidates?.[field]||[];if(!list.length)parts.push("No candidates");else list.slice(0,10).forEach((c,i)=>parts.push(`${i+1}. ${c.value} | score=${c.score} | hits=${c.hits} | reasons=${(c.reasons||[]).join("; ")}${c.variants?` | variants=${c.variants.join(" || ")}`:""}`));}parts.push(``,`COMPLETE OCR OUTPUT BY PHOTO AND PASS`);for(const o of form.parserDebug?.observations||[])parts.push(`\n--- Photo ${o.photo} | ${o.label} | ${o.pass} | confidence ${o.confidence.toFixed(0)}% ---\n${o.text}`);parts.push(``,`COMBINED RAW OCR TEXT`,`--------------------------------`,form.raw||"");return parts.join("\n");}
+function debugText(){const corrected=currentFieldValues(),auto=Object.fromEntries(FIELDS.map(f=>[f,form[f]||""])),parts=[`CHEMICAL SCANNER PARSER DEBUG`,`App version: ${APP_VERSION}`,`Created: ${new Date().toISOString()}`,`Photos: ${form.photos.length}`,``,`AUTOMATIC PARSER VALUES`,JSON.stringify(auto,null,2),``,`CURRENT / MANUALLY CORRECTED VALUES`,JSON.stringify(corrected,null,2),``,`INVENTORY MATCH`,JSON.stringify(form.inventoryMatch||null,null,2),``,`TOP PARSER CANDIDATES`];for(const field of FIELDS){parts.push(`\n[${field.toUpperCase()}]`);const list=form.parserDebug?.candidates?.[field]||[];if(!list.length)parts.push("No candidates");else list.slice(0,10).forEach((c,i)=>parts.push(`${i+1}. ${c.value} | score=${c.score} | hits=${c.hits} | reasons=${(c.reasons||[]).join("; ")}${c.variants?` | variants=${c.variants.join(" || ")}`:""}`));}parts.push(``,`COMPLETE OCR OUTPUT BY PHOTO AND PASS`);for(const o of form.parserDebug?.observations||[])parts.push(`\n--- Photo ${o.photo} | ${o.label} | ${o.pass} | confidence ${o.confidence.toFixed(0)}% ---\n${o.text}`);parts.push(``,`COMBINED RAW OCR TEXT`,`--------------------------------`,form.raw||"");return parts.join("\n");}
 async function copyDebug(){const text=debugText(),status=$("#status");try{await navigator.clipboard.writeText(text);status.classList.remove("hidden");status.textContent="Complete OCR and parser debug copied. You can paste it into Copilot.";}catch{const ta=document.createElement("textarea");ta.value=text;ta.style.position="fixed";ta.style.inset="10px";ta.style.zIndex="10000";document.body.append(ta);ta.select();document.execCommand("copy");ta.remove();status.textContent="OCR and parser debug copied.";}}
 function downloadDebug(){const blob=new Blob([debugText()],{type:"text/plain;charset=utf-8"}),u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download=`chemical_scanner_debug_${new Date().toISOString().replace(/[:.]/g,"-")}.txt`;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
 function ensureDebugButtons(){const rawBox=$("#rawBox");if(!rawBox||rawBox.querySelector(".debug-actions"))return;const d=document.createElement("div");d.className="debug-actions";d.innerHTML=`<button type="button" class="debug-copy" id="copyOCRDebug">Copy OCR + parser debug</button><button type="button" class="debug-copy secondary" id="downloadOCRDebug">Download debug .txt</button>`;rawBox.prepend(d);$("#copyOCRDebug").onclick=copyDebug;$("#downloadOCRDebug").onclick=downloadDebug;}
@@ -178,7 +184,7 @@ function openPicker(field){pickerField=field;const box=$("#ocrChoices");box.inne
 function buildOCRButtons(){ensurePicker();$$('[data-field]').forEach(input=>{const label=input.closest("label");if(!label||label.querySelector(".ocr-open"))return;const b=document.createElement("button");b.type="button";b.className="ocr-open";b.textContent="▼ OCR";b.onclick=e=>{e.preventDefault();openPicker(input.dataset.field);};label.append(b);});}
 function handleFile(e){const f=e.target.files?.[0];if(f)processPhoto(f);e.target.value="";}
 function esc(v=""){const s=String(v);return /[",\n]/.test(s)?`"${s.replaceAll('"','""')}"`:s;}
-function csv(){const h=["Timestamp","Session","Name","CAS","ArticleNumber","Lot","Manufacturer","Amount","SuggestedStorage","SAPMaterialNumber"],session=$("#session").value,rows=items.map(x=>[x.timestamp,session,x.name,x.cas,x.article,x.lot,x.manufacturer,x.amount,x.suggestedStorage,x.sapMaterial]);return "\uFEFF"+[h,...rows].map(r=>r.map(esc).join(",")).join("\r\n");}
+function csv(){const h=["Timestamp","Session","Name","CAS","ArticleNumber","Lot","Manufacturer","Amount","SuggestedStorage"],session=$("#session").value,rows=items.map(x=>[x.timestamp,session,x.name,x.cas,x.article,x.lot,x.manufacturer,x.amount,x.suggestedStorage]);return "\uFEFF"+[h,...rows].map(r=>r.map(esc).join(",")).join("\r\n");}
 function createCSVFile(){return new File([csv()],`chemical_inventory_${new Date().toISOString().slice(0,10)}.csv`,{type:"text/csv"});}
 function downloadCSV(){const f=createCSVFile(),u=URL.createObjectURL(f),a=document.createElement("a");a.href=u;a.download=f.name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
 
@@ -187,5 +193,5 @@ $("#cancel").onclick=()=>{closeCamera();form.photos.forEach(p=>URL.revokeObjectU
 $("#add").onclick=()=>{const values=currentFieldValues();if(!values.name&&!values.cas)return;items.push({...values,photoCount:form.photos.length,id:crypto.randomUUID(),timestamp:new Date().toISOString()});form.photos.forEach(p=>URL.revokeObjectURL(p.thumbURL));form=EMPTY();containerOpen=false;save();render();editor(false);};
 $('[data-field="cas"]').oninput=()=>{updateCASState();reapplyInventoryToForm();};$("#session").onchange=save;$("#download").onclick=downloadCSV;$("#share").onclick=async()=>{const f=createCSVFile();try{if(navigator.share&&(!navigator.canShare||navigator.canShare({files:[f]})))await navigator.share({title:$("#session").value,files:[f]});else downloadCSV();}catch(e){if(e.name!=="AbortError")downloadCSV();}};
 try{let saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");if(!saved)for(const key of LEGACY_STORAGE_KEYS){saved=JSON.parse(localStorage.getItem(key)||"null");if(saved)break;}if(saved){items=saved.items||[];$("#session").value=saved.session||"Lab inventory";save();}}catch(e){console.warn("Could not restore inventory",e);}
-document.addEventListener("change",e=>{if(e.target?.matches?.('[data-field="manufacturer"],[data-field="article"]'))reapplyInventoryToForm();});
+document.addEventListener("input",e=>{if(e.target?.matches?.('[data-field="manufacturer"],[data-field="article"]'))reapplyInventoryToForm();});
 render();ensurePicker();ensureCameraUI();ensureExtraFields();ensureInventoryUI();loadBundledLookup();if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js");window.addEventListener("pagehide",()=>{closeCameraStream();if(ocrWorker)ocrWorker.terminate().catch(()=>{});});console.log(`Chemical Scanner v${APP_VERSION}`);
