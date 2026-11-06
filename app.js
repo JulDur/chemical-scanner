@@ -1,8 +1,8 @@
 import Tesseract from "./ocr/tesseract.esm.min.js";
 
-const APP_VERSION="2.8.2";
-const STORAGE_KEY="chem-v282";
-const LEGACY_STORAGE_KEYS=["chem-v281","chem-v28","chem-v27","chem-v261","chem-v26","chem-v25","chem-v241","chem-v24","chem-v23","chem-v22","chem-v21"];
+const APP_VERSION="2.8.3";
+const STORAGE_KEY="chem-v283";
+const LEGACY_STORAGE_KEYS=["chem-v282","chem-v281","chem-v28","chem-v27","chem-v261","chem-v26","chem-v25","chem-v241","chem-v24","chem-v23","chem-v22","chem-v21"];
 const MAX_OCR_SIDE=1800,JPEG_QUALITY=.84;
 const OCR_PASSES=[
  {key:"colorSparse",label:"color / sparse text",image:"colorBlob",psm:"11"},
@@ -242,7 +242,19 @@ function applyPickerValue(v){const i=$(`[data-field="${pickerField}"]`);if(i){i.
 function openPicker(field){pickerField=field;const box=$("#ocrChoices");box.innerHTML="";const ranked=form.parserDebug?.candidates?.[field]||[];const entries=[...ranked.slice(0,12).map(c=>({line:c.value,note:`Parser score ${c.score}`})),...[...new Set(form.ocrLines||[])].map(line=>({line,note:"OCR line"}))];const seen=new Set();for(const e of entries){const v=normalizeForField(e.line,field),key=v.toLowerCase();if(!v||seen.has(key))continue;seen.add(key);const b=document.createElement("button");b.type="button";b.className="ocr-choice";b.innerHTML=`<span>${safe(v)}</span><small>${safe(e.note)}</small>`;b.onclick=()=>applyPickerValue(v);box.append(b);}$("#ocrPicker").classList.remove("hidden");}
 function buildOCRButtons(){ensurePicker();$$('[data-field]').forEach(input=>{const label=input.closest("label");if(!label||label.querySelector(".ocr-open"))return;const b=document.createElement("button");b.type="button";b.className="ocr-open";b.textContent="▼ OCR";b.onclick=e=>{e.preventDefault();openPicker(input.dataset.field);};label.append(b);});}
 function ensureAutocompleteBox(){if($("#ocrAutocomplete"))return;const box=document.createElement("div");box.id="ocrAutocomplete";box.className="ocr-autocomplete";document.body.append(box);}
-function plausibleCodeTokens(text){const out=[];for(const line of String(text||"").split(/\r?\n/)){const cleaned=cleanLine(line);for(const m of cleaned.matchAll(/[A-Z0-9][A-Z0-9.\/-]{3,20}/gi)){const v=normalizeCode(m[0]);if(/\d/.test(v)&&!casCandidates(v).length&&!/^UN\d{4}$/i.test(v);out.push(v);}}return out;}
+function plausibleCodeTokens(text){
+ const out=[];
+ for(const line of String(text||"").split(/\r?\n/)){
+  const cleaned=cleanLine(line);
+  for(const m of cleaned.matchAll(/[A-Z0-9][A-Z0-9.\/-]{3,20}/gi)){
+   const v=normalizeCode(m[0]);
+   if(/\d/.test(v)&&!casCandidates(v).length&&!/^UN\d{4}$/i.test(v)){
+    out.push(v);
+   }
+  }
+ }
+ return out;
+}
 function amountTokens(text){const out=[];for(const line of String(text||"").split(/\r?\n/)){const a=extractAmount(line);if(a)out.push(a);const normalized=cleanLine(line).replace(/\bGR\b/ig,"g").replace(/\bLTR\b|\bLT\b/ig,"L");const b=extractAmount(normalized);if(b)out.push(b);}return out;}
 function autocompletePool(field){const entries=[];const push=(value,score,source)=>{value=cleanLine(value);if(!value)return;entries.push({value,score,source});};
  const ranked=form.parserDebug?.candidates?.[field]||[];for(const c of ranked)push(c.value,300+(c.score||0),"parser");
