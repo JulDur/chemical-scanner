@@ -1,8 +1,8 @@
 import Tesseract from "./ocr/tesseract.esm.min.js";
 
-const APP_VERSION="2.8.3";
-const STORAGE_KEY="chem-v283";
-const LEGACY_STORAGE_KEYS=["chem-v282","chem-v281","chem-v28","chem-v27","chem-v261","chem-v26","chem-v25","chem-v241","chem-v24","chem-v23","chem-v22","chem-v21"];
+const APP_VERSION="2.8.4";
+const STORAGE_KEY="chem-v284";
+const LEGACY_STORAGE_KEYS=["chem-v283","chem-v282","chem-v281","chem-v28","chem-v27","chem-v261","chem-v26","chem-v25","chem-v241","chem-v24","chem-v23","chem-v22","chem-v21"];
 const MAX_OCR_SIDE=1800,JPEG_QUALITY=.84;
 const OCR_PASSES=[
  {key:"colorSparse",label:"color / sparse text",image:"colorBlob",psm:"11"},
@@ -14,6 +14,7 @@ const FIELDS=["name","cas","article","lot","manufacturer","amount","suggestedSto
 const EMPTY=()=>({name:"",cas:"",article:"",lot:"",manufacturer:"",amount:"",suggestedStorage:"",quantity:1,inventoryMatch:null,raw:"",ocrLines:[],photos:[],parserDebug:null});
 let items=[],form=EMPTY(),pickerField="",ocrWorker=null,workerPromise=null,containerOpen=false;
 let cameraStream=null,cameraTrack=null,cameraZoom=1,cameraZoomCaps=null,cameraQueue=[],cameraBusy=false,cameraReady=false,cameraSessionActive=false,cameraReadyTimer=null;
+let cameraCapturedCount=0,cameraAnalyzedCount=0,cameraProcessingPromise=Promise.resolve(),cameraBatchToken=0;
 let chemicalLookup=[],lookupByCAS=new Map(),lookupLoaded=false;
 const LOOKUP_STORAGE_KEY="chemical-scanner-lookup-v1",LOOKUP_FILE="./Chemical_Inventory_Lookup_with_Storage.csv";
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
@@ -22,7 +23,7 @@ const MAKERS=[
  [/sigma[- ]?aldrich|sigmaald|sigmaaldrich\.com|\bsigma\b.*\baldrich\b/i,"Sigma-Aldrich"],
  [/fisher\s*chemical/i,"Fisher Chemical"],[/thermo\s*fisher/i,"Thermo Fisher"],[/thermo\s*scientific/i,"Thermo Scientific"],[/fisher\s*scientific/i,"Fisher Scientific"],
  [/carl\s*roth|carlroth\.com|roth\s*gmbh/i,"Carl Roth"],[/supelco/i,"Supelco"],[/\bavantor\b/i,"Avantor"],[/\bvwr\b|vwr\.com/i,"VWR"],[/\bmerck\b|merckmillipore/i,"Merck"],
- [/abcr\s*gmbh/i,"abcr"],[/alfa\s*aesar/i,"Alfa Aesar"],[/acros\s*organics/i,"Acros Organics"]
+ [/abcr\s*gmbh/i,"abcr"],[/alfa\s*aesar/i,"Alfa Aesar"],[/acros\s*organics/i,"Acros Organics"],[/bld\s*(?:pharma)?/i,"BLD Pharma"]
 ];
 const CHEM_WORDS=/\b(?:acid|hydroxide|chloride|bromide|iodide|fluoride|nitrate|nitrite|sulfate|sulphate|sulfide|carbonate|bicarbonate|phosphate|acetate|oxide|peroxide|acetone|ethanol|methanol|propanol|butanol|styrene|benzene|toluene|xylene|phenol|amine|amide|hydrate|anhydrous|solution|indicator|buffer|salt|catechol|polymer|monomer|furan|citrate|glycol|ether|aldehyde|ketone|pyridine|imidazole|diazabicyclo)\b/i;
 const ARTICLE_ANCHOR=/(?:article|art\.?|catalog(?:ue)?|cat\.?|product|order|ref(?:erence)?|item)\s*(?:no\.?|number|nr\.?)?/i;
@@ -37,7 +38,7 @@ function parseCSV(text){
  return rows.map(r=>Object.fromEntries(headers.map((h,i)=>[h,cleanLine(r[i]||"")])));
 }
 function normalizeCASKey(v){return reconstructCAS(v)||cleanLine(v);}
-function normalizeSupplierKey(v){const x=(makerFrom(v)||cleanLine(v)).toLowerCase().replace(/[^a-z0-9]+/g,"");if(/sigma|aldrich|supelco/.test(x))return "sigmaaldrich";if(/merck|emd|millipore/.test(x))return "merck";if(/thermo|fisher/.test(x))return "thermofisher";if(/roth/.test(x))return "carlroth";if(/vwr|avantor/.test(x))return "vwravantor";return x;}
+function normalizeSupplierKey(v){const x=(makerFrom(v)||cleanLine(v)).toLowerCase().replace(/[^a-z0-9]+/g,"");if(/sigma|aldrich|supelco/.test(x))return "sigmaaldrich";if(/bld/.test(x))return "bld";if(/acros/.test(x))return "acros";if(/merck|emd|millipore/.test(x))return "merck";if(/thermo|fisher/.test(x))return "thermofisher";if(/roth/.test(x))return "carlroth";if(/vwr|avantor/.test(x))return "vwravantor";return x;}
 function normalizeArticleKey(v){return normalizeCode(v).toUpperCase().replace(/[^A-Z0-9]/g,"").replace(/^0+(?=\d)/,"");}
 function rebuildLookupIndex(){lookupByCAS=new Map();for(const r of chemicalLookup){const cas=normalizeCASKey(r["CAS Number"]);if(!cas)continue;if(!lookupByCAS.has(cas))lookupByCAS.set(cas,[]);lookupByCAS.get(cas).push(r);}lookupLoaded=chemicalLookup.length>0;updateLookupStatus();}
 function cacheLookup(rows){chemicalLookup=rows.filter(r=>r["CAS Number"]||r["Chemical Name"]);localStorage.setItem(LOOKUP_STORAGE_KEY,JSON.stringify(chemicalLookup));rebuildLookupIndex();}
@@ -60,8 +61,8 @@ function inventoryMatchFor(values){
 function applyInventoryMatch(values,{preserveManual=false}={}){const match=inventoryMatchFor(values);if(!match)return{...values,inventoryMatch:null};const r=match.row,out={...values,inventoryMatch:{type:match.type,id:r["Inventory ID"]||"",name:r["Chemical Name"]||""}};
  if(r["Chemical Name"])out.name=r["Chemical Name"];
  if(r["CAS Number"])out.cas=normalizeCASKey(r["CAS Number"]);
- if(r.Supplier&&!out.manufacturer)out.manufacturer=r.Supplier;
- if(r["Article Number"]&&!out.article)out.article=r["Article Number"];
+ if(r.Supplier&&(match.type==="CAS exact"||!out.manufacturer))out.manufacturer=r.Supplier;
+ if(r["Article Number"]&&(match.type==="CAS exact"||!out.article))out.article=r["Article Number"];
  out.suggestedStorage=r["Suggested Storage Location"]||r["Storage Location"]||out.suggestedStorage||"";
  
  return out;}
@@ -70,17 +71,21 @@ const SUPPLIER_PROFILES={
  carlroth:{name:"Carl Roth",lot:[{re:/^\d{7,12}$/,bonus:75,label:"Roth long-numeric charge"}],article:[/^[A-Z]{1,3}\d{2,5}\.\d+$/],lotAnchors:/\b(?:charge|chargen(?:-?nr\.?)?|lot|batch)\b/i},
  merck:{name:"Merck",lot:[{re:/^[A-Z]\d{8,12}$/,bonus:55,label:"Merck alphanumeric lot"},{re:/^\d{8,12}$/,bonus:45,label:"Merck numeric lot"}],article:[/^\d\.\d{5}\.\d{4}$/],lotAnchors:/\b(?:lot|batch|charge)\b/i},
  vwravantor:{name:"VWR / Avantor",lot:[{re:/^\d{2}[A-Z]\d{6}$/,bonus:60,label:"VWR dated alphanumeric lot"},{re:/^[A-Z]{1,3}\d{6,10}$/,bonus:45,label:"VWR alphanumeric lot"}],article:[/^\d{5}\.\d{3}[A-Z]?$/],lotAnchors:/\b(?:lot|batch)\b/i},
- thermofisher:{name:"Thermo / Fisher",lot:[{re:/^[A-Z]\d{7,10}$/,bonus:55,label:"Thermo/Fisher alphanumeric lot"},{re:/^\d{7,12}$/,bonus:40,label:"Thermo/Fisher numeric lot"}],article:[/^[A-Z]{0,4}\d{5,12}(?:-\d+)?$/],lotAnchors:/\b(?:lot|batch)\b/i}
+ thermofisher:{name:"Thermo / Fisher",lot:[{re:/^[A-Z]\d{7,10}$/,bonus:55,label:"Thermo/Fisher alphanumeric lot"},{re:/^\d{7,12}$/,bonus:40,label:"Thermo/Fisher numeric lot"}],article:[/^[A-Z]{0,4}\d{5,12}(?:-\d+)?$/],lotAnchors:/\b(?:lot|batch)\b/i},
+ acros:{name:"Acros Organics",lot:[{re:/^[A-Z]\d{7,10}$/,bonus:55,label:"Acros alphanumeric lot"},{re:/^[A-Z]{2,4}\d{4,10}$/,bonus:40,label:"possible Acros lot"}],article:[/^[A-Z0-9.\/-]{4,18}$/],lotAnchors:/\b(?:lot|batch)\b/i},
+ bld:{name:"BLD Pharma",lot:[{re:/^[A-Z]{2,5}\d{3,8}$/,bonus:55,label:"BLD alphanumeric lot"}],article:[/^BD\d{5,12}$/i],lotAnchors:/\b(?:lot|batch)\b/i}
 };
 function activeSupplierKey(values,match){return normalizeSupplierKey(match?.row?.Supplier||values.manufacturer||"");}
 function validBottleCode(v){const x=normalizeCode(v);if(!x||x.length<4||x.length>18)return "";if(/^UN\d{4}$/i.test(x)||/^[HP]\d{3}$/i.test(x)||casCandidates(x).length)return "";if(/^(?:CAS|LOT|BATCH|CHARGE|NR|NO)$/i.test(x))return "";return /\d/.test(x)?x:"";}
+function rejectedLotCode(v){const x=cleanLine(v),code=normalizeCode(x);if(!code)return true;if(extractAmount(x)||/^(?:cat|catalog|article|art|item|product|order|ref)(?:no|nr|number)?[:.#-]?/i.test(x))return true;if(/^(?:\d+(?:[.,]\d+)?)(?:µl|ul|ml|cl|dl|l|mg|g|kg)$/i.test(code))return true;if(/^(?:25|50|100|250|500|1000)(?:MG|G|KG|ML|L)$/i.test(code))return true;return false;}
+function explicitLotCandidate(values){const list=values.parserDebug?.candidates?.lot||[];return list.find(c=>c.score>=120&&(c.reasons||[]).some(r=>/value on lot|immediately after lot/i.test(r))&&!rejectedLotCode(c.value))||null;}
 function nearbyAnchorBonus(lines,index,patterns){let bonus=0;for(let d=-2;d<=2;d++){if(d===0)continue;const line=lines[index+d];if(line&&patterns.test(line))bonus=Math.max(bonus,d===-1||d===1?105:65);}return bonus;}
-function profileLotCandidates(observations,profile){const map=new Map();for(const obs of observations||[]){const lines=obs.lines||[],weight=.65+Math.max(0,Math.min(100,+obs.confidence||0))/100;for(let i=0;i<lines.length;i++){const code=validBottleCode(lines[i]);if(!code)continue;let score=nearbyAnchorBonus(lines,i,profile.lotAnchors||LOT_ANCHOR);let reason=score?"near supplier lot/charge anchor":"";for(const rule of profile.lot||[]){if(rule.re.test(code)){score+=rule.bonus;reason=reason?`${reason}; ${rule.label}`:rule.label;}}if(!score)continue;let c=map.get(code);if(!c)c={value:code,score:0,hits:0,reasons:new Set(),passes:new Set(),photos:new Set()};c.score+=score*weight;c.hits++;if(reason)c.reasons.add(reason);c.passes.add(obs.pass);c.photos.add(obs.photo);map.set(code,c);}}
+function profileLotCandidates(observations,profile){const map=new Map();for(const obs of observations||[]){const lines=obs.lines||[],weight=.65+Math.max(0,Math.min(100,+obs.confidence||0))/100;for(let i=0;i<lines.length;i++){const code=validBottleCode(lines[i]);if(!code||rejectedLotCode(lines[i]))continue;let score=nearbyAnchorBonus(lines,i,profile.lotAnchors||LOT_ANCHOR);let reason=score?"near supplier lot/charge anchor":"";for(const rule of profile.lot||[]){if(rule.re.test(code)){score+=rule.bonus;reason=reason?`${reason}; ${rule.label}`:rule.label;}}if(!score)continue;let c=map.get(code);if(!c)c={value:code,score:0,hits:0,reasons:new Set(),passes:new Set(),photos:new Set()};c.score+=score*weight;c.hits++;if(reason)c.reasons.add(reason);c.passes.add(obs.pass);c.photos.add(obs.photo);map.set(code,c);}}
  return [...map.values()].map(c=>({value:c.value,score:Math.round(c.score+c.hits*5+c.passes.size*5+c.photos.size*8),hits:c.hits,reasons:[...c.reasons]})).sort((a,b)=>b.score-a.score);
 }
 function amountFromInventory(row){return cleanLine(row?.["Container Size"]||"");}
 function applySupplierProfile(values){const match=inventoryMatchFor(values),key=activeSupplierKey(values,match),profile=SUPPLIER_PROFILES[key];if(!profile)return values;const observations=values.parserDebug?.observations||[],lots=profileLotCandidates(observations,profile),out={...values,supplierProfile:{key,name:profile.name,lotCandidates:lots.slice(0,10)}};
- if(lots[0]&&lots[0].score>=90)out.lot=lots[0].value;
+ const explicitLot=explicitLotCandidate(values);if(explicitLot)out.lot=explicitLot.value;else if(lots[0]&&lots[0].score>=90&&!rejectedLotCode(lots[0].value))out.lot=lots[0].value;
  const inventoryAmount=amountFromInventory(match?.row);if(inventoryAmount){const parsedInventory=extractAmount(inventoryAmount)||inventoryAmount;const current=cleanLine(out.amount||"");if(!current||/\d+(?:[.,]\d+)?\s*(?:kg|g)$/i.test(current)&&/\b(?:mL|L)\b/i.test(parsedInventory)||similarity(current,parsedInventory)<.35)out.amount=parsedInventory;}
  return out;
 }
@@ -110,7 +115,7 @@ function cleanName(v){return cleanLine(v).replace(/^[^A-Za-zÀ-ÿα-ωΑ-Ω0-9]+
 function extractAmount(v){const text=cleanLine(v);if(/(?:g\s*\/\s*mL|g\s*\/\s*mol|mol\s*\/\s*L|density|molecular\s*(?:weight|mass)|\bM\s*=|\bd\s*:)/i.test(text))return "";const m=text.match(/\b(\d+(?:[.,]\d+)?)\s*(µl|ul|ml|cl|dl|ltr|lt|litre|liter|l|mg|gr|kg|g)\b/i);if(!m)return "";const units={ul:"µL","µl":"µL",ml:"mL",cl:"cL",dl:"dL",ltr:"L",lt:"L",litre:"L",liter:"L",l:"L",mg:"mg",gr:"g",kg:"kg",g:"g"};return `${m[1]} ${units[m[2].toLowerCase()]}`;}
 function normalizeCode(v){return cleanLine(v).replace(/^[^A-Z0-9]+|[^A-Z0-9./-]+$/gi,"").replace(/\s*([./-])\s*/g,"$1").replace(/\s+/g,"");}
 function extractInlineCode(line,anchor){const t=cleanLine(line),m=t.match(new RegExp(anchor.source+"\\s*[:#.-]?\\s*([A-Z0-9][A-Z0-9.\\/-]{2,})","i"));return m?normalizeCode(m[1]):"";}
-function sigmaSku(v){const t=cleanLine(v).replace(/\s+/g,"");const m=t.match(/\b(\d{5,7})[- ]?(\d+(?:[.,]\d+)?)(µL|uL|mL|L|mg|g|kg)\b/i);if(!m)return null;const units={ul:"µL","µl":"µL",ml:"mL",l:"L",mg:"mg",g:"g",kg:"kg"};return{article:m[1],amount:`${m[2]} ${units[m[3].toLowerCase()]}`,full:m[0]};}
+function sigmaSku(v){const original=cleanLine(v);if(/\b\d{5,7}\.\d{2,4}\b/.test(original))return null;const t=original.replace(/\s+/g,"");const m=t.match(/\b(\d{5,7})[- ]?(\d+(?:[.,]\d+)?)(µL|uL|mL|L|mg|g|kg)\b/i);if(!m)return null;const units={ul:"µL","µl":"µL",ml:"mL",l:"L",mg:"mg",g:"g",kg:"kg"};return{article:m[1],amount:`${m[2]} ${units[m[3].toLowerCase()]}`,full:m[0]};}
 function supplierSku(v){
  const t=cleanLine(v).replace(/\s+/g,"");
  let m=t.match(/\b([A-Z$]?[A-Z0-9]{3,9})-(\d+(?:[.,]\d+)?)(µL|uL|mL|L|mg|g|kg)(?:-[A-Z])?\b/i);
@@ -148,13 +153,13 @@ function addCandidate(store,field,value,score,reason,evidence){value=cleanLine(v
 function finalizeCandidate(c){return{value:c.value,score:Math.round(c.score+c.hits*3+c.photos.size*8+c.passes.size*4),hits:c.hits,photos:[...c.photos],passes:[...c.passes],reasons:c.reasons.slice(0,8)};}
 function clusterNames(list){const clusters=[];for(const c of list.sort((a,b)=>b.score-a.score)){let group=clusters.find(g=>similarity(g.best.value,c.value)>=.78||normWords(g.best.value).includes(normWords(c.value))||normWords(c.value).includes(normWords(g.best.value)));if(!group){group={best:c,members:[]};clusters.push(group);}group.members.push(c);if(c.value.length>group.best.value.length&&c.score>=group.best.score*.65)group.best=c;}return clusters.map(g=>{const base=finalizeCandidate(g.best),bonus=g.members.reduce((s,x)=>s+Math.min(18,x.score*.18),0);return{...base,score:Math.round(base.score+bonus),variants:[...new Set(g.members.map(x=>x.value))].slice(0,8)};}).sort((a,b)=>b.score-a.score);}
 function evidenceFromPhotos(photos){return photos.flatMap((p,pi)=>(p.results||[]).map(r=>({photo:pi+1,pass:r.key,label:r.label,confidence:+r.confidence||0,text:r.text||"",lines:String(r.text||"").split(/\r?\n/).map(cleanLine).filter(Boolean)})));}
-function buildCandidates(photos){const store=Object.fromEntries(FIELDS.map(f=>[f,[]])),observations=evidenceFromPhotos(photos);for(const obs of observations){const weight=.65+Math.max(0,Math.min(100,obs.confidence))/100;const lines=obs.lines,joined=joinedLines(lines),whole=lines.join("\n");const maker=makerFrom(whole);if(maker)addCandidate(store,"manufacturer",maker,65*weight,"recognized supplier name",obs); for(const line of lines){const sku=supplierSku(line);if(sku){addCandidate(store,"article",sku.article,110*weight,"recognized supplier article/package code",obs);if(sku.amount)addCandidate(store,"amount",sku.amount,95*weight,"package size encoded in supplier SKU",obs);}}
+function buildCandidates(photos){const store=Object.fromEntries(FIELDS.map(f=>[f,[]])),observations=evidenceFromPhotos(photos);for(const obs of observations){const weight=.65+Math.max(0,Math.min(100,obs.confidence))/100;const lines=obs.lines,joined=joinedLines(lines),whole=lines.join("\n");const maker=makerFrom(whole);if(maker)addCandidate(store,"manufacturer",maker,65*weight,"recognized supplier name",obs); for(const line of lines){const sku=supplierSku(line);if(sku){addCandidate(store,"article",sku.article,110*weight,"recognized supplier article/package code",obs);if(sku.amount)addCandidate(store,"amount",sku.amount,62*weight,"package size encoded in supplier SKU",obs);}}
   for(const cas of casCandidates(whole))addCandidate(store,"cas",cas,(casValid(cas)?120:0)*weight+(hasCASAnchor(whole)?25:0),"valid CAS checksum",obs);
-  for(let i=0;i<lines.length;i++){const line=lines[i];const amount=extractAmount(line);if(amount){let s=38;if(AMOUNT_ANCHOR.test(line))s+=45;if(/%|ppm|mol\/?l/i.test(line))s-=60;addCandidate(store,"amount",amount,s*weight,AMOUNT_ANCHOR.test(line)?"amount beside package-size anchor":"recognized mass or volume",obs);}
+  for(let i=0;i<lines.length;i++){const line=lines[i];const amount=extractAmount(line);if(amount){let s=82;if(AMOUNT_ANCHOR.test(line))s+=45;if(/%|ppm|mol\/?l/i.test(line))s-=60;addCandidate(store,"amount",amount,s*weight,AMOUNT_ANCHOR.test(line)?"amount beside package-size anchor":"recognized mass or volume",obs);}
    let article=extractInlineCode(line,ARTICLE_ANCHOR);if(article&&/\d/.test(article)&&!/^Nr\.?$/i.test(article))addCandidate(store,"article",article,100*weight,"value on article/catalog line",obs);
    if(ARTICLE_ANCHOR.test(line)){for(let d=1;d<=2;d++){const near=lines[i+d]||lines[i-d];const code=normalizeCode(near||"");if(/^(?=.*\d)[A-Z0-9][A-Z0-9./-]{2,18}$/i.test(code)&&!casCandidates(code).length)addCandidate(store,"article",code,(82-d*12)*weight,`value ${d} line(s) from article/catalog anchor`,obs);}}
-   let lot=extractInlineCode(line,LOT_ANCHOR);if(lot)addCandidate(store,"lot",lot,105*weight,"value on lot/batch line",obs);if(!lot&&/^[A-Z]{2,6}\d{3,10}$/i.test(normalizeCode(line)))addCandidate(store,"lot",normalizeCode(line),12*weight,"repeated unanchored identifier; manual review only",obs);
-   if(LOT_ANCHOR.test(line)){for(let d=1;d<=1;d++){const code=normalizeCode(lines[i+d]||"");if(/^(?=.*\d)[A-Z0-9][A-Z0-9./-]{2,18}$/i.test(code)&&!casCandidates(code).length)addCandidate(store,"lot",code,80*weight,"value immediately after lot/batch anchor",obs);}}
+   let lot=extractInlineCode(line,LOT_ANCHOR);if(lot&&!rejectedLotCode(lot))addCandidate(store,"lot",lot,230*weight,"value on lot/batch line",obs);if(!lot&&/^[A-Z]{2,6}\d{3,10}$/i.test(normalizeCode(line)))addCandidate(store,"lot",normalizeCode(line),12*weight,"repeated unanchored identifier; manual review only",obs);
+   if(LOT_ANCHOR.test(line)){for(let d=1;d<=1;d++){const code=normalizeCode(lines[i+d]||"");if(/^(?=.*\d)[A-Z0-9][A-Z0-9./-]{2,18}$/i.test(code)&&!casCandidates(code).length&&!rejectedLotCode(code))addCandidate(store,"lot",code,165*weight,"value immediately after lot/batch anchor",obs);}}
   }
   for(const j of joined){let x=stripNameMetadata(j.text);if(appearsNoise(x))continue;let s=10;if(CHEM_WORDS.test(x))s+=42;const words=x.split(/\s+/),letters=(x.match(/[A-Za-zÀ-ÿ]/g)||[]).length,digits=(x.match(/\d/g)||[]).length;if(words.length>=1&&words.length<=7)s+=18;if(letters/Math.max(1,x.length)>.7)s+=12;if(digits>letters*.25)s-=30;if(/\b(?:stabilized|stabilised|solution|anhydrous|hydrate|monohydrate|dihydrate)\b/i.test(x))s+=10;if(/\b(?:with|ppm|molecular|density|bp|mp|safety|datasheet|qty)\b/i.test(x))s-=40;if(x.length>65)s-=20;if(s>=30)addCandidate(store,"name",x,s*weight,"clean chemical identity candidate",obs);}
  }
@@ -180,7 +185,7 @@ async function waitForLiveVideo(video,timeout=2500){
 function setCameraReady(ready,message=""){cameraReady=!!ready;const button=$("#captureScannerPhoto");if(button)button.disabled=!cameraReady||cameraBusy;if(message&&$("#cameraMessage"))$("#cameraMessage").textContent=message;}
 function scheduleCameraReady(delay=500){clearTimeout(cameraReadyTimer);setCameraReady(false,"Camera settling at 2×...");cameraReadyTimer=setTimeout(()=>setCameraReady(true,`Camera ready at ${cameraZoom.toFixed(1)}×.`),delay);}
 async function openCamera(){
- ensureCameraUI();if(!containerOpen)startContainer();cameraQueue=[];updateCameraCount();$("#scannerCamera").classList.remove("hidden");
+ ensureCameraUI();if(!containerOpen)startContainer();cameraQueue=[];cameraCapturedCount=0;cameraAnalyzedCount=0;cameraBatchToken++;cameraProcessingPromise=Promise.resolve();updateCameraCount();$("#scannerCamera").classList.remove("hidden");
  const video=$("#cameraVideo");
  if(cameraSessionActive&&cameraStream&&cameraTrack?.readyState==="live"){
   video.srcObject=cameraStream;await video.play().catch(()=>{});await waitForLiveVideo(video);scheduleCameraReady(250);return;
@@ -200,7 +205,7 @@ function hideCameraKeepStream(){clearTimeout(cameraReadyTimer);cameraReady=false
 function closeCamera(){closeCameraStream();$("#scannerCamera")?.classList.add("hidden");}
 function updateZoomButtons(){$$("#scannerCamera [data-zoom]").forEach(b=>{const z=+b.dataset.zoom;b.classList.toggle("active",Math.abs(z-cameraZoom)<.15);b.disabled=!!cameraZoomCaps&&(z<cameraZoomCaps.min||z>cameraZoomCaps.max);});}
 async function setCameraZoom(requested,resettle=true){if(!cameraTrack||!cameraZoomCaps)return false;const step=cameraZoomCaps.step||.1,z=Math.min(cameraZoomCaps.max,Math.max(cameraZoomCaps.min,Math.round(requested/step)*step));try{setCameraReady(false);await cameraTrack.applyConstraints({advanced:[{zoom:z}]});cameraZoom=z;updateZoomButtons();if(resettle)scheduleCameraReady(450);return true;}catch(e){setCameraReady(true,"Zoom was not accepted; camera remains usable.");return false;}}
-function updateCameraCount(){const e=$("#cameraPhotoCount");if(e)e.textContent=`${cameraQueue.length} photo${cameraQueue.length===1?"":"s"}`;}
+function updateCameraCount(){const e=$("#cameraPhotoCount");if(!e)return;const remaining=Math.max(0,cameraCapturedCount-cameraAnalyzedCount);e.textContent=`${cameraCapturedCount} photo${cameraCapturedCount===1?"":"s"} · ${cameraAnalyzedCount} analyzed${remaining?` · ${remaining} pending`:""}`;}
 function flashCaptureGuide(){const guide=$("#scannerCamera .scanner-camera-guide");if(!guide)return;guide.classList.remove("captured");void guide.offsetWidth;guide.classList.add("captured");setTimeout(()=>guide.classList.remove("captured"),320);}
 async function captureCameraPhoto(){
  const v=$("#cameraVideo"),button=$("#captureScannerPhoto");
@@ -209,14 +214,15 @@ async function captureCameraPhoto(){
  try{
   const c=makeCanvas(v.videoWidth,v.videoHeight);c.getContext("2d",{alpha:false}).drawImage(v,0,0,c.width,c.height);
   const blob=await canvasToBlob(c,"image/jpeg",.92);
-  cameraQueue.push(new File([blob],`bottle_${Date.now()}_${cameraQueue.length+1}.jpg`,{type:"image/jpeg"}));
-  updateCameraCount();flashCaptureGuide();$("#cameraMessage").textContent=`Photo ${cameraQueue.length} captured at ${cameraZoom.toFixed(1)}×.`;
+  const file=new File([blob],`bottle_${Date.now()}_${cameraCapturedCount+1}.jpg`,{type:"image/jpeg"}),token=cameraBatchToken;
+  cameraQueue.push(file);cameraCapturedCount++;updateCameraCount();flashCaptureGuide();$("#cameraMessage").textContent=`Photo ${cameraCapturedCount} captured. OCR is running in the background.`;
+  cameraProcessingPromise=cameraProcessingPromise.then(async()=>{if(token!==cameraBatchToken)return;await processPhoto(file);if(token!==cameraBatchToken)return;cameraAnalyzedCount++;cameraQueue.shift();updateCameraCount();const msg=$("#cameraMessage");if(msg&&!$("#scannerCamera").classList.contains("hidden"))msg.textContent=`${cameraAnalyzedCount} of ${cameraCapturedCount} photo${cameraCapturedCount===1?"":"s"} analyzed. Camera remains ready.`;}).catch(error=>{console.error("Background OCR failed",error);});
  }finally{
   setTimeout(()=>{cameraBusy=false;setCameraReady(true,`Camera ready at ${cameraZoom.toFixed(1)}×. Reframe or tap Done.`);},320);
  }
 }
-function cancelCameraBatch(){cameraQueue=[];closeCamera();}
-async function finishCameraBatch(){if(cameraBusy||!cameraReady)return;const queue=[...cameraQueue];cameraQueue=[];hideCameraKeepStream();if(!queue.length)return;const status=$("#status");status.classList.remove("hidden");for(let i=0;i<queue.length;i++){status.textContent=`Analyzing captured photo ${i+1} of ${queue.length}...`;await processPhoto(queue[i]);}status.textContent=`${queue.length} captured photo${queue.length===1?"":"s"} analyzed. App v${APP_VERSION}`;}
+function cancelCameraBatch(){cameraBatchToken++;cameraQueue=[];closeCamera();}
+async function finishCameraBatch(){if(cameraBusy||!cameraReady)return;const total=cameraCapturedCount;hideCameraKeepStream();if(!total)return;const status=$("#status");status.classList.remove("hidden");status.textContent=cameraAnalyzedCount===total?`${total} photo${total===1?"":"s"} already analyzed.`:`Finishing background OCR: ${cameraAnalyzedCount} of ${total} analyzed...`;await cameraProcessingPromise;status.textContent=`${cameraAnalyzedCount} captured photo${cameraAnalyzedCount===1?"":"s"} analyzed. App v${APP_VERSION}`;}
 
 function startContainer(){form=EMPTY();containerOpen=true;editor();renderPhotoStrip();fill();$("#status").classList.add("hidden");$("#progress").classList.add("hidden");}
 async function processPhoto(file){if(!containerOpen)startContainer();const status=$("#status"),progress=$("#progress"),n=form.photos.length+1;status.classList.remove("hidden");progress.classList.remove("hidden");status.textContent=`Preparing photo ${n}...`;progress.value=0;try{const prepared=await prepareImages(file),worker=await getWorker(status,progress),results=[];for(let i=0;i<OCR_PASSES.length;i++){const p=OCR_PASSES[i];results.push(await recognizePass(worker,prepared[p.image],p,n,i+1,status,progress));}const useful=results.filter(r=>r.text),confidence=useful.length?useful.reduce((s,r)=>s+r.confidence,0)/useful.length:0;form.photos.push({id:crypto.randomUUID(),thumbURL:prepared.thumbURL,text:mergeText(...useful.map(r=>r.text)),confidence,results,prepSec:prepared.prep});form={...form,...finalizeIdentification(buildConsensus(form.photos)),photos:form.photos};fill();renderPhotoStrip();status.textContent=`Photo ${form.photos.length} analyzed (${confidence.toFixed(0)}% average). App v${APP_VERSION}`;progress.value=100;}catch(e){console.error(e);status.textContent=`OCR failed: ${e?.message||e}`;}}
