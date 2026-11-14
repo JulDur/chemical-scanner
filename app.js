@@ -291,7 +291,7 @@ window.addEventListener("scroll",()=>{const a=document.activeElement;if(a?.match
 function handleFile(e){const f=e.target.files?.[0];if(f)processPhoto(f);e.target.value="";}
 function esc(v=""){const s=String(v);return /[",\n]/.test(s)?`"${s.replaceAll('"','""')}"`:s;}
 function csv(){const h=["Timestamp","Session","Name","CAS","ArticleNumber","Lot","Manufacturer","Amount","SuggestedStorage","IdenticalGroupID","BottleNumberInGroup","GroupQuantity"],session=$("#session").value,rows=items.map(x=>[x.timestamp,session,x.name,x.cas,x.article,x.lot,x.manufacturer,x.amount,x.suggestedStorage,x.identicalGroupId||"",x.identicalBottleNumber||1,x.identicalBottleCount||1]);return "\uFEFF"+[h,...rows].map(r=>r.map(esc).join(",")).join("\r\n");}
-function createCSVFile(){return new File([csv()],`chemical_inventory_${new Date().toISOString().slice(0,10)}.csv`,{type:"text/csv"});}
+function createCSVFile(){const session = ($("#session").value || "inventory").trim().replace(/[\\/:*?"<>|]+/g, "_").replace(/\s+/g, "_"); const date = new Date().toISOString().slice(0,10); return new File([csv()], `chemical_inventory_${session}_${date}.csv`, {type:"text/csv"});}
 function downloadCSV(){const f=createCSVFile(),u=URL.createObjectURL(f),a=document.createElement("a");a.href=u;a.download=f.name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
 
 $("#camera").onclick=()=>openCamera();$("#chooseImage").onclick=()=>{startContainer();$("#gallery").click();};$("#addPhotoCamera").onclick=()=>openCamera();$("#addPhotoGallery").onclick=()=>$("#gallery").click();$("#photo").onchange=handleFile;$("#gallery").onchange=handleFile;$("#manual").onclick=()=>startContainer();
