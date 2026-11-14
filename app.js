@@ -1,8 +1,8 @@
 import Tesseract from "./ocr/tesseract.esm.min.js";
 
-const APP_VERSION="2.8.5";
-const STORAGE_KEY="chem-v285";
-const LEGACY_STORAGE_KEYS=["chem-v284","chem-v283","chem-v282","chem-v281","chem-v28","chem-v27","chem-v261","chem-v26","chem-v25","chem-v241","chem-v24","chem-v23","chem-v22","chem-v21"];
+const APP_VERSION="2.8.6";
+const STORAGE_KEY="chem-v286";
+const LEGACY_STORAGE_KEYS=["chem-v285","chem-v284","chem-v283","chem-v282","chem-v281","chem-v28","chem-v27","chem-v261","chem-v26","chem-v25","chem-v241","chem-v24","chem-v23","chem-v22","chem-v21"];
 const MAX_OCR_SIDE=1800,JPEG_QUALITY=.84;
 const OCR_PASSES=[
  {key:"colorSparse",label:"color / sparse text",image:"colorBlob",psm:"11"},
@@ -243,7 +243,20 @@ function safe(v){const d=document.createElement("div");d.textContent=v;return d.
 function render(){$("#list").innerHTML="";items.forEach(item=>{const a=document.createElement("article");a.innerHTML=`<b>${safe(item.name||"Unnamed chemical")}</b><small>${safe(item.cas||"No CAS")}${item.article?` • ${safe(item.article)}`:""} • ${item.photoCount||1} photo(s)${item.identicalBottleCount>1?` • group ${item.identicalBottleNumber}/${item.identicalBottleCount}`:""}</small><button class="delete">×</button>`;a.querySelector("button").onclick=()=>{items=items.filter(x=>x.id!==item.id);save();render();};$("#list").append(a);});$("#count").textContent=`${items.length} containers`;$("#exports").classList.toggle("hidden",!items.length);}
 function editor(show=true){$("#home").classList.toggle("hidden",show);$("#editor").classList.toggle("hidden",!show);}
 function updateCASState(){const v=$('[data-field="cas"]').value,s=$("#casState");s.textContent=!v?"":casValid(v)?"✓ Valid CAS checksum":"⚠ Invalid CAS format/checksum";s.className=!v?"":casValid(v)?"ok":"warn";}
-function fill(){ensureExtraFields();ensureInventoryUI();ensureQuantityUI();ensureScanNextButton();$$('[data-field]').forEach(i=>i.value=form[i.dataset.field]||"");setQuantity(form.quantity||1);$("#raw").textContent=form.raw||"";$("#rawBox").classList.toggle("hidden",!form.raw);updateCASState();buildOCRButtons();ensureDebugButtons();renderInventoryMatch();enableOCRAutocomplete();}
+function configureScannerInputs(){
+ $$('[data-field]').forEach(input=>{
+  input.setAttribute('autocomplete','off');
+  input.setAttribute('autocorrect','off');
+  input.setAttribute('autocapitalize','off');
+  input.setAttribute('spellcheck','false');
+  input.setAttribute('data-form-type','other');
+  if(['cas','article','lot'].includes(input.dataset.field)){input.setAttribute('inputmode','text');input.setAttribute('enterkeyhint','done');}
+  if(input.dataset.field==='amount')input.setAttribute('inputmode','decimal');
+ });
+ const session=$('#session');
+ if(session){session.setAttribute('autocomplete','off');session.setAttribute('autocorrect','off');session.setAttribute('spellcheck','false');}
+}
+function fill(){ensureExtraFields();ensureInventoryUI();ensureQuantityUI();ensureScanNextButton();configureScannerInputs();$$('[data-field]').forEach(i=>i.value=form[i.dataset.field]||"");setQuantity(form.quantity||1);$("#raw").textContent=form.raw||"";$("#rawBox").classList.toggle("hidden",!form.raw);updateCASState();buildOCRButtons();ensureDebugButtons();renderInventoryMatch();enableOCRAutocomplete();}
 function ensurePicker(){if($("#ocrPicker"))return;const p=document.createElement("div");p.id="ocrPicker";p.className="ocr-picker hidden";p.innerHTML=`<div class="ocr-picker-card"><div class="ocr-picker-head"><b>Select OCR text</b><button id="closeOCRPicker">×</button></div><button class="ocr-choice clear-choice" data-clear="1">Leave blank</button><div id="ocrChoices"></div></div>`;document.body.append(p);$("#closeOCRPicker").onclick=()=>p.classList.add("hidden");p.querySelector('[data-clear="1"]').onclick=()=>applyPickerValue("");}
 function applyPickerValue(v){const i=$(`[data-field="${pickerField}"]`);if(i){i.value=v;if(pickerField==="cas")updateCASState();}$("#ocrPicker").classList.add("hidden");}
 function openPicker(field){pickerField=field;const box=$("#ocrChoices");box.innerHTML="";const ranked=form.parserDebug?.candidates?.[field]||[];const entries=[...ranked.slice(0,12).map(c=>({line:c.value,note:`Parser score ${c.score}`})),...[...new Set(form.ocrLines||[])].map(line=>({line,note:"OCR line"}))];const seen=new Set();for(const e of entries){const v=normalizeForField(e.line,field),key=v.toLowerCase();if(!v||seen.has(key))continue;seen.add(key);const b=document.createElement("button");b.type="button";b.className="ocr-choice";b.innerHTML=`<span>${safe(v)}</span><small>${safe(e.note)}</small>`;b.onclick=()=>applyPickerValue(v);box.append(b);}$("#ocrPicker").classList.remove("hidden");}
@@ -288,4 +301,4 @@ $('[data-field="cas"]').oninput=()=>{updateCASState();reapplyInventoryToForm();}
 try{let saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");if(!saved)for(const key of LEGACY_STORAGE_KEYS){saved=JSON.parse(localStorage.getItem(key)||"null");if(saved)break;}if(saved){items=saved.items||[];$("#session").value=saved.session||"Lab inventory";save();}}catch(e){console.warn("Could not restore inventory",e);}
 document.addEventListener("input",e=>{const f=e.target?.dataset?.field;if(!suppressManualTracking&&f&&["manufacturer","article","lot","amount"].includes(f))manualFields.add(f);});
 document.addEventListener("change",e=>{if(e.target?.matches?.('[data-field="manufacturer"],[data-field="article"]'))reapplyInventoryToForm();});
-render();ensurePicker();ensureCameraUI();ensureExtraFields();ensureInventoryUI();ensureQuantityUI();ensureScanNextButton();enableOCRAutocomplete();loadBundledLookup();if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js");window.addEventListener("pagehide",()=>{closeCameraStream();if(ocrWorker)ocrWorker.terminate().catch(()=>{});});console.log(`Chemical Scanner v${APP_VERSION}`);
+render();ensurePicker();ensureCameraUI();ensureExtraFields();ensureInventoryUI();ensureQuantityUI();ensureScanNextButton();configureScannerInputs();enableOCRAutocomplete();loadBundledLookup();if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js");window.addEventListener("pagehide",()=>{closeCameraStream();if(ocrWorker)ocrWorker.terminate().catch(()=>{});});console.log(`Chemical Scanner v${APP_VERSION}`);
